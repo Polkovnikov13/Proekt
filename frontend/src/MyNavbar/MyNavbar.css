@@ -1,0 +1,9 @@
+.avatar-list-container{
+    height: 40px;
+    width: 40px;
+    border-radius: 50% dashed;
+}
+.text-list-container{
+    margin-left: 10px;
+    font-weight: 500;
+}
