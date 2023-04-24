@@ -23,5 +23,7 @@ module.exports = {
     'no-console': 0,
     'import/prefer-default-export': 0,
     'default-param-last': 0,
+    'no-unused-vars': 0,
+    'no-shadow': 0,
   },
 };

@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Table } from 'reactstrap';
+import MySchool from './MySchool';
 
 export default function MyTable() {
+  const [education, setEducation] = useState(false);
+  const [galochka, setGalochka] = useState('>');
+  const changeHandler = (e) => {
+    e.preventDefault();
+    setEducation(!education);
+    setGalochka('?');
+  };
+  console.log('!', education);
   return (
     <Table
       borderless
@@ -39,10 +48,11 @@ export default function MyTable() {
         <tr>
           <th scope="row">
             <Button
+              onClick={changeHandler}
               color="light"
               size="sm"
             >
-              {'>'}
+              {galochka}
             </Button>
             Образование
           </th>
@@ -68,7 +78,7 @@ export default function MyTable() {
             6
           </td>
         </tr>
-
+        {education === false ? null : <MySchool />}
         <tr>
           <th scope="row">
             <Button

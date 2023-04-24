@@ -12,7 +12,7 @@ export default function MyMonitoring() {
         padding: '5px',
       }}
       >
-        <div style={{ fontWeight: '900' }}>Мониторинг Строительства</div>
+        <div style={{ fontWeight: '900', fontSize: '22px' }}>Мониторинг Строительства</div>
         <div style={{ }}>
           <Button
             color="primary"
