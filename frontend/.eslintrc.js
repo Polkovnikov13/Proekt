@@ -25,5 +25,10 @@ module.exports = {
     'default-param-last': 0,
     'no-unused-vars': 0,
     'no-shadow': 0,
+    'import/no-unresolved': 0,
+    'import/no-extraneous-dependencies': 0,
+    'no-restricted-syntax': 0,
+    'guard-for-in': 0,
+    'no-loop-func': 0,
   },
 };

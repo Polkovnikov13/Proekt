@@ -7,39 +7,39 @@ export default function MyTable() {
   const [galochka, setGalochka] = useState('>');
   const changeHandler = (e) => {
     e.preventDefault();
+    if (education === true) {
+      setGalochka('>');
+    } else if (education === false) {
+      setGalochka('∨');
+    }
     setEducation(!education);
-    setGalochka('?');
   };
-  console.log('!', education);
   return (
-    <Table
-      borderless
-    >
+    <Table>
       <thead>
         <tr>
           <th>
-            {' '}
             Итого
           </th>
           <th>
             9850
           </th>
-          <th>
+          <th style={{ color: 'blue' }}>
             340
           </th>
           <th>
             2450
           </th>
-          <th>
+          <th style={{ color: 'red' }}>
             452
           </th>
-          <th>
+          <th style={{ color: 'blue' }}>
             2545
           </th>
           <th>
             5672
           </th>
-          <th>
+          <th style={{ color: 'red' }}>
             85
           </th>
         </tr>
@@ -54,31 +54,31 @@ export default function MyTable() {
             >
               {galochka}
             </Button>
-            Образование
+            🎓 Образование
           </th>
           <td>
             150
           </td>
-          <td>
+          <td style={{ color: 'blue' }}>
             10
           </td>
           <td>
             50
           </td>
-          <td>
+          <td style={{ color: 'red' }}>
             12
           </td>
-          <td>
+          <td style={{ color: 'blue' }}>
             85
           </td>
           <td>
             100
           </td>
-          <td>
+          <td style={{ color: 'red' }}>
             6
           </td>
         </tr>
-        {education === false ? null : <MySchool />}
+        {education === false ? null : <MySchool style={{ display: 'none' }} />}
         <tr>
           <th scope="row">
             <Button
@@ -87,59 +87,27 @@ export default function MyTable() {
             >
               {'>'}
             </Button>
-            Здравохранение
+            🔬 Здравохранение
           </th>
           <td>
             150
           </td>
-          <td>
+          <td style={{ color: 'blue' }}>
             10
           </td>
           <td>
             50
           </td>
-          <td>
+          <td style={{ color: 'red' }}>
             12
           </td>
-          <td>
+          <td style={{ color: 'blue' }}>
             85
           </td>
           <td>
             100
           </td>
-          <td>
-            6
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <Button
-              color="light"
-              size="sm"
-            >
-              {'>'}
-            </Button>
-            Муниципальные учреждения
-          </th>
-          <td>
-            150
-          </td>
-          <td>
-            10
-          </td>
-          <td>
-            50
-          </td>
-          <td>
-            12
-          </td>
-          <td>
-            85
-          </td>
-          <td>
-            100
-          </td>
-          <td>
+          <td style={{ color: 'red' }}>
             6
           </td>
         </tr>
@@ -151,27 +119,27 @@ export default function MyTable() {
             >
               {'>'}
             </Button>
-            Транспорт и логистика
+            ⚖ Муниципальные учреждения
           </th>
           <td>
             150
           </td>
-          <td>
+          <td style={{ color: 'blue' }}>
             10
           </td>
           <td>
             50
           </td>
-          <td>
+          <td style={{ color: 'red' }}>
             12
           </td>
-          <td>
+          <td style={{ color: 'blue' }}>
             85
           </td>
           <td>
             100
           </td>
-          <td>
+          <td style={{ color: 'red' }}>
             6
           </td>
         </tr>
@@ -183,27 +151,59 @@ export default function MyTable() {
             >
               {'>'}
             </Button>
-            Силовые Структуры
+            🚘 Транспорт и логистика
           </th>
           <td>
             150
           </td>
-          <td>
+          <td style={{ color: 'blue' }}>
             10
           </td>
           <td>
             50
           </td>
-          <td>
+          <td style={{ color: 'red' }}>
             12
           </td>
-          <td>
+          <td style={{ color: 'blue' }}>
             85
           </td>
           <td>
             100
           </td>
+          <td style={{ color: 'red' }}>
+            6
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <Button
+              color="light"
+              size="sm"
+            >
+              {'>'}
+            </Button>
+            🛡 Силовые Структуры
+          </th>
           <td>
+            150
+          </td>
+          <td style={{ color: 'blue' }}>
+            10
+          </td>
+          <td>
+            50
+          </td>
+          <td style={{ color: 'red' }}>
+            12
+          </td>
+          <td style={{ color: 'blue' }}>
+            85
+          </td>
+          <td>
+            100
+          </td>
+          <td style={{ color: 'red' }}>
             6
           </td>
         </tr>
@@ -220,22 +220,22 @@ export default function MyTable() {
           <td>
             150
           </td>
-          <td>
+          <td style={{ color: 'blue' }}>
             10
           </td>
           <td>
             50
           </td>
-          <td>
+          <td style={{ color: 'red' }}>
             12
           </td>
-          <td>
+          <td style={{ color: 'blue' }}>
             85
           </td>
           <td>
             100
           </td>
-          <td>
+          <td style={{ color: 'red' }}>
             6
           </td>
         </tr>
@@ -252,22 +252,22 @@ export default function MyTable() {
           <td>
             150
           </td>
-          <td>
+          <td style={{ color: 'blue' }}>
             10
           </td>
           <td>
             50
           </td>
-          <td>
+          <td style={{ color: 'red' }}>
             12
           </td>
-          <td>
+          <td style={{ color: 'blue' }}>
             85
           </td>
           <td>
             100
           </td>
-          <td>
+          <td style={{ color: 'red' }}>
             6
           </td>
         </tr>

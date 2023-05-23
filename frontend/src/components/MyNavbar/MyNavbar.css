@@ -6,4 +6,9 @@
 .text-list-container{
     margin-left: 10px;
     font-weight: 500;
-}
+}  
+.react-date-picker__wrapper {
+    border: 1px solid  #ced4da !important;
+    border-radius: 5px ;
+    height: 37px;
+  }

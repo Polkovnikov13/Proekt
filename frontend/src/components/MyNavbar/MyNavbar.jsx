@@ -10,12 +10,14 @@ import {
   NavLink,
   Input,
   CardImg,
-  Button,
 } from 'reactstrap';
+import MyButton from './MyButton';
+import MyDate from './MyDate';
 
 export default function MyNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+
   return (
     <Navbar>
       <div style={{ display: 'flex' }}>
@@ -34,16 +36,11 @@ export default function MyNavbar() {
             type="text"
           />
         </NavbarBrand>
-        <NavbarBrand href="/">
-          <Input
-            id="exampleDate"
-            name="dateDoc"
-            placeholder="date placeholder"
-            type="date"
-          />
+        <NavbarBrand>
+          <MyDate />
         </NavbarBrand>
         <NavbarBrand href="/">
-          <Button color="primary">🔬 Фильтры</Button>
+          <MyButton />
         </NavbarBrand>
         <NavbarBrand href="/">
           <CardImg

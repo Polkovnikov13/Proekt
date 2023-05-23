@@ -4,23 +4,28 @@ import {
   Chart as ChartJS, ArcElement, Tooltip, Legend,
 } from 'chart.js';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Doughnut } from 'react-chartjs-2';
+import { Chart, Doughnut } from 'react-chartjs-2';
 import { Button } from 'reactstrap';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
+const rub = 'трл ₽';
 export const data = {
-  labels: ['Строится', 'Построено'],
+  labels: ['Федеральный бюджет', 'Региональный бюджет', 'Инвестирование', 'Софинансирование'],
   datasets: [
     {
-      label: 'Фраза при наведении и цифра',
-      data: [1697, 2966],
+      label: 'Фраза при наведении2',
+      data: [3.15, 2.03, 1.55, 1.89],
       backgroundColor: [
         'rgba(128, 0, 128, 0.2)',
+        'rgba(243,71,35,0.2)',
         'rgba(0, 255, 255, 0.2)',
+        'rgba( 0, 100,0, 0.2)',
       ],
       borderColor: [
         'rgba(128, 0, 128, 0.2)',
+        'rgba(243,71,35,0.2)',
         'rgba(0, 255, 255, 0.2)',
+        'rgba( 0, 100,0, 0.2)',
       ],
       borderWidth: 2,
     },
@@ -33,17 +38,17 @@ const textCenter = {
     const { ctx, data } = chart;
 
     ctx.save();
-    ctx.font = 'bold 35px sans-serif';
+    ctx.font = 'bolder 35px sans-serif';
     ctx.fillStyle = 'blue';
     ctx.textAlign = 'center';
-    // ctx.textBaseline = 'middle';
-    // ctx.justifyContent = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.justifyContent = 'center';
     // data.datasets[0].data[0] - обратиться к массиву значений
     ctx.fillText('15%', chart.getDatasetMeta(0).data[0].x, chart.getDatasetMeta(0).data[0].y);
   },
 };
 
-export default function MyGraficsUp() {
+export default function MyGraficsDown() {
   return (
     <div style={{
       display: 'flex',
@@ -54,14 +59,18 @@ export default function MyGraficsUp() {
       height: '100%', // Добавляем высоту для родительского div
     }}
     >
-      <div style={{ fontWeight: '900', fontSize: '22px' }}>
-        Объекты
-        {' '}
+      <div style={{
+        fontWeight: '900', fontSize: '22px',
+      }}
+      >
+        Финансирование
+        &nbsp;
+        &nbsp;
         <Button
-          color="light"
           size="sm"
+          style={{ border: '1px solid grey', backgroundColor: 'white', color: 'grey' }}
         >
-          9 407 шт
+          9,42 трл ₽
         </Button>
 
       </div>

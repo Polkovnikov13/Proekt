@@ -8,30 +8,27 @@ import { Chart, Doughnut } from 'react-chartjs-2';
 import { Button } from 'reactstrap';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-const rub = 'трл ₽';
 export const data = {
+  labels: ['Построено ', 'Строится'],
   datasets: [
     {
-      label: 'Фраза при наведении и цифра',
-      data: [3.15, 2.03, 1.55, 1.89],
+      label: 'Фраза при наведении1',
+      data: [985, 9850],
       backgroundColor: [
-        'rgba(128, 0, 128, 0.2)',
-        'rgba(243,71,35,0.2)',
+
         'rgba(0, 255, 255, 0.2)',
         'rgba( 0, 100,0, 0.2)',
       ],
       borderColor: [
-        'rgba(128, 0, 128, 0.2)',
-        'rgba(243,71,35,0.2)',
+
         'rgba(0, 255, 255, 0.2)',
         'rgba( 0, 100,0, 0.2)',
       ],
       borderWidth: 2,
     },
   ],
-  labels: [`Федеральный бюджет ${rub}`, `Региональный бюджет ${rub}`, `Инвестирование ${rub}`, `Софинансирование ${rub}`],
-
 };
+
 const textCenter = {
   id: 'text-center',
   beforeDatasetsDraw(chart, args, pluginOptions) {
@@ -48,7 +45,7 @@ const textCenter = {
   },
 };
 
-export default function MyGraficsDown() {
+export default function MyGraficsUp() {
   return (
     <div style={{
       display: 'flex',
@@ -60,13 +57,23 @@ export default function MyGraficsDown() {
     }}
     >
       <div style={{ fontWeight: '900', fontSize: '22px' }}>
-        Финансирование
-        {' '}
+      &nbsp;
+          &nbsp;
+          &nbsp;
+          &nbsp;
+          &nbsp;
+          &nbsp;
+          &nbsp;
+        Объекты
+        &nbsp;
+          &nbsp;
         <Button
-          color="light"
           size="sm"
+          style={{
+            border: '1px solid grey', backgroundColor: 'white', color: 'grey',
+          }}
         >
-          9,42 трл ₽
+          9,850 шт
         </Button>
 
       </div>
@@ -86,7 +93,9 @@ export default function MyGraficsDown() {
             plugins={[textCenter]}
           />
         </div>
+
       </div>
     </div>
+
   );
 }

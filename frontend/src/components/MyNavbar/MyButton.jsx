@@ -1,0 +1,106 @@
+import React, { useCallback, useState } from 'react';
+import {
+  Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Form,
+} from 'reactstrap';
+
+export default function MyButton() {
+  const [modal, setModal] = useState(false);
+  const toggle = (e) => {
+    e.preventDefault();
+    setModal(!modal);
+  };
+  const [input, setInput] = useState({
+    money: '', region: '', role: '', finance: '',
+  });
+  // console.log(input);
+  // eslint-disable-next-line max-len
+  const changeHandler = useCallback((e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value })), []);
+  return (
+    <Form onSubmit={(e) => e.preventDefault()}>
+      <Button color="primary" onClick={toggle}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-funnel-fill" viewBox="0 0 16 16">
+          <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
+        </svg>
+        {' '}
+        Фильтры
+
+      </Button>
+      <Modal isOpen={modal} toggle={toggle}>
+        <FormGroup className="d-flex justify-content-between align-items-center">
+          <Label for="money" style={{ marginTop: '12px', paddingLeft: '10px' }}>Ед. измерения</Label>
+          <Input
+            className="mx-2 text-right"
+            style={{
+              width: '275px', paddingLeft: '10px', paddingRight: '10px', marginTop: '12px',
+            }}
+            type="select"
+            id="money"
+            name="money"
+            placeholder="трл. руб"
+            onChange={changeHandler}
+          >
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </Input>
+        </FormGroup>
+        <FormGroup className="d-flex justify-content-between align-items-center">
+          <Label for="region" style={{ paddingLeft: '10px' }}>Регион</Label>
+          <Input
+            className="mx-2 text-right"
+            style={{ width: '275px', paddingLeft: '10px', paddingRight: '10px' }}
+            type="select"
+            id="region"
+            name="region"
+            placeholder="трл. руб"
+            onChange={changeHandler}
+          >
+            <option value="Северо-Западный ФО">Северо-Западный ФО</option>
+            <option value="false">No</option>
+          </Input>
+        </FormGroup>
+        <FormGroup className="d-flex justify-content-between align-items-center">
+          <Label for="role" style={{ paddingLeft: '10px' }}>Роль</Label>
+          <Input
+            className="mx-2 text-right"
+            style={{ width: '275px', paddingLeft: '10px', paddingRight: '10px' }}
+            type="select"
+            id="role"
+            name="role"
+            placeholder="трл. руб"
+            onChange={changeHandler}
+          >
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </Input>
+        </FormGroup>
+        <FormGroup className="d-flex justify-content-between align-items-center">
+          <Label for="finance" style={{ paddingLeft: '10px' }}>Финансирование</Label>
+          <Input
+            className="mx-2 text-right"
+            style={{ width: '275px', paddingLeft: '10px', paddingRight: '8px' }}
+            type="select"
+            id="finance"
+            name="finance"
+            placeholder="трл. руб"
+            onChange={changeHandler}
+          >
+            <option value="Региональный бюджет">Региональный бюджет</option>
+            <option value="false">No</option>
+          </Input>
+        </FormGroup>
+        <ModalFooter className="d-flex justify-content-between">
+          <div style={{ flex: 1 }}>
+            <Button color="secondary" onClick={toggle} style={{ width: '100%' }}>
+              Сбросить
+            </Button>
+          </div>
+          <div style={{ flex: 1 }}>
+            <Button color="primary" onClick={toggle} style={{ width: '100%' }}>
+              Применить
+            </Button>
+          </div>
+        </ModalFooter>
+      </Modal>
+    </Form>
+  );
+}
