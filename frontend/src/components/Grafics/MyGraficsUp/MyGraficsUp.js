@@ -5,26 +5,48 @@ import {
 } from 'chart.js';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Chart, Doughnut } from 'react-chartjs-2';
-import { Button } from 'reactstrap';
+import { Badge } from 'reactstrap';
 
+const arrFromBD = [985, 9850, 5000, 2500];
 ChartJS.register(ArcElement, Tooltip, Legend);
 export const data = {
-  labels: ['Построено ', 'Строится'],
+  labels: [`Построено: ${arrFromBD[0]} `, `Строится :${arrFromBD[1]} `],
   datasets: [
     {
       label: 'Фраза при наведении1',
-      data: [985, 9850],
+      data: arrFromBD,
       backgroundColor: [
-
-        'rgba(0, 255, 255, 0.2)',
-        'rgba( 0, 100,0, 0.2)',
+        'rgb(210, 162, 235)',
+        'rgb(92%, 40%, 58%)',
+        'rgb(6%, 85%, 16%)',
+        'rgb(8%, 92%, 91%)',
       ],
       borderColor: [
-
-        'rgba(0, 255, 255, 0.2)',
-        'rgba( 0, 100,0, 0.2)',
+        'rgb(100%, 100%, 100%)',
+        'rgb(100%, 100%, 100%)',
+        'rgb(100%, 100%, 100%)',
+        'rgb(100%, 100%, 100%)',
       ],
       borderWidth: 2,
+      cutout: '25%',
+    },
+    {
+      label: 'Фраза при наведении2',
+      data: arrFromBD,
+      backgroundColor: [
+        'rgb(166, 15, 242);',
+        'rgb(73%, 5%, 28%)',
+        'rgb(2%, 51%, 9%)',
+        'rgb(1%, 56%, 55%)',
+      ],
+      borderColor: [
+        'rgb(100%, 100%, 100%)',
+        'rgb(100%, 100%, 100%)',
+        'rgb(100%, 100%, 100%)',
+        'rgb(100%, 100%, 100%)',
+      ],
+      borderWidth: 2,
+      cutout: '35%',
     },
   ],
 };
@@ -35,9 +57,10 @@ const textCenter = {
     const { ctx, data } = chart;
 
     ctx.save();
-    ctx.font = 'bolder 35px sans-serif';
+    ctx.font = 'bolder 27px sans-serif';
     ctx.fillStyle = 'blue';
     ctx.textAlign = 'center';
+
     ctx.textBaseline = 'middle';
     ctx.justifyContent = 'center';
     // data.datasets[0].data[0] - обратиться к массиву значений
@@ -56,25 +79,22 @@ export default function MyGraficsUp() {
       height: '100%', // Добавляем высоту для родительского div
     }}
     >
-      <div style={{ fontWeight: '900', fontSize: '22px' }}>
-      &nbsp;
-          &nbsp;
-          &nbsp;
-          &nbsp;
-          &nbsp;
-          &nbsp;
-          &nbsp;
+      <div style={{
+        fontWeight: '900', fontSize: '22px', marginRight: '165px',
+      }}
+      >
+
         Объекты
         &nbsp;
-          &nbsp;
-        <Button
+        <Badge
+          color="lightgrey"
           size="sm"
           style={{
-            border: '1px solid grey', backgroundColor: 'white', color: 'grey',
+            border: '1px solid grey', color: 'grey', borderRadius: '15px',
           }}
         >
           9,850 шт
-        </Button>
+        </Badge>
 
       </div>
 
@@ -89,7 +109,26 @@ export default function MyGraficsUp() {
           {/* Добавляем новый div для установки высоты графика */}
           <Doughnut
             data={data}
-            options={{ maintainAspectRatio: false }} // Отключаем сохранение пропорций для графика
+            options={{
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  display: true,
+                  position: 'left',
+                  align: 'start',
+                  labels: {
+                    usePointStyle: true,
+                    boxWidth: 10,
+                    fontColor: '#333',
+                    fontStyle: 'bold',
+                    // padding: 10,
+                    fontFamily: "'Open Sans', sans-serif",
+                    align: 'end',
+                    display: 'flex',
+                  },
+                },
+              },
+            }}
             plugins={[textCenter]}
           />
         </div>

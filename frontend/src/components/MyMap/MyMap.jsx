@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import style from './style.css';
 import districtByIso from './Subjects';
+import MyModalMap from './MyModalMap';
 
 export default function MyMap() {
   const [myMap, setMyMap] = useState(null);
@@ -30,14 +31,14 @@ export default function MyMap() {
       map.panes.append('white', pane);
       // Зададим цвета федеральных округов.
       const districtColors = {
-        cfo: '#ffff6f',
-        szfo: '#54cbba',
-        yfo: '#f9768e',
-        skfo: '#9a5597',
-        pfo: '#30cb05',
-        urfo: '#bac1cc',
-        sfo: '#16acdb',
-        dfo: '#fbc520',
+        cfo: '#483d8b',
+        szfo: '#483d8b',
+        yfo: '#483d8b',
+        skfo: '#483d8b',
+        pfo: '#483d8b',
+        urfo: '#483d8b',
+        sfo: '#483d8b',
+        dfo: '#483d8b',
       };
       // Зададим подсказки при наведении на федеральный округ.
       const districtsHints = {
@@ -131,9 +132,12 @@ export default function MyMap() {
     });
   }, []);
   return (
-    <div
-      id="map"
-      className="map"
-    />
+    <>
+      <MyModalMap />
+      <div
+        id="map"
+        className="map"
+      />
+    </>
   );
 }

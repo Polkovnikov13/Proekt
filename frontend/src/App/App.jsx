@@ -20,7 +20,7 @@ function App() {
           alignItems: 'center',
           flexWrap: 'wrap',
           height: '883px',
-          backgroundColor: 'grey',
+          backgroundColor: ' rgb(202, 202, 202)',
           paddingTop: '11px',
           paddingBottom: '11px',
           paddingLeft: '10px',
@@ -38,7 +38,7 @@ function App() {
             alignItems: 'center',
             backgroundColor: 'white',
             borderRadius: '15px',
-            border: '6px solid grey',
+            border: '6px solid  rgb(202, 202, 202)',
           }}
         >
           <MyGraficsUp />
@@ -53,7 +53,7 @@ function App() {
                 height: '50%',
                 backgroundColor: 'white',
                 borderRadius: '15px',
-                border: '6px solid grey',
+                border: '6px solid  rgb(202, 202, 202)',
                 overflowY: 'auto',
                 scrollbarWidth: 'none',
               }}
@@ -84,7 +84,7 @@ function App() {
                 padding: '15px',
                 backgroundColor: 'white',
                 borderRadius: '15px',
-                border: '6px solid grey',
+                border: '6px solid  rgb(202, 202, 202)',
                 overflowY: 'auto',
               }}
             >
@@ -98,7 +98,7 @@ function App() {
                 height: '5%',
                 backgroundColor: 'white',
                 textAlign: 'center',
-                border: '4px solid grey',
+                border: '4px solid  rgb(202, 202, 202)',
                 borderRadius: '15px',
               }}
             >

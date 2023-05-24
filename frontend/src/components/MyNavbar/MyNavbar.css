@@ -12,3 +12,17 @@
     border-radius: 5px ;
     height: 37px;
   }
+  .navbar-toggler {
+    font-size: x-small !important;
+    border: none !important;
+    background-color: rgb(202, 202, 202) !important;
+    width: 34px !important;
+    height: 24px !important;
+    margin-top: 8px !important;
+    padding: 0 0 0 0 !important;
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke=' rgb(13,110,253)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")!important;
+  }
+  

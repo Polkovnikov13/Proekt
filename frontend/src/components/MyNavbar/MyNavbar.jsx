@@ -21,7 +21,9 @@ export default function MyNavbar() {
   return (
     <Navbar>
       <div style={{ display: 'flex' }}>
-        <NavbarToggler onClick={toggle} />
+        <NavbarToggler onClick={toggle}>
+          <span className="navbar-toggler-icon" />
+        </NavbarToggler>
         <NavbarBrand className="text-list-container" href="/">
           Мониторинг Строительства
         </NavbarBrand>
