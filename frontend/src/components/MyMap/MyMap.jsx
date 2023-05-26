@@ -133,7 +133,7 @@ export default function MyMap() {
   }, []);
   return (
     <>
-      <MyModalMap />
+      {/* <MyModalMap /> */}
       <div
         id="map"
         className="map"

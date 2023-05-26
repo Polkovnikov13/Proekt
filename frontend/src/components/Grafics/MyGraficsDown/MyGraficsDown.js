@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
@@ -7,15 +8,14 @@ import {
 import { Chart, Doughnut } from 'react-chartjs-2';
 import { Alert, Badge } from 'reactstrap';
 
+const arrFromBD = [985, 9850, 5000, 2500];
 ChartJS.register(ArcElement, Tooltip, Legend);
-const rub = 'трл ₽';
 export const data = {
-  labels: ['Федеральный бюджет', 'Региональный бюджет', 'Инвестирование', 'Софинансирование'],
-  labels2: ['1 2', '3 4'],
+  labels: ['Федеральный бюджет', 'Региональный бюджет', 'Софинансирование', 'Региональный бюджет'],
   datasets: [
     {
-      label: 'Фраза при наведении2',
-      data: [3.15, 2.03, 1.55, 1.89],
+      label: 'Фраза при наведении1',
+      data: arrFromBD,
       backgroundColor: [
         'rgb(210, 162, 235)',
         'rgb(92%, 40%, 58%)',
@@ -33,7 +33,7 @@ export const data = {
     },
     {
       label: 'Фраза при наведении2',
-      data: [3.15, 2.03, 1.55, 1.89],
+      data: arrFromBD,
       backgroundColor: [
         'rgb(166, 15, 242);',
         'rgb(73%, 5%, 28%)',
@@ -52,6 +52,32 @@ export const data = {
   ],
 };
 
+const sliceThickness = {
+  id: 'sliceThickness',
+  beforeDraw(chart, plugins) {
+    // console.log(chart.chartArea.width);
+    chart.getDatasetMeta(0).data[0].innerRadius = 100;
+    chart.getDatasetMeta(0).data[0].outerRadius = 121;
+    chart.getDatasetMeta(1).data[0].innerRadius = 40;
+    chart.getDatasetMeta(1).data[0].outerRadius = 120;
+
+    chart.getDatasetMeta(0).data[1].innerRadius = 90;
+    chart.getDatasetMeta(0).data[1].outerRadius = 121;
+    chart.getDatasetMeta(1).data[1].innerRadius = 40;
+    chart.getDatasetMeta(1).data[1].outerRadius = 120;
+
+    chart.getDatasetMeta(0).data[2].innerRadius = 80;
+    chart.getDatasetMeta(0).data[2].outerRadius = 121;
+    chart.getDatasetMeta(1).data[2].innerRadius = 40;
+    chart.getDatasetMeta(1).data[2].outerRadius = 120;
+
+    chart.getDatasetMeta(0).data[3].innerRadius = 70;
+    chart.getDatasetMeta(0).data[3].outerRadius = 121;
+    chart.getDatasetMeta(1).data[3].innerRadius = 40;
+    chart.getDatasetMeta(1).data[3].outerRadius = 120;
+  },
+};
+
 const textCenter = {
   id: 'text-center',
   beforeDatasetsDraw(chart, args, pluginOptions) {
@@ -61,6 +87,7 @@ const textCenter = {
     ctx.font = 'bolder 27px sans-serif';
     ctx.fillStyle = 'blue';
     ctx.textAlign = 'center';
+
     ctx.textBaseline = 'middle';
     ctx.justifyContent = 'center';
     // data.datasets[0].data[0] - обратиться к массиву значений
@@ -74,24 +101,25 @@ export default function MyGraficsDown() {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      alignItems: 'center',
-      flexGrow: 1,
-      height: '100%', // Добавляем высоту для родительского div
+      alignItems: 'start',
+      height: '90%', // Добавляем высоту для родительского div
     }}
     >
       <div style={{
-        fontWeight: '900', fontSize: '22px',
+        fontWeight: '900', fontSize: '22px', marginRight: '0px',
       }}
       >
+
         Финансирование
-        &nbsp;
         &nbsp;
         <Badge
           color="lightgrey"
           size="sm"
-          style={{ border: '1px solid grey', color: 'grey', borderRadius: '15px' }}
+          style={{
+            border: '1px solid grey', color: 'grey', borderRadius: '15px',
+          }}
         >
-          9,42 трл ₽
+          36,75 трл Р
         </Badge>
 
       </div>
@@ -102,7 +130,7 @@ export default function MyGraficsDown() {
         height: '88%', // Добавляем высоту для дочернего div
       }}
       >
-        <div style={{ height: '80%' }}>
+        <div style={{ height: '90%' }}>
           {' '}
           {/* Добавляем новый div для установки высоты графика */}
           <Doughnut
@@ -112,26 +140,23 @@ export default function MyGraficsDown() {
               plugins: {
                 legend: {
                   display: true,
-                  position: 'left',
-                  align: 'end',
+                  position: 'bottom',
+                  align: 'start',
                   labels: {
                     usePointStyle: true,
                     boxWidth: 10,
-                    fontColor: '#333',
-                    fontStyle: 'bold',
-                    padding: 10,
-                    fontFamily: "'Open Sans', sans-serif",
-                    align: 'start',
-                    display: 'flex',
-                    flexDirection: 'column',
+                    fontStyle: 'normal',
+                    align: 'end',
                   },
                 },
               },
             }}
-            plugins={[textCenter]}
+            plugins={[textCenter, sliceThickness]}
           />
         </div>
+
       </div>
     </div>
+
   );
 }

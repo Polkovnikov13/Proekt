@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
@@ -51,6 +52,32 @@ export const data = {
   ],
 };
 
+const sliceThickness = {
+  id: 'sliceThickness',
+  beforeDraw(chart, plugins) {
+    // console.log(chart.chartArea.width);
+    chart.getDatasetMeta(0).data[0].innerRadius = 100;
+    chart.getDatasetMeta(0).data[0].outerRadius = 121;
+    chart.getDatasetMeta(1).data[0].innerRadius = 40;
+    chart.getDatasetMeta(1).data[0].outerRadius = 120;
+
+    chart.getDatasetMeta(0).data[1].innerRadius = 90;
+    chart.getDatasetMeta(0).data[1].outerRadius = 121;
+    chart.getDatasetMeta(1).data[1].innerRadius = 40;
+    chart.getDatasetMeta(1).data[1].outerRadius = 120;
+
+    chart.getDatasetMeta(0).data[2].innerRadius = 80;
+    chart.getDatasetMeta(0).data[2].outerRadius = 121;
+    chart.getDatasetMeta(1).data[2].innerRadius = 40;
+    chart.getDatasetMeta(1).data[2].outerRadius = 120;
+
+    chart.getDatasetMeta(0).data[3].innerRadius = 70;
+    chart.getDatasetMeta(0).data[3].outerRadius = 121;
+    chart.getDatasetMeta(1).data[3].innerRadius = 40;
+    chart.getDatasetMeta(1).data[3].outerRadius = 120;
+  },
+};
+
 const textCenter = {
   id: 'text-center',
   beforeDatasetsDraw(chart, args, pluginOptions) {
@@ -74,13 +101,12 @@ export default function MyGraficsUp() {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      alignItems: 'center',
-      flexGrow: 1,
-      height: '100%', // Добавляем высоту для родительского div
+      alignItems: 'start',
+      height: '90%', // Добавляем высоту для родительского div
     }}
     >
       <div style={{
-        fontWeight: '900', fontSize: '22px', marginRight: '165px',
+        fontWeight: '900', fontSize: '22px', marginRight: '55px',
       }}
       >
 
@@ -114,22 +140,18 @@ export default function MyGraficsUp() {
               plugins: {
                 legend: {
                   display: true,
-                  position: 'left',
+                  position: 'top',
                   align: 'start',
                   labels: {
                     usePointStyle: true,
                     boxWidth: 10,
-                    fontColor: '#333',
                     fontStyle: 'bold',
-                    // padding: 10,
-                    fontFamily: "'Open Sans', sans-serif",
-                    align: 'end',
-                    display: 'flex',
+                    align: 'start',
                   },
                 },
               },
             }}
-            plugins={[textCenter]}
+            plugins={[textCenter, sliceThickness]}
           />
         </div>
 
