@@ -11,7 +11,7 @@ import { Badge } from 'reactstrap';
 const arrFromBD = [985, 9850, 5000, 2500];
 ChartJS.register(ArcElement, Tooltip, Legend);
 export const data = {
-  labels: [`Построено: ${arrFromBD[0]} `, `Строится :${arrFromBD[1]} `],
+  labels: ['Построено: 985                                              ', 'Строится : 9850'],
   datasets: [
     {
       label: 'Фраза при наведении1',
@@ -102,14 +102,14 @@ export default function MyGraficsUp() {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'start',
-      height: '90%', // Добавляем высоту для родительского div
+      height: '92%', // Добавляем высоту для родительского div
     }}
     >
       <div style={{
-        fontWeight: '900', fontSize: '22px', marginRight: '55px',
+        fontWeight: '900', fontSize: '22px', marginRight: '55px', marginTop: '3px',
       }}
       >
-
+&nbsp;
         Объекты
         &nbsp;
         <Badge
@@ -119,15 +119,17 @@ export default function MyGraficsUp() {
             border: '1px solid grey', color: 'grey', borderRadius: '15px',
           }}
         >
-          9,850 шт
-        </Badge>
+          9 850 шт
 
+        </Badge>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
       </div>
 
       <div style={{
         width: '95%',
         flexGrow: 0,
-        height: '88%', // Добавляем высоту для дочернего div
+        height: '92%', // Добавляем высоту для дочернего div
       }}
       >
         <div style={{ height: '90%' }}>
@@ -146,7 +148,9 @@ export default function MyGraficsUp() {
                     usePointStyle: true,
                     boxWidth: 10,
                     fontStyle: 'bold',
-                    align: 'start',
+                    align: 'end',
+                    padding: 15, // что переноса легенд на новою строчку
+                    maxWidth: 100, // что переноса легенд на новою строчку
                   },
                 },
               },

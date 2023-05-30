@@ -5,6 +5,7 @@ import MyGraficsUp from '../components/Grafics/MyGraficsUp/MyGraficsUp';
 import MyGraficsDown from '../components/Grafics/MyGraficsDown/MyGraficsDown';
 import MyMap from '../components/MyMap/MyMap';
 import BackToMap from '../components/MyMap/BackToMap';
+import MyClolors from '../components/Grafics/MyClolors';
 // import './App.css';
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         >
           <MyGraficsUp />
           <MyGraficsDown />
+          <MyClolors />
         </div>
         {half === false ? (
           <>

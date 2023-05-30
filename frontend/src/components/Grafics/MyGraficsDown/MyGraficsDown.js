@@ -6,12 +6,12 @@ import {
 } from 'chart.js';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Chart, Doughnut } from 'react-chartjs-2';
-import { Alert, Badge } from 'reactstrap';
+import { Badge } from 'reactstrap';
 
 const arrFromBD = [985, 9850, 5000, 2500];
 ChartJS.register(ArcElement, Tooltip, Legend);
 export const data = {
-  labels: ['Федеральный бюджет', 'Региональный бюджет', 'Софинансирование', 'Региональный бюджет'],
+  labels: ['Израсходованоо: 5,51 трл Р ', 'Законтактовано :36,75 трл Р'],
   datasets: [
     {
       label: 'Фраза при наведении1',
@@ -95,7 +95,7 @@ const textCenter = {
   },
 };
 
-export default function MyGraficsDown() {
+export default function MyGraficsUp() {
   return (
     <div style={{
       display: 'flex',
@@ -106,10 +106,10 @@ export default function MyGraficsDown() {
     }}
     >
       <div style={{
-        fontWeight: '900', fontSize: '22px', marginRight: '0px',
+        fontWeight: '900', fontSize: '22px', marginRight: '55px',
       }}
       >
-
+&nbsp;
         Финансирование
         &nbsp;
         <Badge
@@ -121,16 +121,16 @@ export default function MyGraficsDown() {
         >
           36,75 трл Р
         </Badge>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </div>
 
       <div style={{
         width: '95%',
         flexGrow: 0,
-        height: '88%', // Добавляем высоту для дочернего div
+        height: '92%', // Добавляем высоту для дочернего div
       }}
       >
-        <div style={{ height: '90%' }}>
+        <div style={{ height: '92%' }}>
           {' '}
           {/* Добавляем новый div для установки высоты графика */}
           <Doughnut
@@ -140,13 +140,15 @@ export default function MyGraficsDown() {
               plugins: {
                 legend: {
                   display: true,
-                  position: 'bottom',
+                  position: 'top',
                   align: 'start',
                   labels: {
                     usePointStyle: true,
                     boxWidth: 10,
-                    fontStyle: 'normal',
+                    fontStyle: 'bold',
                     align: 'end',
+                    padding: 15, // что переноса легенд на новою строчку
+                    maxWidth: 100, // что переноса легенд на новою строчку
                   },
                 },
               },

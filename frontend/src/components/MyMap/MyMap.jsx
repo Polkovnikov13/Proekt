@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import {
+  Button, Modal, ModalBody, ModalFooter, ModalHeader,
+} from 'reactstrap';
 import style from './style.css';
 import districtByIso from './Subjects';
 import MyModalMap from './MyModalMap';
 
 export default function MyMap() {
   const [myMap, setMyMap] = useState(null);
-
+  const [modal, setModal] = useState(false);
+  const [name, setName] = useState('+');
+  // const [districtName, setDistrictName] = useState('');
+  const toggle = () => setModal(!modal);
+  // console.log(name);
   useEffect(() => {
     // eslint-disable-next-line no-undef
     ymaps.ready(() => {
@@ -111,8 +118,10 @@ export default function MyMap() {
           });
           // Подпишемся на событие клика.
           districtCollections[districtName].events.add('click', (event) => {
+            setModal(!modal);
             const target = event.get('target');
             const district = target.getParent();
+            setName(districtsHints[districtName]);
             // Если на карте выделен федеральный округ, то мы снимаем с него выделение.
             if (highlightedDistrict) {
               highlightedDistrict.options.set({ fillOpacity: 0.3 });
@@ -120,7 +129,11 @@ export default function MyMap() {
             // eslint-disable-next-line max-len
             // Откроем балун в точке клика. В балуне будут перечислены регионы того федерального округа,
             // по которому кликнул пользователь.
-            districtBalloon.open(event.get('coords'), district.properties.districts.join('<br>'));
+
+            // Ниже содержится список городов при всплытии подсказки
+            // eslint-disable-next-line max-len
+            // districtBalloon.open(event.get('coords'), district.properties.districts.join('<br>'));
+
             // Выделим федеральный округ.
             district.options.set({ fillOpacity: 1 });
             // Сохраним ссылку на выделенный федеральный округ.
@@ -133,11 +146,17 @@ export default function MyMap() {
   }, []);
   return (
     <>
-      {/* <MyModalMap /> */}
       <div
         id="map"
         className="map"
       />
+      {modal === true
+        ? (
+          <div>
+            <MyModalMap modal={modal} setModal={setModal} name={name} />
+          </div>
+        )
+        : null }
     </>
   );
 }

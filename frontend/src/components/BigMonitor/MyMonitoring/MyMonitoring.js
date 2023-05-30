@@ -40,7 +40,7 @@ export default function MyMonitoring({ half, setHalf }) {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: '5px',
+        padding: '20px',
       }}
       >
         <div style={{ fontWeight: '900', fontSize: '22px' }}>Мониторинг Строительства</div>
@@ -60,8 +60,18 @@ export default function MyMonitoring({ half, setHalf }) {
           </Button>
         </div>
       </div>
-      <MyHeader />
-      <MyTable />
+      <div style={{
+        padding: '20px',
+      }}
+      >
+        <MyHeader />
+      </div>
+      <div style={{
+        padding: '20px',
+      }}
+      >
+        <MyTable />
+      </div>
     </>
   );
 }
