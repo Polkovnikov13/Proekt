@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Table } from 'reactstrap';
 import MySchool from './MySchool';
+import './MyTable.css';
 
 export default function MyTable() {
   const [education, setEducation] = useState(false);
@@ -15,7 +16,7 @@ export default function MyTable() {
     setEducation(!education);
   };
   return (
-    <Table>
+    <Table className="my-down-table">
       <thead>
         <tr>
           <th>
@@ -78,7 +79,9 @@ export default function MyTable() {
             6
           </td>
         </tr>
-        {education === false ? null : <MySchool style={{ display: 'none' }} />}
+        {education === false ? null : (
+          <MySchool style={{ }} />
+        )}
         <tr>
           <th scope="row">
             <Button

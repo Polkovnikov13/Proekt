@@ -1,0 +1,39 @@
+/* table tr td:not(:first-child),
+table tr th:not(:first-child) {
+  transform: translateX(-50px);
+} */
+
+.my-down-table th:nth-child(2),
+.my-down-table td:nth-child(2) {
+  transform: translateX(-215px);
+}
+
+.my-down-table th:nth-child(3),
+.my-down-table td:nth-child(3) {
+  transform: translateX(-195px);
+}
+
+.my-down-table th:nth-child(4),
+.my-down-table td:nth-child(4) {
+  transform: translateX(-160px);
+}
+
+.my-down-table th:nth-child(5),
+.my-down-table td:nth-child(5) {
+  transform: translateX(-142px);
+}
+
+.my-down-table th:nth-child(6),
+.my-down-table td:nth-child(6) {
+  transform: translateX(-95px);
+}
+
+.my-down-table th:nth-child(7),
+.my-down-table td:nth-child(7) {
+  transform: translateX(-78px);
+}
+
+.my-down-table th:nth-child(8),
+.my-down-table td:nth-child(8) {
+  transform: translateX(-60px);
+}

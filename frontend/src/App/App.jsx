@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable max-len */
+import React, { useCallback, useState } from 'react';
 import MyNavbar from '../components/MyNavbar/MyNavbar';
 import MyMonitoring from '../components/BigMonitor/MyMonitoring/MyMonitoring';
 import MyGraficsUp from '../components/Grafics/MyGraficsUp/MyGraficsUp';
@@ -6,13 +7,19 @@ import MyGraficsDown from '../components/Grafics/MyGraficsDown/MyGraficsDown';
 import MyMap from '../components/MyMap/MyMap';
 import BackToMap from '../components/MyMap/BackToMap';
 import MyClolors from '../components/Grafics/MyClolors';
-// import './App.css';
+import './App.css';
 
 function App() {
   const [half, setHalf] = useState(false);
+  const [input, setInput] = useState({
+    money: '1', region: '1', role: '1', finance: '1',
+  });
+  // console.log(input);
+  // eslint-disable-next-line max-len
+  const changeHandler = useCallback((e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value })), []);
   return (
     <>
-      <MyNavbar />
+      <MyNavbar changeHandler={changeHandler} input={input} />
       <div
         style={{
           display: 'flex',
@@ -56,11 +63,12 @@ function App() {
                 backgroundColor: 'white',
                 borderRadius: '15px',
                 border: '6px solid  rgb(202, 202, 202)',
-                overflowY: 'auto',
-                scrollbarWidth: 'none',
+                overflowX: 'auto',
+                position: 'relative',
+
               }}
             >
-              <MyMonitoring half={half} setHalf={setHalf} />
+              <MyMonitoring half={half} setHalf={setHalf} input={input} />
             </div>
 
             <div
@@ -87,10 +95,11 @@ function App() {
                 backgroundColor: 'white',
                 borderRadius: '15px',
                 border: '6px solid  rgb(202, 202, 202)',
-                overflowY: 'auto',
+                overflowX: 'auto',
+
               }}
             >
-              <MyMonitoring half={half} setHalf={setHalf} />
+              <MyMonitoring half={half} setHalf={setHalf} input={input} />
             </div>
 
             <div

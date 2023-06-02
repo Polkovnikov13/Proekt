@@ -9,8 +9,11 @@ import MyTable from '../MyTable/MyTable';
 import MyHeader from '../MyHeader/MyHeader';
 import { ExportToExcel } from './ExportToExcel.js';
 import dataExc from './MyExcel';
+import MyFilters from './MyFilters';
 
-export default function MyMonitoring({ half, setHalf }) {
+export default function MyMonitoring({
+  half, setHalf, input, changeHandler,
+}) {
   const [data, setData] = React.useState([]);
   const fileName = `Мониторинг Строительства : ${new Date().toLocaleDateString()}`; // here enter filename for your excel file
   // console.log(dataExc);
@@ -44,6 +47,7 @@ export default function MyMonitoring({ half, setHalf }) {
       }}
       >
         <div style={{ fontWeight: '900', fontSize: '22px' }}>Мониторинг Строительства</div>
+
         <div style={{ }}>
           <ExportToExcel apiData={data} fileName={fileName} />
           {' '}
@@ -60,14 +64,16 @@ export default function MyMonitoring({ half, setHalf }) {
           </Button>
         </div>
       </div>
+
       <div style={{
-        padding: '20px',
+        padding: '20px', marginTop: '-14px',
       }}
       >
+        <MyFilters input={input} changeHandler={changeHandler} />
         <MyHeader />
       </div>
       <div style={{
-        padding: '20px',
+        padding: '1px 20px', marginTop: '-14px',
       }}
       >
         <MyTable />

@@ -1,20 +1,21 @@
+/* eslint-disable max-len */
 import React, { useCallback, useState } from 'react';
 import {
   Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Form,
 } from 'reactstrap';
 
-export default function MyButton() {
+export default function MyButton({ changeHandler, input }) {
   const [modal, setModal] = useState(false);
   const toggle = (e) => {
     e.preventDefault();
     setModal(!modal);
   };
-  const [input, setInput] = useState({
-    money: '', region: '', role: '', finance: '',
-  });
+  // const [input, setInput] = useState({
+  //   money: '', region: '', role: '', finance: '',
+  // });
+
   // console.log(input);
-  // eslint-disable-next-line max-len
-  const changeHandler = useCallback((e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value })), []);
+  // const changeHandler = useCallback((e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value })), []);
   return (
     <Form onSubmit={(e) => e.preventDefault()}>
       <Button color="primary" onClick={toggle}>
@@ -23,7 +24,6 @@ export default function MyButton() {
         </svg>
         {' '}
         Фильтры
-
       </Button>
       <Modal isOpen={modal} toggle={toggle}>
         <FormGroup className="d-flex justify-content-between align-items-center">
@@ -39,8 +39,8 @@ export default function MyButton() {
             placeholder="трл. руб"
             onChange={changeHandler}
           >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
+            <option value="Муж">Муж</option>
+            <option value="Жен">Жен</option>
           </Input>
         </FormGroup>
         <FormGroup className="d-flex justify-content-between align-items-center">
@@ -54,8 +54,8 @@ export default function MyButton() {
             placeholder="трл. руб"
             onChange={changeHandler}
           >
+            <option value="No">No</option>
             <option value="Северо-Западный ФО">Северо-Западный ФО</option>
-            <option value="false">No</option>
           </Input>
         </FormGroup>
         <FormGroup className="d-flex justify-content-between align-items-center">
@@ -69,8 +69,8 @@ export default function MyButton() {
             placeholder="трл. руб"
             onChange={changeHandler}
           >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
           </Input>
         </FormGroup>
         <FormGroup className="d-flex justify-content-between align-items-center">
@@ -84,8 +84,8 @@ export default function MyButton() {
             placeholder="трл. руб"
             onChange={changeHandler}
           >
-            <option value="Региональный бюджет">Региональный бюджет</option>
             <option value="false">No</option>
+            <option value="Региональный бюджет">Региональный бюджет</option>
           </Input>
         </FormGroup>
         <ModalFooter className="d-flex justify-content-between">

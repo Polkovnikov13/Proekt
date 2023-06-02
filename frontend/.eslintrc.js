@@ -30,5 +30,6 @@ module.exports = {
     'no-restricted-syntax': 0,
     'guard-for-in': 0,
     'no-loop-func': 0,
+    'react/react-in-jsx-scope': 0,
   },
 };

@@ -14,7 +14,7 @@ import {
 import MyButton from './MyButton';
 import MyDate from './MyDate';
 
-export default function MyNavbar() {
+export default function MyNavbar({ input, changeHandler }) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -42,7 +42,7 @@ export default function MyNavbar() {
           <MyDate />
         </NavbarBrand>
         <NavbarBrand href="/">
-          <MyButton />
+          <MyButton input={input} changeHandler={changeHandler} />
         </NavbarBrand>
         <NavbarBrand href="/">
           <CardImg

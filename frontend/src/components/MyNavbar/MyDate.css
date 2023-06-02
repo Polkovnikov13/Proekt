@@ -1,0 +1,21 @@
+.rounded-datepicker .react-datepicker__input-container input {
+    border: 1px solid  rgb(202, 202, 202);
+    border-radius: 0.375rem;
+    height: 38px;
+    width: 264px;
+    font-weight: 400;
+    font-size: 1rem;
+    padding-left: 5px;
+  }
+  .react-datepicker__close-icon::after {
+    cursor: pointer;
+    background-color: transparent ;
+    color: black;
+    border-radius: 50%;
+    font-size: 33px;
+    line-height: 1;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    content: "×";
+  }
