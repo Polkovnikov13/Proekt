@@ -1,18 +1,22 @@
 /* eslint-disable max-len */
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import {
-  Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Form,
+  Button, Modal, ModalFooter, FormGroup, Label, Input, Form,
 } from 'reactstrap';
 
-export default function MyButton({ changeHandler, input }) {
+export default function MyButton({ changeHandler, input, setInput }) {
   const [modal, setModal] = useState(false);
   const toggle = (e) => {
     e.preventDefault();
     setModal(!modal);
   };
-  // const [input, setInput] = useState({
-  //   money: '', region: '', role: '', finance: '',
-  // });
+  const clearHandler = () => {
+    setInput({
+      money: '1', region: '1', role: '1', finance: '1',
+    });
+    setModal(!modal);
+  };
+  console.log(input, '<---');
 
   // console.log(input);
   // const changeHandler = useCallback((e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value })), []);
@@ -90,7 +94,7 @@ export default function MyButton({ changeHandler, input }) {
         </FormGroup>
         <ModalFooter className="d-flex justify-content-between">
           <div style={{ flex: 1 }}>
-            <Button color="secondary" onClick={toggle} style={{ width: '100%' }}>
+            <Button color="secondary" onClick={clearHandler} style={{ width: '100%' }}>
               Сбросить
             </Button>
           </div>
