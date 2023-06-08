@@ -76,7 +76,7 @@ export default function MyMonitoring({
         padding: '1px 20px', marginTop: '-14px',
       }}
       >
-        <MyTable />
+        <MyTable style={{ backdrop: 'blur(20px)' }} />
       </div>
     </>
   );

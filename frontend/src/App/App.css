@@ -5,3 +5,30 @@
     margin-bottom: 10px;
     margin: 20px;
 } */
+.my-section {
+  overflow-y: auto; /* Включаем вертикальную прокрутку */
+  padding-top: 1px;
+  padding-bottom: 10px;
+  margin-top: 12px;
+  margin-bottom: 17px ;
+  margin-right: 10px;
+  
+}
+
+  .my-section::-webkit-scrollbar {
+    width: 10px;
+    
+  }
+  .my-section::-webkit-scrollbar-track{
+    background-color: rgb(187, 186, 186);
+    border-radius: 6px;
+  }
+
+  .my-section::-webkit-scrollbar-thumb {
+    background-color: grey;
+    border-radius: 6px;
+  }
+  .div-list-containerMonitor {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 95%, rgba(167, 166, 166, 0.5) 100%);
+  }
+  

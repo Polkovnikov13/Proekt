@@ -19,9 +19,9 @@ function App() {
   const [input, setInput] = useState({
     money: '1', region: '1', role: '1', finance: '1',
   });
-  console.log(grafHalf);
   // eslint-disable-next-line max-len
   const changeHandler = useCallback((e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value })), []);
+
   return (
     <>
       <MyNavbar changeHandler={changeHandler} input={input} setInput={setInput} />
@@ -34,7 +34,7 @@ function App() {
               flexDirection: 'column',
               alignItems: 'center',
               flexWrap: 'wrap',
-              height: '883px',
+              height: '880px',
               backgroundColor: 'rgb(202, 202, 202)',
               paddingTop: '11px',
               paddingBottom: '11px',
@@ -66,18 +66,19 @@ function App() {
             {half === false ? (
               <>
                 <div
-                  className="div-list-container"
+                  className="div-list-containerMonitor"
                   style={{
                     width: '75%',
                     height: '50%',
                     backgroundColor: 'white',
                     borderRadius: '15px',
                     border: '6px solid rgb(202, 202, 202)',
-                    overflowX: 'auto',
-                    position: 'relative',
+                    // position: 'relative',
                   }}
                 >
-                  <MyMonitoring half={half} setHalf={setHalf} input={input} />
+                  <div className="my-section" style={{ height: '92.8%' }}>
+                    <MyMonitoring half={half} setHalf={setHalf} input={input} style={{ paddingTop: '374px' }} />
+                  </div>
                 </div>
                 <div
                   className="div-list-container"
@@ -89,13 +90,31 @@ function App() {
                     border: '6px solid white',
                   }}
                 >
-                  <MyMap />
+                  <div style={{
+                    borderRadius: '15px 15px 0 0', position: 'relative', width: '101%', top: '-0.5%', left: '-0.49%', backgroundColor: 'white', height: '5.5%', borderBottom: '5px solid rgb(202, 202, 202)', display: 'flex', justifyContent: 'center', alignItems: 'center',
+                  }}
+                  >
+                    <Button
+                      size="sm"
+                      style={{
+                        backgroundColor: 'transparent', color: 'black', border: 'none',
+                      }}
+                      onClick={() => {
+                        setHalf(!half);
+                      }}
+                    >
+                      V
+                    </Button>
+                  </div>
+                  <div style={{ height: '95.8%' }}>
+                    <MyMap />
+                  </div>
                 </div>
               </>
             ) : (
               <>
                 <div
-                  className="div-list-container"
+                  className="div-list-containerMonitor"
                   style={{
                     width: '75%',
                     height: '95%',
@@ -106,7 +125,9 @@ function App() {
                     overflowX: 'auto',
                   }}
                 >
-                  <MyMonitoring half={half} setHalf={setHalf} input={input} />
+                  <div className="my-section" style={{ height: '92.8%' }}>
+                    <MyMonitoring half={half} setHalf={setHalf} input={input} />
+                  </div>
                 </div>
                 <div
                   className="div-list-container"

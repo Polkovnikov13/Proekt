@@ -9,7 +9,7 @@ export default function MonitorModal({ toggle, modal }) {
   const findHandler = useCallback((e) => setInput(e.target.value), []);
   return (
     <div>
-      <Modal isOpen={modal} toggle={toggle}>
+      <Modal isOpen={modal} toggle={toggle} style={{ left: '-30%', top: '28%' }}>
         <ModalHeader toggle={toggle}>Поиск</ModalHeader>
         <ModalBody>
           <Input

@@ -26,7 +26,8 @@ export default function MyMap() {
 
         // restrictMapArea: [[10, 10], [85, -100]],
       });
-      map.controls.get('zoomControl').options.set({ size: 'small' });
+      map.controls.get('zoomControl').options.set({ size: 'small', position: { right: 10, top: 150 } });
+
       // Добавим заливку цветом.
       // eslint-disable-next-line no-undef
       const pane = new ymaps.pane.StaticPane(map, {

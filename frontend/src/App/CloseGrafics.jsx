@@ -24,7 +24,6 @@ export default function CloseGrafics({
         paddingRight: '1px',
       }}
     >
-
       <div style={{
         position: 'relative', top: '49.9%', left: '0.5%', transform: 'translateY(-50%)', width: '2.0%', height: '99%', margin: 'auto', backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '15px 0 0 15px', textAlign: 'center', fontSize: '20px',
       }}
@@ -33,13 +32,12 @@ export default function CloseGrafics({
           {str2}
         </Button>
       </div>
-
       {half === false ? (
         <>
           <div
             className="div-list-container"
             style={{
-              width: '93.5%',
+              width: '92.8%',
               height: '50%',
               left: '-15px',
               backgroundColor: 'white',
@@ -54,16 +52,34 @@ export default function CloseGrafics({
           <div
             className="div-list-container"
             style={{
-              width: '93.5%',
-              height: '50%',
-              left: '-15px',
-              backgroundColor: 'white',
-              borderRadius: '15px 15px 15px 15px',
-              border: '6px solid white',
               position: 'relative',
+              width: '92.5%',
+              height: '49.5%',
+              left: '-13px',
+              backgroundColor: 'white',
+              borderRadius: '15px',
+              border: '6px solid white',
             }}
           >
-            <MyMap />
+            <div style={{
+              borderRadius: '15px 15px 0 0', position: 'relative', width: '100.55%', top: '-0.5%', left: '-0.3%', backgroundColor: 'white', height: '6.5%', borderBottom: '5px solid rgb(202, 202, 202)', display: 'flex', justifyContent: 'center', alignItems: 'center',
+            }}
+            >
+              <Button
+                size="sm"
+                style={{
+                  backgroundColor: 'transparent', color: 'black', border: 'none',
+                }}
+                onClick={() => {
+                  setHalf(!half);
+                }}
+              >
+                V
+              </Button>
+            </div>
+            <div style={{ height: '93.5%' }}>
+              <MyMap />
+            </div>
           </div>
         </>
       ) : (

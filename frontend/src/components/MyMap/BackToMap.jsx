@@ -6,6 +6,6 @@ export default function BackToMap({ half, setHalf }) {
     setHalf(!half);
   };
   return (
-    <Button onClick={handlerHalf} size="sm" style={{ color: ' rgb(202, 202, 202)', backgroundColor: 'white', border: 'none' }}>⋀</Button>
+    <Button onClick={handlerHalf} size="sm" style={{ color: 'black', backgroundColor: 'white', border: 'none' }}>ʌ</Button>
   );
 }
