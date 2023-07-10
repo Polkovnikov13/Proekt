@@ -21,7 +21,6 @@ function App() {
   });
   // eslint-disable-next-line max-len
   const changeHandler = useCallback((e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value })), []);
-
   return (
     <>
       <MyNavbar changeHandler={changeHandler} input={input} setInput={setInput} />
@@ -69,14 +68,15 @@ function App() {
                   className="div-list-containerMonitor"
                   style={{
                     width: '75%',
-                    height: '50%',
+                    height: '49%',
                     backgroundColor: 'white',
                     borderRadius: '15px',
                     border: '6px solid rgb(202, 202, 202)',
+                    marginBottom: '15px',
                     // position: 'relative',
                   }}
                 >
-                  <div className="my-section" style={{ height: '92.8%' }}>
+                  <div className="my-section" style={{ height: '97.5%' }}>
                     <MyMonitoring half={half} setHalf={setHalf} input={input} style={{ paddingTop: '374px' }} />
                   </div>
                 </div>
@@ -84,7 +84,7 @@ function App() {
                   className="div-list-container"
                   style={{
                     width: '74.5%',
-                    height: '49.5%',
+                    height: '49.0%',
                     backgroundColor: 'white',
                     borderRadius: '15px',
                     border: '6px solid white',

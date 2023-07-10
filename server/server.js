@@ -1,12 +1,20 @@
-const express = require('express')
-const morgan = require('morgan')
-require('dotenv').config()
+const express = require('express');
+const morgan = require('morgan');
+const cors = require('cors');
+require('dotenv').config();
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+app.use(cors({
+  credentials: true,
+  origin: true,
+}));
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
-const app = express()
-const PORT =  process.env.PORT || 3001
+app.use('/', require('./routes/mainRouter'));
 
-app.use(morgan('dev'))
-app.use(express.json())
-
-app.listen(PORT,()=>console.log(`listening on port ${PORT}`))
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

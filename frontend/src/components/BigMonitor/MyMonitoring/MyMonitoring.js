@@ -18,19 +18,7 @@ export default function MyMonitoring({
   const fileName = `Мониторинг Строительства : ${new Date().toLocaleDateString()}`; // here enter filename for your excel file
   // console.log(dataExc);
   useEffect(() => {
-    const fetchData = () => {
-      axios.get('https://jsonplaceholder.typicode.com/posts').then((postData) => {
-        // reshaping the array Массив!!!
-        // console.log('!!!', postData);
-        // const customHeadings = postData.data.map((item) => ({
-        //   'Article Id': item.id,
-        //   'Article Title': item.title,
-        //   'Article body': item.body,
-        // }));
-        setData(dataExc);
-      });
-    };
-    fetchData();
+    setData(dataExc);
   }, []);
 
   const handlerHalf = () => {

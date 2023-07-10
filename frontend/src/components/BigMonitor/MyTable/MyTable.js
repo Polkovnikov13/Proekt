@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Table } from 'reactstrap';
 import MySchool from './MySchool';
 import './MyTable.css';
+import dataExc from '../MyMonitoring/MyExcel';
 
 export default function MyTable() {
   const [education, setEducation] = useState(false);
@@ -15,33 +16,34 @@ export default function MyTable() {
     }
     setEducation(!education);
   };
+  console.log('====>', dataExc[1].Всего);
   return (
     <Table className="my-down-table">
       <thead>
         <tr>
           <th>
-            Итого
+            {dataExc[1]['Группа объектов']}
           </th>
           <th>
-            9850
+            { dataExc[1].Всего}
           </th>
           <th style={{ color: 'blue' }}>
-            340
+            { dataExc[1]['Построенные ОКС1']}
           </th>
           <th>
-            2450
+            { dataExc[1]['Построенные ОКС2']}
           </th>
           <th style={{ color: 'red' }}>
-            452
+            { dataExc[1]['Построенные ОКС3']}
           </th>
           <th style={{ color: 'blue' }}>
-            2545
+            {dataExc[1]['Строящиеся ОКС1']}
           </th>
           <th>
-            5672
+            {dataExc[1]['Строящиеся ОКС2']}
           </th>
           <th style={{ color: 'red' }}>
-            85
+            {dataExc[1]['Строящиеся ОКС3']}
           </th>
         </tr>
       </thead>
