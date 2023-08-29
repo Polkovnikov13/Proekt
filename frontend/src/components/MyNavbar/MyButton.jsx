@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useState } from 'react';
 import {
   Button, Modal, ModalFooter, FormGroup, Label, Input, Form,
@@ -16,10 +15,6 @@ export default function MyButton({ changeHandler, input, setInput }) {
     });
     setModal(!modal);
   };
-  console.log(input, '<---');
-
-  // console.log(input);
-  // const changeHandler = useCallback((e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value })), []);
   return (
     <Form onSubmit={(e) => e.preventDefault()}>
       <Button color="primary" onClick={toggle}>

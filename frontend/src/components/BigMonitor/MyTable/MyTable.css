@@ -5,35 +5,35 @@ table tr th:not(:first-child) {
 
 .my-down-table th:nth-child(2),
 .my-down-table td:nth-child(2) {
-  transform: translateX(-215px);
+  transform: translateX(-290px);
 }
 
 .my-down-table th:nth-child(3),
 .my-down-table td:nth-child(3) {
-  transform: translateX(-195px);
+  transform: translateX(-275px);
 }
 
 .my-down-table th:nth-child(4),
 .my-down-table td:nth-child(4) {
-  transform: translateX(-160px);
+  transform: translateX(-260px);
 }
 
 .my-down-table th:nth-child(5),
 .my-down-table td:nth-child(5) {
-  transform: translateX(-142px);
+  transform: translateX(-202px);
 }
 
 .my-down-table th:nth-child(6),
 .my-down-table td:nth-child(6) {
-  transform: translateX(-95px);
+  transform: translateX(-125px);
 }
 
 .my-down-table th:nth-child(7),
 .my-down-table td:nth-child(7) {
-  transform: translateX(-78px);
+  transform: translateX(-111px);
 }
 
 .my-down-table th:nth-child(8),
 .my-down-table td:nth-child(8) {
-  transform: translateX(-60px);
+  transform: translateX(-50px);
 }

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
 import {
   Button, Modal, ModalBody, ModalFooter, ModalHeader,
@@ -5,26 +6,48 @@ import {
 import axios from 'axios';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { useSelector } from 'react-redux';
 import MyTable from '../MyTable/MyTable';
 import MyHeader from '../MyHeader/MyHeader';
 import { ExportToExcel } from './ExportToExcel.js';
-import dataExc from './MyExcel';
 import MyFilters from './MyFilters';
 
 export default function MyMonitoring({
   half, setHalf, input, changeHandler,
 }) {
+  const exampl = useSelector((state) => state.example.array1);
   const [data, setData] = React.useState([]);
-  const fileName = `Мониторинг Строительства : ${new Date().toLocaleDateString()}`; // here enter filename for your excel file
-  // console.log(dataExc);
+  const fileName = `Мониторинг Строительства : ${new Date().toLocaleDateString()}`; // here enter the filename for your excel file
   useEffect(() => {
-    setData(dataExc);
-  }, []);
+    console.log('exampl:', exampl);
+    console.log('exampl.length:', exampl && exampl.length);
+    if (exampl && exampl.length > 0) {
+      const updatedDataExc = exampl.flatMap((item, index) => {
+        const spaceObject = {
+          'Группа объектов': '', Всего: '', 'Построенные ОКС1': '', 'Построенные ОКС2': '', 'Построенные ОКС3': '', 'Строящиеся ОКС1': '', 'Строящиеся ОКС2': '', 'Строящиеся ОКС3': '',
+        };
+        const currentItem = {
+          'Группа объектов': item['Наименование Категории/Вид объект'],
+          Всего: item['2_Запланировано'],
+          'Построенные ОКС1': item['2_Построено'] || 'Loading...',
+          'Построенные ОКС2': 0,
+          'Построенные ОКС3': 0,
+          'Строящиеся ОКС1': item['2_Строится'] || 'Loading...',
+          'Строящиеся ОКС2': 0,
+          'Строящиеся ОКС3': 0,
+        };
+        if (item.Parent_ID === '') {
+          return [spaceObject, currentItem];
+        }
+        return currentItem;
+      });
+      setData(updatedDataExc);
+    }
+  }, [exampl]);
 
   const handlerHalf = () => {
     setHalf(!half);
   };
-  // console.log(half);
   return (
     <>
       <div style={{
@@ -37,7 +60,9 @@ export default function MyMonitoring({
         <div style={{ fontWeight: '900', fontSize: '22px' }}>Мониторинг Строительства</div>
 
         <div style={{ }}>
+          {exampl && exampl.length > 0 && (
           <ExportToExcel apiData={data} fileName={fileName} />
+          )}
           {' '}
           {' '}
           {' '}

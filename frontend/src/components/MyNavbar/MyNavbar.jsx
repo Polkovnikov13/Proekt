@@ -45,11 +45,11 @@ export default function MyNavbar({ input, changeHandler, setInput }) {
           <MyButton input={input} changeHandler={changeHandler} setInput={setInput} />
         </NavbarBrand>
         <NavbarBrand href="/">
-          <CardImg
+          {/* <CardImg
             className="avatar-list-container"
             alt="Avatar"
-            src="https://kvartira.sibir-monitoring.ru/img/user.png"
-          />
+            src="../../../photo/JP_05812.jpg"
+          /> */}
         </NavbarBrand>
       </div>
       <Collapse isOpen={isOpen} navbar className="justify-content-end">

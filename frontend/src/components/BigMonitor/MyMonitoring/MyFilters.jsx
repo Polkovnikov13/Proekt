@@ -16,7 +16,6 @@ export default function MyFilters({ input }) {
     const newArr = reasons.filter((el) => el.id !== num);
     setReasons(newArr);
   }
-  console.log(reasons);
   return (
     <div style={{
       display: 'flex', paddingTop: '12px', paddingBottom: '25px',
@@ -34,7 +33,6 @@ export default function MyFilters({ input }) {
           <Button style={{ }} color="black" outline onClick={() => changeHandler2(el.id)}>
             ☓
           </Button>
-
         </Button>
       ))}
     </div>

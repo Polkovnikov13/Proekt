@@ -2,17 +2,25 @@ import React, { useEffect, useState } from 'react';
 import {
   Button, Modal, ModalBody, ModalFooter, ModalHeader,
 } from 'reactstrap';
+import { useSelector } from 'react-redux';
 import style from './style.css';
 import districtByIso from './Subjects';
 import MyModalMap from './MyModalMap';
 
 export default function MyMap() {
+  const exampl2 = useSelector((state) => state.example.array2);
+  // const makeUniq = [...new Set(exampl2.map((el) => el.federal_district))];
+  // const districtByIso = {};
+  // exampl2.forEach((item) => {
+  //   const key = item.federal_district;
+  //   const value = item.region_short_name;
+  //   districtByIso[key] = value;
+  // });
   const [myMap, setMyMap] = useState(null);
   const [modal, setModal] = useState(false);
   const [name, setName] = useState('+');
   // const [districtName, setDistrictName] = useState('');
   const toggle = () => setModal(!modal);
-  // console.log(name);
   useEffect(() => {
     // eslint-disable-next-line no-undef
     ymaps.ready(() => {
@@ -50,14 +58,14 @@ export default function MyMap() {
       };
       // Зададим подсказки при наведении на федеральный округ.
       const districtsHints = {
-        cfo: 'ЦФО',
-        szfo: 'СЗФО',
-        yfo: 'ЮФО',
-        skfo: 'СКФО',
-        pfo: 'ПФО',
+        cfo: 'Центральный ФО',
+        szfo: 'Северо-Западный ФО',
+        yfo: 'Южный ФО',
+        skfo: 'Северо-Кавказский ФО',
+        pfo: 'Приволжский ФО',
         urfo: 'УрФО',
-        sfo: 'СФО',
-        dfo: 'ДФО',
+        sfo: 'Сибирский ФО',
+        dfo: 'Дальневосточный ФО',
       };
       // Создадим балун.
       // eslint-disable-next-line no-undef

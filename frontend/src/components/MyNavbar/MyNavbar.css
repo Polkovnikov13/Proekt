@@ -1,18 +1,22 @@
 .avatar-list-container{
+  font-family: 'Inter', sans-serif;
     height: 40px;
     width: 40px;
     border-radius: 50% dashed;
 }
 .text-list-container{
+  font-family: 'Inter', sans-serif;
     margin-left: 10px;
     font-weight: 500;
 }  
 .react-date-picker__wrapper {
+  font-family: 'Inter', sans-serif;
     border: 1px solid  #ced4da !important;
     border-radius: 5px ;
     height: 37px;
   }
   .navbar-toggler {
+    font-family: 'Inter', sans-serif;
     font-size: x-small !important;
     border: none !important;
     background-color: rgb(202, 202, 202) !important;

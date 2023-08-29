@@ -21,7 +21,7 @@ export default function MyDate() {
 
   const timeDiff = startDate && endDate && (endDate - startDate);
   const diffDays = startDate && endDate && (timeDiff / (1000 * 3600 * 24));
-  console.log(diffDays);
+  // if undefined null diffDays;
   return (
     <div className="rounded-datepicker">
       <DatePicker

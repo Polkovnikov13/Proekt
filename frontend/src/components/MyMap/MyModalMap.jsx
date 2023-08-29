@@ -6,7 +6,6 @@ import {
 export default function MyModalMap({ modal, setModal, name }) {
   // const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
-  console.log(name);
   return (
     <div>
       {/* <Button color="danger" onClick={toggle}>

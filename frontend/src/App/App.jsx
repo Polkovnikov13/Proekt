@@ -1,17 +1,22 @@
-/* eslint-disable max-len */
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button } from 'reactstrap';
+import { useDispatch } from 'react-redux';
 import MyNavbar from '../components/MyNavbar/MyNavbar';
 import MyMonitoring from '../components/BigMonitor/MyMonitoring/MyMonitoring';
 import MyGraficsUp from '../components/Grafics/MyGraficsUp/MyGraficsUp';
 import MyGraficsDown from '../components/Grafics/MyGraficsDown/MyGraficsDown';
 import MyMap from '../components/MyMap/MyMap';
 import BackToMap from '../components/MyMap/BackToMap';
-import MyClolors from '../components/Grafics/MyClolors';
+import MyCololors from '../components/Grafics/MyCololors';
 import './App.css';
-import CloseGrafics from './CloseGrafics';
+import { fetchExampleData } from '../redux/Slices/ExampleSlice';
+import SecondApp from './SecondApp';
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchExampleData());
+  }, [dispatch]);
   const str = '<';
   const str2 = '>';
   const [half, setHalf] = useState(false);
@@ -27,35 +32,15 @@ function App() {
       {grafHalf === false
         ? (
           <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              height: '880px',
-              backgroundColor: 'rgb(202, 202, 202)',
-              paddingTop: '11px',
-              paddingBottom: '11px',
-              paddingLeft: '1px',
-              paddingRight: '1px',
-            }}
+            className="div-Grafics"
           >
-
             <div
-              className="div-list-container"
-              style={{
-                width: '23%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'white', borderRadius: '15px 15px 0 15px', border: '6px solid rgb(202, 202, 202)', borderLeft: '8px', position: 'relative',
-              }}
+              className="div-grafics-first"
             >
               <MyGraficsUp />
               <MyGraficsDown />
-              <MyClolors />
-
-              <div style={{
-                position: 'absolute', top: '50%', right: '-2.2%', transform: 'translateY(-50%)', width: '9%', borderLeft: '5px solid rgb(202, 202, 202)', height: '100%', margin: 'auto', backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '0 15px 15px 0', textAlign: 'center', fontSize: '20px',
-              }}
-              >
+              <MyCololors />
+              <div className="div-left-to-grafics">
                 <Button style={{ backgroundColor: 'transparent', color: 'black', border: 'none' }} onClick={() => setGrafHalf(true)}>
                   {str}
                 </Button>
@@ -65,48 +50,25 @@ function App() {
             {half === false ? (
               <>
                 <div
-                  className="div-list-containerMonitor"
-                  style={{
-                    width: '75%',
-                    height: '49%',
-                    backgroundColor: 'white',
-                    borderRadius: '15px',
-                    border: '6px solid rgb(202, 202, 202)',
-                    marginBottom: '15px',
-                    // position: 'relative',
-                  }}
+                  className="div-list-containerMonitor-first"
                 >
                   <div className="my-section" style={{ height: '97.5%' }}>
                     <MyMonitoring half={half} setHalf={setHalf} input={input} style={{ paddingTop: '374px' }} />
                   </div>
                 </div>
                 <div
-                  className="div-list-container"
-                  style={{
-                    width: '74.5%',
-                    height: '49.0%',
-                    backgroundColor: 'white',
-                    borderRadius: '15px',
-                    border: '6px solid white',
-                  }}
+                  className="div-main-map"
                 >
-                  <div style={{
-                    borderRadius: '15px 15px 0 0', position: 'relative', width: '101%', top: '-0.5%', left: '-0.49%', backgroundColor: 'white', height: '5.5%', borderBottom: '5px solid rgb(202, 202, 202)', display: 'flex', justifyContent: 'center', alignItems: 'center',
-                  }}
-                  >
+                  <div className="div-upper-map">
                     <Button
                       size="sm"
-                      style={{
-                        backgroundColor: 'transparent', color: 'black', border: 'none',
-                      }}
-                      onClick={() => {
-                        setHalf(!half);
-                      }}
+                      style={{ backgroundColor: 'transparent', color: 'black', border: 'none' }}
+                      onClick={() => { setHalf(!half); }}
                     >
                       V
                     </Button>
                   </div>
-                  <div style={{ height: '95.8%' }}>
+                  <div style={{ height: '95.6%' }}>
                     <MyMap />
                   </div>
                 </div>
@@ -114,31 +76,14 @@ function App() {
             ) : (
               <>
                 <div
-                  className="div-list-containerMonitor"
-                  style={{
-                    width: '75%',
-                    height: '95%',
-                    padding: '15px',
-                    backgroundColor: 'white',
-                    borderRadius: '15px',
-                    border: '6px solid rgb(202, 202, 202)',
-                    overflowX: 'auto',
-                  }}
+                  className="div-list-containerMonitor-second"
                 >
                   <div className="my-section" style={{ height: '92.8%' }}>
                     <MyMonitoring half={half} setHalf={setHalf} input={input} />
                   </div>
                 </div>
                 <div
-                  className="div-list-container"
-                  style={{
-                    width: '75%',
-                    height: '5%',
-                    backgroundColor: 'white',
-                    textAlign: 'center',
-                    border: '4px solid rgb(202, 202, 202)',
-                    borderRadius: '15px',
-                  }}
+                  className="div-back-to-map"
                 >
                   <BackToMap half={half} setHalf={setHalf} />
                 </div>
@@ -146,7 +91,15 @@ function App() {
             )}
           </div>
         )
-        : <CloseGrafics input={input} half={half} setGrafHalf={setGrafHalf} setHalf={setHalf} str2={str2} />}
+        : (
+          <SecondApp
+            input={input}
+            half={half}
+            setGrafHalf={setGrafHalf}
+            setHalf={setHalf}
+            str2={str2}
+          />
+        )}
     </>
   );
 }
