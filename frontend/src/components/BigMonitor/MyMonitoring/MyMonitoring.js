@@ -19,8 +19,7 @@ export default function MyMonitoring({
   const [data, setData] = React.useState([]);
   const fileName = `Мониторинг Строительства : ${new Date().toLocaleDateString()}`; // here enter the filename for your excel file
   useEffect(() => {
-    console.log('exampl:', exampl);
-    console.log('exampl.length:', exampl && exampl.length);
+    // console.log('exampl.length:', exampl && exampl.length);
     if (exampl && exampl.length > 0) {
       const updatedDataExc = exampl.flatMap((item, index) => {
         const spaceObject = {

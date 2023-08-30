@@ -29,12 +29,6 @@ const Tmp = sequelize.define('oks_1_0', {
   "4_Региональный бюджет": {
     type: Sequelize.STRING,
   },
-  // "4_Софинансирование": {
-  //   type: Sequelize.STRING,
-  // },
-  // "4_Инвестиции": {
-  //   type: Sequelize.STRING,
-  // },
 }, {
   schema: 'oks_gdb',
   tableName: 'oks_1_0',
@@ -54,33 +48,15 @@ const Regions = sequelize.define('spr_region', {
   tableName: 'spr_region',
   timestamps: false,
 });
-
-// const Tmp = sequelize.define('oks_2_0', {
-//   "NAME": {
-//     type: Sequelize.INTEGER,
-//   },
-//   "Столица региона": {
-//     type: Sequelize.STRING,
-//   },
-//   "CODE_AKADEMIA": {
-//     type: Sequelize.STRING,
-//   },
-//   "Наименование Категории": {
-//     type: Sequelize.STRING,
-//   },
-// }, {
-//   schema: 'oks_gdb',
-//   tableName: 'oks_2_0',
-//   timestamps: false,
-// });
-
-// attributes: [ "NAME", "Столица региона","CODE_AKADEMIA",  "Наименование Категории"],
-
-router.get('/', async (req, res) => {
+router.get('/api/data', async (req, res) => {
   try {
+    console.log('Start BACKAND')
     const examples = await Tmp.findAll({
       raw: true,
-      attributes: [ "ID Категории/Вид объекта", "Parent_ID","Наименование Категории/Вид объект",  "2_Запланировано","2_Построено","2_Строится","4_Федеральный бюджет","4_Региональный бюджет"],
+      attributes: [ "ID Категории/Вид объекта", 
+      "Parent_ID","Наименование Категории/Вид объект", 
+       "2_Запланировано","2_Построено","2_Строится","4_Федеральный бюджет",
+       "4_Региональный бюджет"],
     });
     const examplesReg = await Regions.findAll({
       raw: true,
@@ -90,7 +66,7 @@ router.get('/', async (req, res) => {
       array2: examplesReg
     };
     res.json(data);
-     // console.log(data.array2)
+    // console.log(data.array1)
   } catch (error) {
     console.error('Error retrieving examples:', error.message);
     res.status(500).json({ error: 'Internal server error' });

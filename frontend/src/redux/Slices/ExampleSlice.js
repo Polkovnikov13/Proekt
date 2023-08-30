@@ -24,8 +24,10 @@ export const { setArray1, setArray2 } = exampleSlice.actions;
 export default exampleSlice.reducer;
 
 export const fetchExampleData = () => (dispatch) => {
-  axios.get('http://localhost:3001')
+  console.log('Fetching example data...');
+  axios.get(`${process.env.REACT_APP_BASEURL}/api/data`)
     .then((res) => {
+      console.log('Response from server:', res.data);
       dispatch(setArray1(res.data.array1));
       dispatch(setArray2(res.data.array2));
     })
