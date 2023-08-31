@@ -48,7 +48,7 @@ const Regions = sequelize.define('spr_region', {
   tableName: 'spr_region',
   timestamps: false,
 });
-router.get('https://polkovnikovdeveloper.ru/api/data', async (req, res) => {
+router.get('/api/data', async (req, res) => {
   try {
     console.log('Start BACKAND')
     const examples = await Tmp.findAll({
