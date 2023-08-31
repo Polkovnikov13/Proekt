@@ -19,6 +19,7 @@ export default function MyMap() {
   const [myMap, setMyMap] = useState(null);
   const [modal, setModal] = useState(false);
   const [name, setName] = useState('+');
+  // const [isLoading, setIsLoading] = useState(true);
   // const [districtName, setDistrictName] = useState('');
   const toggle = () => setModal(!modal);
   useEffect(() => {

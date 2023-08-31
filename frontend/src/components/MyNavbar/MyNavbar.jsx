@@ -9,7 +9,6 @@ import {
   NavItem,
   NavLink,
   Input,
-  CardImg,
 } from 'reactstrap';
 import MyButton from './MyButton';
 import MyDate from './MyDate';
@@ -55,10 +54,10 @@ export default function MyNavbar({ input, changeHandler, setInput }) {
       <Collapse isOpen={isOpen} navbar className="justify-content-end">
         <Nav className="me-auto" navbar>
           <NavItem>
-            <NavLink href="/">Выпадает Раз1</NavLink>
+            <NavLink href="/">Выпадает Раз</NavLink>
           </NavItem>
         </Nav>
-        <NavLink href="/">Выпадает Два1</NavLink>
+        <NavLink href="/">Выпадает Два</NavLink>
       </Collapse>
     </Navbar>
   );

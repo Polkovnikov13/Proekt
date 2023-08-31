@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   Button, Modal, ModalBody, ModalFooter, ModalHeader,
+  Spinner,
 } from 'reactstrap';
 import axios from 'axios';
 import * as FileSaver from 'file-saver';
@@ -17,6 +18,7 @@ export default function MyMonitoring({
 }) {
   const exampl = useSelector((state) => state.example.array1);
   const [data, setData] = React.useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const fileName = `Мониторинг Строительства : ${new Date().toLocaleDateString()}`; // here enter the filename for your excel file
   useEffect(() => {
     // console.log('exampl.length:', exampl && exampl.length);
@@ -41,6 +43,7 @@ export default function MyMonitoring({
         return currentItem;
       });
       setData(updatedDataExc);
+      setIsLoading(false);
     }
   }, [exampl]);
 
@@ -84,11 +87,19 @@ export default function MyMonitoring({
         <MyFilters input={input} changeHandler={changeHandler} />
         <MyHeader />
       </div>
-      <div style={{
-        padding: '1px 20px', marginTop: '-14px',
-      }}
-      >
-        <MyTable style={{ backdrop: 'blur(20px)' }} />
+      <div style={{ padding: '1px 20px', marginTop: '-14px' }}>
+        {isLoading ? (
+          <div style={{
+            display: 'flex', justifyContent: 'center', alignItems: 'center', height: '300px', marginTop: '-70px',
+          }}
+          >
+            <Spinner color="primary" style={{ height: '100px', width: '100px' }} />
+            {' '}
+            Загрузка...
+          </div>
+        ) : (
+          <MyTable style={{ backdrop: 'blur(20px)' }} />
+        )}
       </div>
     </>
   );
