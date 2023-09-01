@@ -60,6 +60,7 @@ router.get('/data', async (req, res) => {
     const examplesReg = await Regions.findAll({
       raw: true,
     });
+    res.setHeader('Content-Type', 'application/json');
     const data = {
       array1: examples,
       array2: examplesReg
