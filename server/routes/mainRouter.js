@@ -68,7 +68,7 @@ router.get('/data', async (req, res) => {
     res.json(data);
     // console.log(data.array1)
   } catch (error) {
-    console.error('Error retrieving examples:', error.message);
+    console.error('Error retrieving examples1:', error.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
