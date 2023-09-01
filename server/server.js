@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, './../frontend/build/')));
-app.use('/', require('./routes/mainRouter'));
+app.use('/api', require('./routes/mainRouter'));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './../frontend/build/index.html'));
