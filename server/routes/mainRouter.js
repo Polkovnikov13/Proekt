@@ -3,6 +3,7 @@ const { Sequelize } = require('sequelize');
 const sequelize = require("../db/db");
 
 const router = Router();
+
 const Tmp = sequelize.define('oks_1_0', {
   "ID Категории/Вид объекта": {
     type: Sequelize.INTEGER,
@@ -60,16 +61,14 @@ router.get('/data', async (req, res) => {
     const examplesReg = await Regions.findAll({
       raw: true,
     });
-    res.setHeader('Content-Type', 'application/json');
     const data = {
       array1: examples,
       array2: examplesReg
     };
-    console.log('Response to client:', JSON.stringify(data.array1[0]));
     res.json(data);
     // console.log(data.array1)
   } catch (error) {
-    console.error('Error retrieving examples1:', error.message);
+    console.error('Error retrieving examples:', error.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
