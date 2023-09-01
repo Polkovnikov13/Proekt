@@ -1,9 +1,10 @@
 const { Router } = require('express');
 const { Sequelize } = require('sequelize');
+const morgan = require('morgan');
 const sequelize = require("../db/db");
 
 const router = Router();
-
+app.use(morgan('dev'))
 const Tmp = sequelize.define('oks_1_0', {
   "ID Категории/Вид объекта": {
     type: Sequelize.INTEGER,
@@ -65,6 +66,7 @@ router.get('/api/data', async (req, res) => {
       array1: examples,
       array2: examplesReg
     };
+    console.log('Response to client:', JSON.stringify(data));
     res.json(data);
     // console.log(data.array1)
   } catch (error) {
