@@ -1,10 +1,8 @@
 const { Router } = require('express');
 const { Sequelize } = require('sequelize');
-const morgan = require('morgan');
 const sequelize = require("../db/db");
 
 const router = Router();
-app.use(morgan('dev'))
 const Tmp = sequelize.define('oks_1_0', {
   "ID Категории/Вид объекта": {
     type: Sequelize.INTEGER,
