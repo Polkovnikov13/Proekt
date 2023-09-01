@@ -64,7 +64,7 @@ router.get('/api/data', async (req, res) => {
       array1: examples,
       array2: examplesReg
     };
-    console.log('Response to client:', JSON.stringify(data));
+    console.log('Response to client:', JSON.stringify(data.array1[0]));
     res.json(data);
     // console.log(data.array1)
   } catch (error) {
