@@ -1,6 +1,4 @@
 const express = require('express');
-const https = require('https');
-const fs = require('fs')
 const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
@@ -17,19 +15,10 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, './../frontend/build/')));
-app.use('/all', require('./routes/mainRouter'));
+app.use('/api', require('./routes/mainRouter'));
 
-const sslCertPath = '/etc/letsencrypt/live/polkovnikovdeveloper.ru/fullchain.pem';
-const sslKeyPath = '/etc/letsencrypt/live/polkovnikovdeveloper.ru/privkey.pem';
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './../frontend/build/index.html'));
+});
 
-
-const httpsOptions = {
-  cert: fs.readFileSync(sslCertPath),
-  key: fs.readFileSync(sslKeyPath),
-};
-
-const httpsServer = https.createServer(httpsOptions, app);
-
-
-
-httpsServer.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
