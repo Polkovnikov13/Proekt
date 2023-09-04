@@ -24,12 +24,14 @@ export const { setArray1, setArray2 } = exampleSlice.actions;
 export default exampleSlice.reducer;
 
 export const fetchExampleData = () => (dispatch) => {
-  console.log('Fetching example data...');
-  axios.get(`${process.env.REACT_APP_BASEURL}/api/data`)
+  console.log('Fetching example data...', process.env.REACT_APP_BASEURL);
+  axios.get(`${process.env.REACT_APP_BASEURL}/all`)
     .then((res) => {
       console.log('Response from server:', res.data);
       dispatch(setArray1(res.data.array1));
       dispatch(setArray2(res.data.array2));
     })
-    .catch(console.log);
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+    });
 };
