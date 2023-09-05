@@ -1,5 +1,7 @@
-html {
+html, body {
   font-family: 'Inter', sans-serif;
+  height: 1010px; 
+  overflow: hidden;
 }
 
 .my-section {

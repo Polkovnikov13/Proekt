@@ -55,6 +55,13 @@ export default function MyButton({ changeHandler, input, setInput }) {
           >
             <option value="No">No</option>
             <option value="Северо-Западный ФО">Северо-Западный ФО</option>
+            <option value="Центральный ФО">Центральный ФО</option>
+            <option value="Южный ФО">Южный ФО</option>
+            <option value="Северо-Кавказский ФО">Северо-Кавказский ФО</option>
+            <option value="Приволжский ФО">Приволжский ФО</option>
+            <option value="Сибирский ФО">Сибирский ФО</option>
+            <option value="Дальневосточный ФО">Дальневосточный ФО</option>
+            <option value="Уральский ФО">Уральский ФО</option>
           </Input>
         </FormGroup>
         <FormGroup className="d-flex justify-content-between align-items-center">
@@ -85,6 +92,9 @@ export default function MyButton({ changeHandler, input, setInput }) {
           >
             <option value="false">No</option>
             <option value="Региональный бюджет">Региональный бюджет</option>
+            <option value="Федеральный бюджет">Федеральный бюджет</option>
+            <option value="Инвестиции">Инвестиции</option>
+            <option value="Софинансирование">Софинансирование</option>
           </Input>
         </FormGroup>
         <ModalFooter className="d-flex justify-content-between">

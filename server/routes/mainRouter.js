@@ -48,9 +48,31 @@ const Regions = sequelize.define('spr_region', {
   tableName: 'spr_region',
   timestamps: false,
 });
+
+// const newTarget = sequelize.define('oks_2_0',{
+//   "Столица региона" : {
+//     type: Sequelize.STRING,
+//   },
+//   "Наименование Категории" : {
+//     type: Sequelize.STRING,
+//   },
+//   "IMG" : {
+//     type: Sequelize.STRING,
+//   },
+// },{
+//     schema: 'oks_gdb',
+//     tableName: 'oks_2_0',
+//     timestamps: false,
+// });
+// console.log('back ===>',newTarget)
+// const examples2 =  newTarget.findAll({
+//   raw: true,
+//   attributes: [ "Столица региона" ,"Наименование Категории","IMG"]
+// });
+// console.log(examples2.then(res => console.log(res)))
+
 router.get('/v1', async (req, res) => {
   try {
-    console.log('Start BACKAND')
     const examples = await Tmp.findAll({
       raw: true,
       attributes: [ "ID Категории/Вид объекта", 
@@ -63,10 +85,9 @@ router.get('/v1', async (req, res) => {
     });
     const data = {
       array1: examples,
-      array2: examplesReg
+      array2: examplesReg,
     };
     res.json(data);
-    console.log(data.array1[0])
   } catch (error) {
     console.error('Error retrieving examples:', error.message);
     res.status(500).json({ error: 'Internal server error' });
