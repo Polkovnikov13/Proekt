@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import {
   Button, Modal, ModalBody, ModalFooter, ModalHeader,
 } from 'reactstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import style from './style.css';
 import districtByIso from './Subjects';
 import MyModalMap from './MyModalMap';
+import { setMapName } from '../../redux/Slices/mapSlice';
 
 export default function MyMap() {
   const exampl2 = useSelector((state) => state.example.array2);
+  const mapiName = useSelector((state) => state.mapSlice);
+  const dispatch = useDispatch();
   // const makeUniq = [...new Set(exampl2.map((el) => el.federal_district))];
   // const districtByIso = {};
   // exampl2.forEach((item) => {
@@ -64,7 +67,7 @@ export default function MyMap() {
         yfo: 'Южный ФО',
         skfo: 'Северо-Кавказский ФО',
         pfo: 'Приволжский ФО',
-        urfo: 'УрФО',
+        urfo: 'Уральский ФО',
         sfo: 'Сибирский ФО',
         dfo: 'Дальневосточный ФО',
       };
@@ -132,6 +135,7 @@ export default function MyMap() {
             const target = event.get('target');
             const district = target.getParent();
             setName(districtsHints[districtName]);
+            dispatch(setMapName(districtsHints[districtName]));
             // Если на карте выделен федеральный округ, то мы снимаем с него выделение.
             if (highlightedDistrict) {
               highlightedDistrict.options.set({ fillOpacity: 0.3 });

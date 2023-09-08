@@ -11,11 +11,13 @@ import { useSelector } from 'react-redux';
 
 export default function MyGraficsUp() {
   const exampl = useSelector((state) => state.example.array1);
+  const firstTable = exampl.filter((obj) => obj.NAME === 'Российская Федерация' && obj['ID Подкатегории'] === '' && obj['Наименование Категории'] === 'Все категории');
+  // console.log('!!!', firstTable);
   const res = [];
   if (exampl && exampl[0]) {
     res.push(
-      `Построено: ${exampl[0]['2_Построено']}                                              `,
-      `Строится : ${exampl[0]['2_Строится']}`,
+      `Построено: ${firstTable[0]['1_Построено']}                                              `,
+      `Строится : ${firstTable[0]['1_Строительство']}`,
     );
   }
   const arrFromBD = [985, 9850, 5000, 2500];
@@ -127,8 +129,8 @@ export default function MyGraficsUp() {
             border: '1px solid grey', color: 'grey', borderRadius: '15px',
           }}
         >
-          {exampl && exampl[0]
-            ? (exampl[0]['2_Запланировано']) : null }
+          {firstTable && firstTable[0]
+            ? (firstTable[0]['1_Всего']) : null }
           {'    '}
           шт
 

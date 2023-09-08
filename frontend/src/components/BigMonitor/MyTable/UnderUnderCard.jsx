@@ -8,28 +8,27 @@ export default function UnderUnderCard({ oneUnderUnderCard }) {
           &nbsp;
           &nbsp;
           &nbsp;
-        {oneUnderUnderCard['Наименование Категории/Вид объект']}
+        {(oneUnderUnderCard['Наименование ПодКатегории']).slice(0, 27)}
       </td>
       <td>
-        {oneUnderUnderCard['2_Запланировано']}
+        {oneUnderUnderCard['1_Всего']}
       </td>
       <td style={{ color: 'blue' }}>
-        {oneUnderUnderCard['2_Построено']}
-        {0}
+        {oneUnderUnderCard['1_Построено']}
       </td>
       <td>
         {0}
       </td>
       <td style={{ color: 'red' }}>
-        {oneUnderUnderCard['2_Строится']}
+        {0}
       </td>
       <td style={{ color: 'blue' }}>
-        {0}
+        {oneUnderUnderCard['1_Строительство']}
       </td>
       <td>
         {0}
       </td>
-      <td style={{ color: 'red' }}>
+      <td>
         {0}
       </td>
     </tr>

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Button, Modal, ModalFooter, FormGroup, Label, Input, Form,
 } from 'reactstrap';
+import { setMapName } from '../../redux/Slices/mapSlice';
 
 export default function MyButton({ changeHandler, input, setInput }) {
+  const mapiName = useSelector((state) => state.mapSlice);
+  const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const toggle = (e) => {
     e.preventDefault();
@@ -11,7 +15,7 @@ export default function MyButton({ changeHandler, input, setInput }) {
   };
   const clearHandler = () => {
     setInput({
-      money: '1', region: '1', role: '1', finance: '1',
+      money: '1', region: 'Российская Федерация', role: '1', finance: '1',
     });
     setModal(!modal);
   };
@@ -52,8 +56,9 @@ export default function MyButton({ changeHandler, input, setInput }) {
             name="region"
             placeholder="трл. руб"
             onChange={changeHandler}
+            onClick={() => dispatch(setMapName(input.region))}
           >
-            <option value="No">No</option>
+            <option value="Рoссийская Федерация">No</option>
             <option value="Северо-Западный ФО">Северо-Западный ФО</option>
             <option value="Центральный ФО">Центральный ФО</option>
             <option value="Южный ФО">Южный ФО</option>

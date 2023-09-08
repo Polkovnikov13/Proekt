@@ -3,9 +3,8 @@ import { Button } from 'reactstrap';
 import OneUnderCard from './OneUnderCard';
 
 export default function OneCard({
-  oneCard,
+  oneCard, targetMap,
 }) {
-  // console.log(oneCard);
   const [education, setEducation] = useState(false);
   const [galochka, setGalochka] = useState('>');
   const changeHandler = (e) => {
@@ -29,13 +28,13 @@ export default function OneCard({
             {galochka}
           </Button>
 
-          {oneCard['Наименование Категории/Вид объект']}
+          {oneCard['Наименование Категории']}
         </th>
         <td>
-          {oneCard['2_Запланировано']}
+          {oneCard['1_Всего']}
         </td>
         <td style={{ color: 'blue' }}>
-          {oneCard['2_Построено']}
+          {oneCard['1_Построено']}
         </td>
         <td>
           {0}
@@ -44,7 +43,7 @@ export default function OneCard({
           {0}
         </td>
         <td style={{ color: 'blue' }}>
-          {oneCard['2_Строится']}
+          {oneCard['1_Строительство']}
         </td>
         <td>
           {0}
@@ -53,7 +52,7 @@ export default function OneCard({
           {0}
         </td>
       </tr>
-      {education === false ? null : <OneUnderCard key={oneCard.id} underCard={oneCard['ID Категории/Вид объекта']} />}
+      {education === false ? null : <OneUnderCard key={oneCard['ID Подкатегории']} underCard={oneCard['Наименование Категории']} targetMap={targetMap} />}
     </>
   );
 }

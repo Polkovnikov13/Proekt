@@ -17,35 +17,61 @@ export default function MyMonitoring({
   half, setHalf, input, changeHandler,
 }) {
   const exampl = useSelector((state) => state.example.array1);
+  const mapiName = useSelector((state) => state.mapSlice);
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const fileName = `Мониторинг Строительства : ${new Date().toLocaleDateString()}`; // here enter the filename for your excel file
+  const filteredArr = exampl.filter((obj) => obj.NAME === mapiName);
+  filteredArr.sort((a, b) => a['ID Категории'] - b['ID Категории']);
   useEffect(() => {
-    // console.log('exampl.length:', exampl && exampl.length);
     if (exampl && exampl.length > 0) {
-      const updatedDataExc = exampl.flatMap((item, index) => {
-        const spaceObject = {
-          'Группа объектов': '', Всего: '', 'Построенные ОКС1': '', 'Построенные ОКС2': '', 'Построенные ОКС3': '', 'Строящиеся ОКС1': '', 'Строящиеся ОКС2': '', 'Строящиеся ОКС3': '',
-        };
-        const currentItem = {
-          'Группа объектов': item['Наименование Категории/Вид объект'],
-          Всего: item['2_Запланировано'],
-          'Построенные ОКС1': item['2_Построено'] || 'Loading...',
-          'Построенные ОКС2': 0,
-          'Построенные ОКС3': 0,
-          'Строящиеся ОКС1': item['2_Строится'] || 'Loading...',
-          'Строящиеся ОКС2': 0,
-          'Строящиеся ОКС3': 0,
-        };
-        if (item.Parent_ID === '') {
-          return [spaceObject, currentItem];
+      const updatedDataExc = [];
+      const categoryMap = new Map();
+      filteredArr.forEach((item, index) => {
+        const categoryName = item['Наименование Категории'];
+        let subcategoryName = item['Наименование ПодКатегории'];
+        if (!subcategoryName) {
+          subcategoryName = categoryName;
         }
-        return currentItem;
+        if (!categoryMap.has(categoryName)) {
+          categoryMap.set(categoryName, new Map());
+        }
+        const subcategoryMap = categoryMap.get(categoryName);
+
+        if (!subcategoryMap.has(subcategoryName)) {
+          subcategoryMap.set(subcategoryName, {
+            Subcategory: subcategoryName,
+            Всего: 0,
+            'Построенные ОКС1': 0,
+            'Построенные ОКС2': 0,
+            'Построенные ОКС3': 0,
+            'Строящиеся ОКС1': 0,
+            'Строящиеся ОКС2': 0,
+            'Строящиеся ОКС3': 0,
+          });
+        }
+
+        const subcategoryData = subcategoryMap.get(subcategoryName);
+        subcategoryData['Всего'] += +item['1_Всего'];
+        subcategoryData['Построенные ОКС1'] += +item['1_Построено'] || 0;
+        subcategoryData['Строящиеся ОКС1'] += +item['1_Строительство'] || 0;
+
+        // Check if it's the first item in the array or if the category has changed
+        if (index === 0 || item['Наименование Категории'] !== filteredArr[index - 1]['Наименование Категории']) {
+          updatedDataExc.push({}); // Add an empty object as a separator
+        }
+
+        updatedDataExc.push(subcategoryData);
       });
+
+      console.log(updatedDataExc);
+
+      // Now, updatedDataExc should contain separators only when a new category is encountered
+
       setData(updatedDataExc);
       setIsLoading(false);
     }
-  }, [exampl]);
+  }, [exampl, mapiName]);
 
   const handlerHalf = () => {
     setHalf(!half);

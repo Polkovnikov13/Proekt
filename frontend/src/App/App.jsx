@@ -22,7 +22,7 @@ function App() {
   const [half, setHalf] = useState(false);
   const [grafHalf, setGrafHalf] = useState(false);
   const [input, setInput] = useState({
-    money: '1', region: '1', role: '1', finance: '1',
+    money: '1', region: 'Российская Федерация', role: '1', finance: '1',
   });
   // eslint-disable-next-line max-len
   const changeHandler = useCallback((e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value })), []);
