@@ -1,10 +1,23 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col,
 } from 'reactstrap';
 
 export default function MyModalMap({ modal, setModal, name }) {
-  // const [modal, setModal] = useState(false);
+  const exampl = useSelector((state) => state.example.array1);
+  // console.log(exampl);
+  const mapiName = useSelector((state) => state.mapSlice);
+  const targetMap = exampl.filter((oneReg) => {
+    if (mapiName && mapiName !== 'Российская Федерация') {
+      return oneReg.NAME === mapiName;
+    }
+    return oneReg.NAME === 'Российская Федерация';
+  });
+  // console.log(targetMap);
+  const firstTable = targetMap.filter((obj) => obj['ID Подкатегории'] === '' && obj['Наименование Категории'] === 'Все категории');
+  // console.log(filteredArr);
+  // console.log(firstTable);
   const toggle = () => setModal(!modal);
   return (
     <div>
@@ -17,11 +30,14 @@ export default function MyModalMap({ modal, setModal, name }) {
         <ModalBody>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <p>Построено  объектов:</p>
-            <p>2045</p>
+            <p>
+              {' '}
+              { firstTable && firstTable[0] ? firstTable[0]['1_Построено'] : null}
+            </p>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <p>Запланировано:</p>
-            <p>5246</p>
+            <p>{ firstTable && firstTable[0] ? firstTable[0]['1_Строительство'] : null}</p>
           </div>
         </ModalBody>
         <ModalFooter>
