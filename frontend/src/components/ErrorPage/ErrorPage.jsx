@@ -1,15 +1,28 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import {
+  Button, Col, Container, Row,
+} from 'reactstrap';
 
 function ErrorPage() {
   return (
-    <div>
-      <h1>Такой странички не существует</h1>
-      <Button component={NavLink} to="/check" variant="filled">
-        Вернуться на главную
-      </Button>
-    </div>
+    <Container style={{ marginTop: '90px' }}>
+      <Row className="justify-content-center">
+        <Col xs="12" md="6">
+          <div className="text-center">
+            {' '}
+            {' '}
+            {' '}
+            <h1>Такой страницы не существует</h1>
+            <NavLink className="nav-link" to="/">
+              <Button type="button" className="btn btn-primary">
+                Вернуться на стартовую страницу
+              </Button>
+            </NavLink>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

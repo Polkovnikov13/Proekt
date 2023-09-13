@@ -6,7 +6,6 @@ import {
 
 export default function MyModalMap({ modal, setModal, name }) {
   const exampl = useSelector((state) => state.example.array1);
-  // console.log(exampl);
   const mapiName = useSelector((state) => state.mapSlice);
   const targetMap = exampl.filter((oneReg) => {
     if (mapiName && mapiName !== 'Российская Федерация') {
@@ -14,10 +13,7 @@ export default function MyModalMap({ modal, setModal, name }) {
     }
     return oneReg.NAME === 'Российская Федерация';
   });
-  // console.log(targetMap);
   const firstTable = targetMap.filter((obj) => obj['ID Подкатегории'] === '' && obj['Наименование Категории'] === 'Все категории');
-  // console.log(filteredArr);
-  // console.log(firstTable);
   const toggle = () => setModal(!modal);
   return (
     <div>

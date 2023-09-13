@@ -20,8 +20,6 @@ export default function MyGraficsUp() {
       Number(exampl[0]['4_Инвестиции']),
     );
   }
-
-  // const arrFromBD = [985, 9850, 5000, 2500];
   ChartJS.register(ArcElement, Tooltip, Legend);
   const data = {
     labels: ['Израсходованоо: 5,51 трл Р ', 'Законтактовано :36,75 трл Р'],
@@ -113,7 +111,7 @@ export default function MyGraficsUp() {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'start',
-      height: '90%', // Добавляем высоту для родительского div
+      height: '90%',
     }}
     >
       <div style={{
@@ -138,12 +136,11 @@ export default function MyGraficsUp() {
       <div style={{
         width: '95%',
         flexGrow: 0,
-        height: '92%', // Добавляем высоту для дочернего div
+        height: '92%',
       }}
       >
         <div style={{ height: '92%' }}>
           {' '}
-          {/* Добавляем новый div для установки высоты графика */}
           <Doughnut
             data={data}
             options={{
@@ -158,8 +155,8 @@ export default function MyGraficsUp() {
                     boxWidth: 10,
                     fontStyle: 'bold',
                     align: 'end',
-                    padding: 15, // что переноса легенд на новою строчку
-                    maxWidth: 100, // что переноса легенд на новою строчку
+                    padding: 15,
+                    maxWidth: 100,
                   },
                 },
               },
@@ -167,9 +164,7 @@ export default function MyGraficsUp() {
             plugins={[textCenter, sliceThickness]}
           />
         </div>
-
       </div>
     </div>
-
   );
 }

@@ -63,11 +63,6 @@ export default function MyMonitoring({
 
         updatedDataExc.push(subcategoryData);
       });
-
-      console.log(updatedDataExc);
-
-      // Now, updatedDataExc should contain separators only when a new category is encountered
-
       setData(updatedDataExc);
       setIsLoading(false);
     }

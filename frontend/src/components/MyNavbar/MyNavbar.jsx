@@ -9,14 +9,18 @@ import {
   NavItem,
   NavLink,
   Input,
+  Button,
 } from 'reactstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import MyButton from './MyButton';
 import MyDate from './MyDate';
+import { logoutUserAsync } from '../../redux/actions/userActions';
 
 export default function MyNavbar({ input, changeHandler, setInput }) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   return (
     <Navbar>
       <div style={{ display: 'flex' }}>
@@ -43,6 +47,11 @@ export default function MyNavbar({ input, changeHandler, setInput }) {
         <NavbarBrand href="/">
           <MyButton input={input} changeHandler={changeHandler} setInput={setInput} />
         </NavbarBrand>
+        {user.id && (
+        <NavbarBrand>
+          <Button color="danger" onClick={() => dispatch(logoutUserAsync())} className="logout-button">Выйти</Button>
+        </NavbarBrand>
+        )}
         <NavbarBrand href="/">
           {/* <CardImg
             className="avatar-list-container"

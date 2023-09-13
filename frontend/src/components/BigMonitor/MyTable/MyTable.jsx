@@ -8,26 +8,18 @@ import OneCard from './OneCard';
 export default function MyTable() {
   // const exampl = useSelector((state) => state.example.array1);
   const exampl = useSelector((state) => state.example.array1);
-  // console.log(exampl);
   const mapiName = useSelector((state) => state.mapSlice);
-  // console.log('from MyTable==>', mapiName);
   if (!exampl) {
-    // Handle the case when exampl is undefined or null
     return null; // or render a loading state or an error message
   }
-
-  // const firstChapter = exampl.filter((el) => el['Наименование Категории'] === 'Все категории');
   const targetMap = exampl.filter((oneReg) => {
     if (mapiName && mapiName !== 'Российская Федерация') {
       return oneReg.NAME === mapiName;
     }
     return oneReg.NAME === 'Российская Федерация';
   });
-  // console.log(targetMap);
   const filteredArr = targetMap.filter((obj) => obj['ID Подкатегории'] === '' && obj['Наименование Категории'] !== 'Все категории');
   const firstTable = targetMap.filter((obj) => obj['ID Подкатегории'] === '' && obj['Наименование Категории'] === 'Все категории');
-  // console.log(filteredArr);
-  // console.log(firstTable);
   return (
     <Table className="my-down-table">
       <thead>

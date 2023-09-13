@@ -45,13 +45,12 @@ router.get('/v1', async (req, res) => {
   //       "NAME" : "Российская Федерация"
   //     }
   //   });
-  //  console.log(examples.filter((el) => el['Наименование Категории'] === 'Все категории'))
+  // console.log(examples.filter((el) => el['Наименование Категории'] === 'Все категории'))
    const examples = await AllData.findAll({
     raw: true,
     attributes: ["NAME",  "Наименование Категории", "Наименование ПодКатегории",
     "1_Всего","1_Строительство" ,"1_Построено" , "ID Подкатегории",'ID Категории'],
   });
-  // console.log(examples.filter((el) => el['Наименование Категории'] === 'Все категории'))
     const data = {
       array1: examples,
     };

@@ -1,4 +1,3 @@
-﻿import React from 'react';
 import { Button } from 'reactstrap';
 import MyMonitoring from '../components/BigMonitor/MyMonitoring/MyMonitoring';
 import MyGraficsUp from '../components/Grafics/MyGraficsUp/MyGraficsUp';
@@ -9,8 +8,7 @@ import MyCololors from '../components/Grafics/MyCololors';
 import SecondApp from './SecondApp';
 
 export default function FirstApp({
-  setHalf, setGrafHalf,
-  grafHalf, str, str2, half, input,
+  setHalf, setGrafHalf, grafHalf, str, str2, half, input,
 }) {
   return (
     <div>

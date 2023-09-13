@@ -12,7 +12,6 @@ import { useSelector } from 'react-redux';
 export default function MyGraficsUp() {
   const exampl = useSelector((state) => state.example.array1);
   const firstTable = exampl.filter((obj) => obj.NAME === 'Российская Федерация' && obj['ID Подкатегории'] === '' && obj['Наименование Категории'] === 'Все категории');
-  // console.log('!!!', firstTable);
   const res = [];
   if (exampl && exampl[0]) {
     res.push(
@@ -112,11 +111,12 @@ export default function MyGraficsUp() {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'start',
-      height: '100%', // Добавляем высоту для родительского div
+      height: '100%',
+      marginBottom: '-5px',
     }}
     >
       <div style={{
-        fontWeight: '900', fontSize: '22px', marginRight: '55px',
+        fontWeight: '900', fontSize: '22px', marginRight: '55px', marginTop: '30px',
       }}
       >
 &nbsp;
@@ -142,12 +142,11 @@ export default function MyGraficsUp() {
       <div style={{
         width: '95%',
         flexGrow: 0,
-        height: '92%', // Добавляем высоту для дочернего div
+        height: '92%',
       }}
       >
-        <div style={{ height: '90%' }}>
+        <div style={{ height: '99%', marginTop: '-20px' }}>
           {' '}
-          {/* Добавляем новый div для установки высоты графика */}
           <Doughnut
             data={data}
             options={{
@@ -162,8 +161,8 @@ export default function MyGraficsUp() {
                     boxWidth: 10,
                     fontStyle: 'bold',
                     align: 'end',
-                    padding: 15, // что переноса легенд на новою строчку
-                    maxWidth: 100, // что переноса легенд на новою строчку
+                    padding: 15,
+                    maxWidth: 100,
                   },
                 },
               },

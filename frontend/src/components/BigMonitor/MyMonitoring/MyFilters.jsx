@@ -5,8 +5,6 @@ import { setMapName } from '../../../redux/Slices/mapSlice';
 
 export default function MyFilters({ input }) {
   const [reasons, setReasons] = useState([]);
-  // console.log(reasons);
-
   const mapiName = useSelector((state) => state.mapSlice);
   const dispatch = useDispatch();
   useEffect(() => {
