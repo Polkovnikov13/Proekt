@@ -7,9 +7,7 @@ import './VideoPage.css';
 export default function VideoPage() {
   const dispatch = useDispatch();
   const video = useSelector((state) => state.video);
-  console.log(video);
   const { id } = useParams();
-  console.log(id);
   useEffect(() => {
     if (!video.length) {
       dispatch(fetchCameraDataID(id));

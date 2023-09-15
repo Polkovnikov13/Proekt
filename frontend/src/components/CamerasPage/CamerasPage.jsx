@@ -14,10 +14,9 @@ export default function CameraPage() {
   const itemsPerPage = 12;
 
   useEffect(() => {
-    console.log('camera state:', camera); // Add this line
-    if (!camera.length) {
-      dispatch(fetchCameraData());
-    }
+    console.log('camera state:', camera, camera.length, !camera.length); // Add this line
+    // if (!camera.length) {
+    dispatch(fetchCameraData());
   }, []);
 
   // Calculate the range of cameras to display on the current page
@@ -29,7 +28,9 @@ export default function CameraPage() {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
+  if (!camera.length) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="camera-container">
       {currentCameras.map((el) => (
