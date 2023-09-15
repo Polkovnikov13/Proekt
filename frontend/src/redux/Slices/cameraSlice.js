@@ -21,6 +21,7 @@ export const fetchCameraData = () => (dispatch) => {
   axios.get(`${process.env.REACT_APP_BASEURL}/api/camera`)
     .then((res) => {
       dispatch(setCamera(res.data));
+      console.log(res.data);
     })
     .catch(console.log);
 };
