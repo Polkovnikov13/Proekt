@@ -20,6 +20,12 @@ export default function CameraPage() {
     }
   }, []);
 
+  useEffect(() => {
+    console.log('Component is re-rendering');
+    console.log('camera state:', camera);
+    // Rest of your useEffect code
+  }, [camera]);
+
   // Calculate the range of cameras to display on the current page
   const indexOfLastCamera = currentPage * itemsPerPage;
   const indexOfFirstCamera = indexOfLastCamera - itemsPerPage;
