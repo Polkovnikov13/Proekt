@@ -22,6 +22,7 @@ export const fetchCameraData = () => (dispatch) => {
     .then((res) => {
       dispatch(setCamera(res.data));
       console.log(res.data);
-    })
-    .catch(console.log);
+    }).catch((error) => {
+      console.error('Error:', error.response); // Log the error response
+    });
 };
