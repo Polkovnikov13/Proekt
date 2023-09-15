@@ -9,7 +9,6 @@ export default function OneCamera({ OneCamera }) {
   const { id } = useParams();
   const clinkHandler = (id) => {
     navigate(`${id}`);
-    console.log(id);
   };
   return (
     <div>

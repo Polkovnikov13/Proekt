@@ -8,24 +8,17 @@ import './VideoPage.css';
 export default function CameraPage() {
   const dispatch = useDispatch();
   const camera = useSelector((state) => state.camera);
-  console.log(camera);
-  // State variables for pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
-
   useEffect(() => {
-    console.log('camera state:', camera, camera.length, !camera.length); // Add this line
     if (!camera.length) {
       dispatch(fetchCameraData());
     }
   }, []);
-
-  // Calculate the range of cameras to display on the current page
   const indexOfLastCamera = currentPage * itemsPerPage;
   const indexOfFirstCamera = indexOfLastCamera - itemsPerPage;
   const currentCameras = camera.slice(indexOfFirstCamera, indexOfLastCamera);
-  console.log(currentCameras);
-  // Function to handle page change
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -42,13 +35,12 @@ export default function CameraPage() {
         <div>No cameras to display.</div>
       )}
 
-      {/* Pagination buttons */}
       <div className="pagination">
         {Array(Math.ceil(camera.length / itemsPerPage))
           .fill(null)
           .map((_, index) => (
             <Button
-              key={`page-${index + 1}`} // Use a unique key
+              key={`page-${index + 1}`}
               onClick={() => handlePageChange(index + 1)}
               className={index + 1 === currentPage ? 'active' : ''}
             >

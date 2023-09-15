@@ -21,7 +21,6 @@ export const fetchCameraData = () => (dispatch) => {
   axios.get(`${process.env.REACT_APP_BASEURL}/api/camera`)
     .then((res) => {
       dispatch(setCamera(res.data));
-      console.log(res.data);
     }).catch((error) => {
       console.error('Error:', error.response); // Log the error response
     });
