@@ -8,13 +8,13 @@ import './VideoPage.css';
 export default function CameraPage() {
   const dispatch = useDispatch();
   const camera = useSelector((state) => state.camera);
-
+  console.log(camera);
   // State variables for pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
   useEffect(() => {
-  // console.log('camera state:', camera, camera.length, !camera.length); // Add this line
+    console.log('camera state:', camera, camera.length, !camera.length); // Add this line
     if (!camera.length) {
       dispatch(fetchCameraData());
     }
