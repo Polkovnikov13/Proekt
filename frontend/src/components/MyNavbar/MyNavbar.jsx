@@ -63,10 +63,10 @@ export default function MyNavbar({ input, changeHandler, setInput }) {
       <Collapse isOpen={isOpen} navbar className="justify-content-end">
         <Nav className="me-auto" navbar>
           <NavItem>
-            <NavLink href="/">Выпадает Раз</NavLink>
+            <NavLink href="/camera">Все Камеры</NavLink>
           </NavItem>
         </Nav>
-        <NavLink href="/">Выпадает Два</NavLink>
+        <NavLink href="/">Стартовая</NavLink>
       </Collapse>
     </Navbar>
   );

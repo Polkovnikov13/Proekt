@@ -10,6 +10,9 @@ import ProtectedRoute from '../HOCs/ProtectedRoute';
 import AuthPage from '../components/AuthPage/AuthPage';
 import { checkAuth } from '../redux/actions/userActions';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
+import CameraPage from '../components/CamerasPage';
+import OneCamera from '../components/CamerasPage/OneCamera';
+import VideoPage from '../components/CamerasPage/VideoPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -49,6 +52,12 @@ function App() {
               />
 )}
           />
+          {user.id && (
+          <>
+            <Route path="/camera" element={<CameraPage />} />
+            <Route path="/camera/:id" element={<VideoPage />} />
+          </>
+          )}
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
