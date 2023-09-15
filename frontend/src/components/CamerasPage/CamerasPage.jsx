@@ -14,6 +14,7 @@ export default function CameraPage() {
   const itemsPerPage = 12;
 
   useEffect(() => {
+    console.log('camera state:', camera); // Add this line
     if (!camera.length) {
       dispatch(fetchCameraData());
     }
