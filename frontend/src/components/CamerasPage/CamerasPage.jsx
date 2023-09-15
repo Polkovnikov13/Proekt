@@ -14,16 +14,17 @@ export default function CameraPage() {
   const itemsPerPage = 12;
 
   useEffect(() => {
-    console.log('camera state:', camera, camera.length, !camera.length); // Add this line
-    // if (!camera.length) {
-    dispatch(fetchCameraData());
+  // console.log('camera state:', camera, camera.length, !camera.length); // Add this line
+    if (!camera.length) {
+      dispatch(fetchCameraData());
+    }
   }, []);
 
   // Calculate the range of cameras to display on the current page
   const indexOfLastCamera = currentPage * itemsPerPage;
   const indexOfFirstCamera = indexOfLastCamera - itemsPerPage;
   const currentCameras = camera.slice(indexOfFirstCamera, indexOfLastCamera);
-
+  console.log(currentCameras);
   // Function to handle page change
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -33,9 +34,13 @@ export default function CameraPage() {
   }
   return (
     <div className="camera-container">
-      {currentCameras.map((el) => (
-        <OneCamera OneCamera={el} key={el.id} />
-      ))}
+      {Array.isArray(currentCameras) && currentCameras.length > 0 ? (
+        currentCameras.map((el) => (
+          <OneCamera OneCamera={el} key={el.id} />
+        ))
+      ) : (
+        <div>No cameras to display.</div>
+      )}
 
       {/* Pagination buttons */}
       <div className="pagination">
