@@ -71,13 +71,13 @@ router.post('/:id', async (req, res) => {
     if (requestBody.message === 'Видео проигрывается') {
       // Обновление статуса камеры на "Видео проигрывается"
       await AllCameras.update(
-        { "Статус камеры": "1+" },
+        { "Статус камеры": "1" },
         { where: { id } }
       );
       res.status(200).json({ message: 'Статус камеры обновлен' });
     } else if (requestBody.message === 'Видео НЕ проигрывается') {
       await AllCameras.update(
-        { "Статус камеры": "0+" },
+        { "Статус камеры": "0" },
         { where: { id } }
       );
       res.status(200).json({ message: 'Статус камеры обновлен' });
