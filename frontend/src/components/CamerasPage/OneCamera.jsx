@@ -4,7 +4,7 @@ import {
   Button, Card, CardText, CardTitle,
 } from 'reactstrap';
 
-export default function OneCamera({ OneCamera }) {
+export default function OneCamera({ ids, OneCamera }) {
   const navigate = useNavigate();
   const { id } = useParams();
   const clinkHandler = (id) => {

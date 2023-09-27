@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Проверка воспроизведения видео</title>
+</head>
+<body>
+    <video id="videoPlayer" controls>
+        <source src="https://RT:1243@camera.fc-rsk.ru:8081/live/media/camera01/DeviceIpint.773/SourceEndpoint.video:0:0?format=mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <script>
+        const video = document.getElementById('videoPlayer');
+        
+        // Мониторим событие "play"
+        video.addEventListener('play', () => {
+            console.log('Видео начало воспроизведение');
+        });
+        
+        // Мониторим событие "pause"
+        video.addEventListener('pause', () => {
+            console.log('Видео приостановлено');
+        });
+        
+        // Мониторим событие "ended"
+        video.addEventListener('ended', () => {
+            console.log('Видео завершено');
+        });
+        
+        // Обработка других событий и ошибок мониторится аналогично
+        
+        // Добавьте свою логику проверки здесь
+        
+        // Если вы хотите проверить, воспроизводится ли видео в данный момент
+        if (!video.paused) {
+            console.log('Видео активно воспроизводится');
+        } else {
+            console.log('Видео не воспроизводится');
+        }
+    </script>
+</body>
+</html>
+
+
+

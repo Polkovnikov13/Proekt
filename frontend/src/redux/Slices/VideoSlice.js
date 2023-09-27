@@ -20,7 +20,10 @@ export default videoSlice.reducer;
 export const fetchCameraDataID = (id) => (dispatch) => {
   axios.get(`${process.env.REACT_APP_BASEURL}/api/camera/${id}`)
     .then((res) => {
+      // console.log('API Response:', res.data); // Log the response data
       dispatch(setCameraID(res.data));
     })
-    .catch(console.log);
+    .catch((error) => {
+      console.error('API Error:', error); // Log any errors
+    });
 };

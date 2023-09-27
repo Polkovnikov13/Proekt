@@ -1,9 +1,10 @@
 .video-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center; /* Center vertically */
   min-height: 100vh;
 }
+
 
 .camera-container {
   display: grid;

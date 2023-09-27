@@ -4,7 +4,7 @@ const sequelize = require("../db/db");
 
 const router = Router();
 
-const AllCameras = sequelize.define('svod_camera_oks',{
+const AllCameras = sequelize.define('svod_camera_oks_one',{
   "id": {
   type: Sequelize.INTEGER, // Используйте INTEGER
   primaryKey: true, // Сделайте его первичным ключом
@@ -21,7 +21,7 @@ const AllCameras = sequelize.define('svod_camera_oks',{
   },
 },{
     schema: 'oks_gdb',
-    tableName: 'svod_camera_oks',
+    tableName: 'svod_camera_oks_one',
     timestamps: false,
 });
 
@@ -31,10 +31,9 @@ router.get('/', async (req, res) => {
     raw: true,
     attributes: ["id","Статус камеры","Код ОКС", "ссылка"],
     where: {
-        "Статус камеры": "1"
+         "Статус камеры": "1" 
       }
   })
-    // console.log(views)
     res.json(views);
   } catch (error) {
     console.error('Error retrieving examples:', error.message);
@@ -44,7 +43,6 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
    try {
-  console.log('=====>',req.params.id);
     const {id} = req.params; // Получаем id из параметра URL
     const views2 = await AllCameras.findAll({
       raw: true,
@@ -53,7 +51,7 @@ router.get('/:id', async (req, res) => {
         "id": id
       }
     });
-    console.log('!!!!!!!!!!!',views2)
+    // console.log('!!!!!!!!!!!',views2)
     res.json(views2);
   } catch (error) {
     console.error(error);
@@ -61,5 +59,38 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.post('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const requestBody = req.body;
+    //console.log(requestBody,'<===>',id);
+    if (!requestBody || !requestBody.message) {
+      res.status(400).json({ error: 'Отсутствует или некорректное тело запроса' });
+      return;
+    }
+    if (requestBody.message === 'Видео проигрывается') {
+      // Обновление статуса камеры на "Видео проигрывается"
+      await AllCameras.update(
+        { "Статус камеры": "1+" },
+        { where: { id } }
+      );
+      res.status(200).json({ message: 'Статус камеры обновлен' });
+    } else if (requestBody.message === 'Видео НЕ проигрывается') {
+      await AllCameras.update(
+        { "Статус камеры": "0+" },
+        { where: { id } }
+      );
+      res.status(200).json({ message: 'Статус камеры обновлен' });
+    } else {
+      res.status(400).json({ error: 'Неправильное значение для обновления' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 module.exports = router;
+
+

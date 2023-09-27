@@ -17,10 +17,13 @@ import VideoPage from '../components/CamerasPage/VideoPage';
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const camera = useSelector((state) => state.camera);
+
   useEffect(() => {
     dispatch(checkAuth());
     dispatch(fetchExampleData());
   }, []);
+
   const str = '<';
   const str2 = '>';
   const [half, setHalf] = useState(false);

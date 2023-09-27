@@ -47,8 +47,8 @@ export default function CameraPage() {
               {index + 1}
             </Button>
           ))}
-
       </div>
     </div>
+
   );
 }
