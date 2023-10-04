@@ -6,9 +6,9 @@ const router = Router();
 
 const AllCameras = sequelize.define('svod_camera_oks_one',{
   "id": {
-  type: Sequelize.INTEGER, // Используйте INTEGER
-  primaryKey: true, // Сделайте его первичным ключом
-  autoIncrement: true, // Установите autoIncrement в true
+  type: Sequelize.INTEGER, 
+  primaryKey: true, 
+  autoIncrement: true,
 },
   "Статус камеры": {
     type: Sequelize.STRING,
@@ -27,19 +27,24 @@ const AllCameras = sequelize.define('svod_camera_oks_one',{
 
 router.get('/', async (req, res) => {
   try {
-   const views = await AllCameras.findAll({
-    raw: true,
-    attributes: ["id","Статус камеры","Код ОКС", "ссылка"],
-    where: {
-         "Статус камеры": "1" 
+    const views = await AllCameras.findAll({
+      raw: true,
+      attributes: ["id", "Статус камеры", "Код ОКС", "ссылка"],
+    });
+    views.sort((a, b) => {
+      const statusComparison = b["Статус камеры"] - a["Статус камеры"];
+      if (statusComparison === 0) {
+        return a.id - b.id;
       }
-  })
+      return statusComparison;
+    });
     res.json(views);
   } catch (error) {
     console.error('Error retrieving examples:', error.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 router.get('/:id', async (req, res) => {
    try {
@@ -63,7 +68,7 @@ router.post('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const requestBody = req.body;
-    //console.log(requestBody,'<===>',id);
+    console.log(requestBody,'<===>',id);
     if (!requestBody || !requestBody.message) {
       res.status(400).json({ error: 'Отсутствует или некорректное тело запроса' });
       return;

@@ -11,7 +11,6 @@ import AuthPage from '../components/AuthPage/AuthPage';
 import { checkAuth } from '../redux/actions/userActions';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
 import CameraPage from '../components/CamerasPage';
-import OneCamera from '../components/CamerasPage/OneCamera';
 import VideoPage from '../components/CamerasPage/VideoPage';
 
 function App() {

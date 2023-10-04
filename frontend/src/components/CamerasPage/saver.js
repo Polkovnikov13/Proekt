@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from 'reactstrap';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { fetchCameraDataID } from '../../redux/Slices/VideoSlice';
 import './VideoPage.css';
 
 export default function VideoPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const video = useSelector((state) => state.video);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [hasSentStatus, setHasSentStatus] = useState(false);
-  const [timeShow, setTimeShow] = useState('');
+
   const sendVideoStatus = async (isPlaying) => {
     try {
       const message = isPlaying ? 'Видео проигрывается' : 'Видео НЕ проигрывается';
-      setTimeShow('Время проверки вышло, статус отправлен!');
+      console.log('Sending message:', message);
+
       const response = await axios.post(`${process.env.REACT_APP_BASEURL}/api/camera/${id}`, {
         message,
       });
+      console.log('Server response:', response);
+
       if (response.status === 200 || response.status === 400) {
-        setHasSentStatus(true);
+        setHasSentStatus(true); // Mark the status as sent
       }
       if (!isPlaying) {
         console.log('Error');
@@ -32,6 +32,7 @@ export default function VideoPage() {
       console.error(error);
     }
   };
+
   useEffect(() => {
     const fetchDataAndInitialize = async () => {
       if (!video.length) {
@@ -40,27 +41,24 @@ export default function VideoPage() {
     };
     fetchDataAndInitialize();
     if (isVideoPlaying && !hasSentStatus) {
+    // If video is playing and status hasn't been sent
       const timer = setTimeout(() => {
-        sendVideoStatus(true);
-      }, 17000);
+        sendVideoStatus(true); // Video is playing
+      }, 17000); // 10 seconds delay
       return () => clearTimeout(timer);
     }
     if (!isVideoPlaying && !hasSentStatus) {
+      // If video is not playing and status hasn't been sent
       const timer = setTimeout(() => {
-        sendVideoStatus(false);
-      }, 17000);
+        sendVideoStatus(false); // Video is not playing
+      }, 17000); // 10 seconds delay
       return () => clearTimeout(timer);
     }
     return undefined;
   }, [id, video, isVideoPlaying, hasSentStatus, dispatch]);
+
   const handleVideoPlay = () => {
-    setIsLoading(false);
     setIsVideoPlaying(true);
-  };
-  const handleVideoLoad = () => {
-    setIsLoading(true);
-  };
-  const iframeVideoLoad = () => {
   };
   if (!video.length) {
     return <div>Loading...</div>;
@@ -76,7 +74,9 @@ export default function VideoPage() {
     || video[0]['ссылка'].includes('.rt.ru')
     || video[0]['ссылка'].includes('frame_player')
     || video[0]['ссылка'].includes('cam_share');
+
   const videoSource = video[0]['ссылка'];
+
   return (
     <div className="video-container">
       {isMjpegVideo ? (
@@ -88,7 +88,7 @@ export default function VideoPage() {
           autoPlay
           allowFullScreen
           allow="autoPlay"
-          onLoad={iframeVideoLoad}
+          // onLoad={}
         />
       ) : (
         <video
@@ -98,21 +98,16 @@ export default function VideoPage() {
           autoPlay
           muted
           onPlay={handleVideoPlay}
-          onLoadStart={() => setIsLoading(true)}
-          onLoadedData={handleVideoLoad}
         >
-          <track kind="captions" src={videoSource} label="Empty" default />
+          <track kind="captions" src="" label="Empty" default />
           <source src={videoSource} type="video/mp4" />
           <source src={videoSource} type="video/webm" />
           <source src={videoSource} type="video/ogg" />
           Your browser does not support the video tag.
         </video>
       )}
-      <div style={{ marginLeft: '15px' }}>
-        {isVideoPlaying && <h1>Видео проигрывается</h1>}
-        {!isVideoPlaying && <h1>Пытаемся загрузить...</h1>}
-        <div>{timeShow}</div>
-      </div>
+      {isVideoPlaying && <h1>Видео проигрывается</h1>}
+      {!isVideoPlaying && <h1>Ждем...</h1>}
     </div>
   );
 }
