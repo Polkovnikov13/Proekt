@@ -108,11 +108,11 @@ export default function VideoPage() {
           Your browser does not support the video tag.
         </video>
       )}
-      <div style={{ marginLeft: '15px' }}>
+      {/* <div style={{ marginLeft: '15px' }}>
         {isVideoPlaying && <h1>Видео проигрывается</h1>}
         {!isVideoPlaying && <h1>Пытаемся загрузить...</h1>}
         <div>{timeShow}</div>
-      </div>
+      </div> */}
     </div>
   );
 }
