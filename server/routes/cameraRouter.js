@@ -1,62 +1,90 @@
 ﻿const { Router } = require('express');
-const { Sequelize } = require('sequelize');
+const { Sequelize, Op } = require('sequelize');
 const sequelize = require("../db/db");
+
+
 
 const router = Router();
 
-const AllCameras = sequelize.define('svod_camera_oks_one',{
+const AllCameras = sequelize.define('link_oks_utilita',{
   "id": {
   type: Sequelize.INTEGER, 
   primaryKey: true, 
   autoIncrement: true,
 },
-  "Статус камеры": {
+  "working_camera": {
+    type: Sequelize.INTEGER,
+  },
+  "link": {
     type: Sequelize.STRING,
   },
-  "Код ОКС" : {
-    type: Sequelize.STRING,
-  },
-  "ссылка": {
+  "url": {
     type: Sequelize.STRING,
   },
 },{
     schema: 'oks_gdb',
-    tableName: 'svod_camera_oks_one',
+    tableName: 'link_oks_utilita',
     timestamps: false,
 });
 
 router.get('/', async (req, res) => {
   try {
-    const views = await AllCameras.findAll({
+    const cameras = await AllCameras.findAll({
       raw: true,
-      attributes: ["id", "Статус камеры", "Код ОКС", "ссылка"],
+      attributes: ["id", "link", "working_camera","oks_code"],
     });
-    views.sort((a, b) => {
-      const statusComparison = b["Статус камеры"] - a["Статус камеры"];
+    cameras.sort((a, b) => {
+      const statusComparison = b.working_camera - a.working_camera;
       if (statusComparison === 0) {
         return a.id - b.id;
       }
       return statusComparison;
     });
-    res.json(views);
+    // cameras = cameras.slice(0,10)
+    // console.log(cameras)
+    res.json(cameras);
   } catch (error) {
-    console.error('Error retrieving examples:', error.message);
+    console.error('Error retrieving cameras:', error.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
+// router.post('/saveLog', async (req, res) => {
+//   const { logContent } = req.body;
+//   try {
+//     const parsedLogData = JSON.parse(logContent); // Парсим входные данные
+//     // Создаем массив обещаний для выполнения всех обновлений
+//     console.log(parsedLogData.length);
+//     const updatePromises = parsedLogData.map(async (item) => {
+//       const { id, status } = item; // Получаем айдишник и статус из элемента массива
+//       // Обновляем запись в базе данных на основе айдишника
+//       const updatedCamera = await AllCameras.update(
+//         { "Статус камеры": status, "url": `https://polkovnikovdeveloper.ru/camera/${id}` },
+//         { where: { id } }
+//       );
+//       return updatedCamera;
+//     });
+//     // Ждем, пока все обновления завершатся
+//     await Promise.all(updatePromises);
+//     res.status(200).json({ message: 'Данные успешно обновлены в базе данных' });
+//   } catch (error) {
+//     console.error('Ошибка при обработке данных:', error);
+//     res.status(500).json({ error: 'Произошла ошибка при обработке данных' });
+//   }
+// });
 
 router.get('/:id', async (req, res) => {
    try {
+   console.log(req.params);
     const {id} = req.params; // Получаем id из параметра URL
     const views2 = await AllCameras.findAll({
       raw: true,
-      attributes: ["ссылка"],
+      attributes: ["link"],
       where: {
-        "id": id
+        id
       }
     });
-    // console.log('!!!!!!!!!!!',views2)
+    console.log('!!!!!!!!!!!',views2)
     res.json(views2);
   } catch (error) {
     console.error(error);
@@ -66,6 +94,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/:id', async (req, res) => {
   try {
+    console.log(req.params)
     const { id } = req.params;
     const requestBody = req.body;
     console.log(requestBody,'<===>',id);
@@ -76,13 +105,13 @@ router.post('/:id', async (req, res) => {
     if (requestBody.message === 'Видео проигрывается') {
       // Обновление статуса камеры на "Видео проигрывается"
       await AllCameras.update(
-        { "Статус камеры": "1" },
+        { "working_camera": 1 },
         { where: { id } }
       );
       res.status(200).json({ message: 'Статус камеры обновлен' });
     } else if (requestBody.message === 'Видео НЕ проигрывается') {
       await AllCameras.update(
-        { "Статус камеры": "0" },
+        {"working_camera": 0 },
         { where: { id } }
       );
       res.status(200).json({ message: 'Статус камеры обновлен' });
@@ -94,6 +123,30 @@ router.post('/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+// const createUrlsForAllCameras = async () => {
+//   try {
+//     const allCameras = await AllCameras.findAll({ raw: true });
+//     const updatePromises = allCameras.map(async (camera) => {
+//       const {id} = camera;
+//       const {link} = camera;
+//       const url = link.startsWith('http') ? `https://polkovnikovdeveloper.ru/camera/${id}` : link;
+
+//       await AllCameras.update(
+//         { "url": url },
+//         { where: { id } }
+//       );
+//     });
+
+//     await Promise.all(updatePromises);
+//     console.log('URLs успешно созданы и обновлены для всех камер с условием.');
+//   } catch (error) {
+//     console.error('Произошла ошибка:', error);
+//   }
+// };
+// createUrlsForAllCameras();
+
+
 
 
 module.exports = router;

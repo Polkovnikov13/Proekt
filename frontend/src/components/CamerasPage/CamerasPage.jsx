@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, Table } from 'reactstrap';
 import { fetchCameraData } from '../../redux/Slices/cameraSlice';
 import './CamerasPage.css';
+import CameraTable from './CameraTable';
 
 export default function CameraPage() {
   const dispatch = useDispatch();
@@ -139,7 +141,6 @@ export default function CameraPage() {
       }
     }
 
-    // Добавляем кнопку для последней страницы
     buttons.push(
       <Button
         key={`page-${totalPages}`}
@@ -152,34 +153,10 @@ export default function CameraPage() {
 
     return buttons;
   };
-
   return (
     <div style={{ textAlign: 'center', marginLeft: '40px', marginTop: '20px' }}>
       {Array.isArray(currentCameras) && currentCameras.length > 0 ? (
-        <Table striped>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Айди Камеры</th>
-              <th>Статус Камеры</th>
-              <th>Ссылка</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentCameras.map((el, index) => (
-              <tr key={el.id}>
-                <th scope="row">{index + 1}</th>
-                <td>{el.id}</td>
-                <td>{el['Статус камеры']}</td>
-                <td>
-                  <Button color="white" onClick={() => clinkHandler(el.id)}>
-                    {el['ссылка']}
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        <CameraTable currentCameras={currentCameras} clinkHandler={clinkHandler} />
       ) : (
         <div>No cameras to display.</div>
       )}
