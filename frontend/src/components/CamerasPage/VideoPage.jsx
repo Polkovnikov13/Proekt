@@ -96,8 +96,8 @@ export default function VideoPage() {
         <video
           // width="1280"
           // height="720"
-          width="100%"
-          height="100%"
+          width="95%"
+          height="95%"
           controls
           autoPlay
           muted
