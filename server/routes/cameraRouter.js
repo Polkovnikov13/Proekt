@@ -3,9 +3,7 @@ const { Sequelize } = require('sequelize');
 const sequelize = require("../db/db");
 
 
-
 const router = Router();
-
 const AllCameras = sequelize.define('link_oks_utilita',{
   "id": {
   type: Sequelize.INTEGER, 
@@ -33,7 +31,9 @@ router.get('/', async (req, res) => {
       raw: true,
       attributes: ["id", "link", "working_camera","oks_code"],
     });
-    // cameras = cameras.slice(800,888)
+    
+    cameras.sort((a, b)=> b.working_camera - a.working_camera)
+    // cameras = cameras.slice(800,900)
     cameras.sort((a, b) => {
       const statusComparison = b.working_camera - a.working_camera;
       if (statusComparison === 0) {
@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
       }
       return statusComparison;
     });
-    console.log(cameras)
+    // console.log(cameras)
     res.json(cameras);
   } catch (error) {
     console.error('Error retrieving cameras:', error.message);

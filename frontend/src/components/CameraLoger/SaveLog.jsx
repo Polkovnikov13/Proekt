@@ -11,7 +11,7 @@ export default function SaveLog() {
     id: obj.id,
     ссылка: obj.link,
   }));
-  // console.log(camera);
+  console.log(camera);
 
   useEffect(() => {
     if (!camera.length) {

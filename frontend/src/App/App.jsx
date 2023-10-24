@@ -7,7 +7,7 @@ import { fetchExampleData } from '../redux/Slices/ExampleSlice';
 import FirstApp from './FirstApp';
 import ProtectedRoute from '../HOCs/ProtectedRoute';
 import AuthPage from '../components/AuthPage/AuthPage';
-import { checkAuth } from '../redux/actions/userActions';
+// import { checkAuth } from '../redux/actions/userActions';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
 import CameraPage from '../components/CamerasPage/CamerasPage';
 import VideoPage from '../components/CamerasPage/VideoPage';
@@ -19,7 +19,7 @@ function App() {
   const camera = useSelector((state) => state.camera);
 
   useEffect(() => {
-    dispatch(checkAuth());
+    // dispatch(checkAuth());
     dispatch(fetchExampleData());
   }, []);
 

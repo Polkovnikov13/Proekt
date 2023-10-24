@@ -50,13 +50,13 @@ router.post('/login', async (req, res) => {
   return res.sendStatus(500);
 });
 
-router.post('/check', (req, res) => {
-  if (req.session.user) {
-    // console.log(req.session.user);
-    return res.json(req.session.user);
-  }
-  return res.sendStatus(401);
-});
+// router.post('/check', (req, res) => {
+//   if (req.session.user) {
+//     // console.log(req.session.user);
+//     return res.json(req.session.user);
+//   }
+//   return res.sendStatus(401);
+// });
 
 router.get('/logout', (req, res) => {
   req.session.destroy();

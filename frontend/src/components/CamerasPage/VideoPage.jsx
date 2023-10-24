@@ -15,23 +15,46 @@ export default function VideoPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [hasSentStatus, setHasSentStatus] = useState(false);
   const [timeShow, setTimeShow] = useState('');
-  const sendVideoStatus = async (isPlaying) => {
-    try {
-      const message = isPlaying ? 'Видео проигрывается' : 'Видео НЕ проигрывается';
-      setTimeShow('Время проверки вышло, статус отправлен!');
-      const response = await axios.post(`${process.env.REACT_APP_BASEURL}/api/camera/${id}`, {
-        message,
-      });
-      if (response.status === 200 || response.status === 400) {
-        setHasSentStatus(true);
-      }
-      if (!isPlaying) {
-        console.log('Error');
-      }
-    } catch (error) {
-      console.error(error);
-    }
+
+  const handleVideoPlay = () => {
+    setIsLoading(false);
+    setIsVideoPlaying(true);
   };
+
+  const handleVideoLoad = () => {
+    setIsLoading(true);
+
+    // Add your username and password here
+    const username = 'RT';
+    const password = '1243';
+
+    // Create the Basic Authentication header
+    const basicAuth = `Basic ${btoa(`${username}:${password}`)}`;
+
+    // Define videoSource here
+    const videoSource = video[0].link.replace('RT:1243@', '');
+
+    // Find the video element
+    const videoElement = document.querySelector('video');
+
+    // Use the fetch API to set the Authorization header
+    fetch(videoSource, {
+      headers: {
+        Authorization: basicAuth,
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          videoElement.src = URL.createObjectURL(response);
+        } else {
+          console.error('Error loading video:', response.status);
+        }
+      })
+      .catch((error) => {
+        console.error('Fetch error:', error);
+      });
+  };
+
   useEffect(() => {
     const fetchDataAndInitialize = async () => {
       if (!video.length) {
@@ -39,32 +62,31 @@ export default function VideoPage() {
       }
     };
     fetchDataAndInitialize();
+
     if (isVideoPlaying && !hasSentStatus) {
       const timer = setTimeout(() => {
-        sendVideoStatus(true);
-      }, 20000);
+        // sendVideoStatus(true);
+      }, 50000);
       return () => clearTimeout(timer);
     }
     if (!isVideoPlaying && !hasSentStatus) {
       const timer = setTimeout(() => {
-        sendVideoStatus(false);
-      }, 20000);
+        // sendVideoStatus(false);
+      }, 50000);
       return () => clearTimeout(timer);
     }
     return undefined;
   }, [id, video, isVideoPlaying, hasSentStatus, dispatch]);
-  const handleVideoPlay = () => {
-    setIsLoading(false);
-    setIsVideoPlaying(true);
-  };
-  const handleVideoLoad = () => {
-    setIsLoading(true);
-  };
+
   const iframeVideoLoad = () => {
+    // Define videoSource here as well
+    const videoSource = video[0].link.replace('RT:1243@', '');
   };
+
   if (!video.length) {
     return <div>Loading...</div>;
   }
+
   const isMjpegVideo = video[0].link.includes('mjpeg')
     || video[0].link.includes('lk-b2b.')
     || video[0].link.includes('ru.cloud')
@@ -76,16 +98,16 @@ export default function VideoPage() {
     || video[0].link.includes('.rt.ru')
     || video[0].link.includes('frame_player')
     || video[0].link.includes('cam_share');
-  const videoSource = video[0].link;
+  const videoSource = video[0].link.replace('RT:1243@', '');
+  console.log(videoSource, '!!!!');
+
   return (
-    <div className="video-container">
+    <div className="video-container" style={{ position: 'absolute', top: -130, left: 0 }}>
       {isMjpegVideo ? (
         <iframe
           title="Video"
-          // width="1280"
-          // height="720"
-          width="100%"
-          height="100%"
+          width="1280"
+          height="720"
           src={videoSource}
           autoPlay
           allowFullScreen
@@ -94,18 +116,13 @@ export default function VideoPage() {
         />
       ) : (
         <video
-          // width="1280"
-          // height="720"
-          width="95%"
-          height="95%"
+          width="1280"
+          height="720"
           controls
           autoPlay
           muted
-          playsInline
-          preload="auto"
           onPlay={handleVideoPlay}
-          onLoadStart={() => setIsLoading(true)}
-          onLoadedData={handleVideoLoad}
+          onLoadStart={handleVideoLoad}
         >
           <track kind="captions" src={videoSource} label="Empty" default />
           <source src={videoSource} type="video/mp4" />
@@ -114,11 +131,6 @@ export default function VideoPage() {
           Your browser does not support the video tag.
         </video>
       )}
-      {/* <div style={{ marginLeft: '15px' }}>
-        {isVideoPlaying && <h1>Видео проигрывается</h1>}
-        {!isVideoPlaying && <h1>Пытаемся загрузить...</h1>}
-        <div>{timeShow}</div>
-      </div> */}
     </div>
   );
 }
