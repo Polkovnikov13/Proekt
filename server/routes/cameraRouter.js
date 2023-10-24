@@ -87,20 +87,20 @@ router.get('/:id', async (req, res) => {
       }
     });
     console.log('!!!',views2[0].link)
-    // Имя пользователя и пароль для аутентификации на удаленном сервере
-    const username = 'RT';
-    const password = '1243';
-    // Опции для HTTP-запроса с аутентификацией
-    const axiosOptions = {
-      auth: {
-        username,
-        password
-      },
-      httpsAgent: new https.Agent({ rejectUnauthorized: false }) // Add this line
-    };
-    // Выполняем HTTP-запрос на удаленный сервер с аутентификацией
-    const response = await axios.get(`${views2[0].link}`, axiosOptions);
-    console.log('HTTP Response:', response);
+    // // Имя пользователя и пароль для аутентификации на удаленном сервере
+    // const username = 'RT';
+    // const password = '1243';
+    // // Опции для HTTP-запроса с аутентификацией
+    // const axiosOptions = {
+    //   auth: {
+    //     username,
+    //     password
+    //   },
+    //   httpsAgent: new https.Agent({ rejectUnauthorized: false }) // Add this line
+    // };
+    // // Выполняем HTTP-запрос на удаленный сервер с аутентификацией
+    // const response = await axios.get(`${views2[0].link}`, axiosOptions);
+    // console.log('HTTP Response:', response);
     res.json(views2); // Отправляем данные на фронтенд
   } catch (error) {
     console.error(error);
