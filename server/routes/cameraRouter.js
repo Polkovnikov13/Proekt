@@ -1,5 +1,7 @@
 ﻿const { Router } = require('express');
 const { Sequelize } = require('sequelize');
+const axios = require('axios')
+const https = require('https');
 const sequelize = require("../db/db");
 
 
@@ -75,9 +77,8 @@ router.post('/saveLog', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-   try {
-   console.log(req.params);
-    const {id} = req.params; // Получаем id из параметра URL
+  try {
+    const { id } = req.params; // Получаем id из параметра URL
     const views2 = await AllCameras.findAll({
       raw: true,
       attributes: ["link"],
@@ -85,13 +86,28 @@ router.get('/:id', async (req, res) => {
         id
       }
     });
-    console.log('!!!!!!!!!!!',views2)
-    res.json(views2);
+    console.log('!!!',views2[0].link)
+    // Имя пользователя и пароль для аутентификации на удаленном сервере
+    const username = 'RT';
+    const password = '1243';
+    // Опции для HTTP-запроса с аутентификацией
+    const axiosOptions = {
+      auth: {
+        username,
+        password
+      },
+      httpsAgent: new https.Agent({ rejectUnauthorized: false }) // Add this line
+    };
+    // Выполняем HTTP-запрос на удаленный сервер с аутентификацией
+    const response = await axios.get(`${views2[0].link}`, axiosOptions);
+    console.log('HTTP Response:', response);
+    res.json(views2); // Отправляем данные на фронтенд
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Произошла ошибка' });
   }
 });
+
 
 router.post('/:id', async (req, res) => {
   try {
@@ -146,9 +162,6 @@ router.post('/:id', async (req, res) => {
 //   }
 // };
 // createUrlsForAllCameras();
-
-
-
 
 module.exports = router;
 

@@ -15,46 +15,23 @@ export default function VideoPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [hasSentStatus, setHasSentStatus] = useState(false);
   const [timeShow, setTimeShow] = useState('');
-
-  const handleVideoPlay = () => {
-    setIsLoading(false);
-    setIsVideoPlaying(true);
-  };
-
-  const handleVideoLoad = () => {
-    setIsLoading(true);
-
-    // Add your username and password here
-    const username = 'RT';
-    const password = '1243';
-
-    // Create the Basic Authentication header
-    const basicAuth = `Basic ${btoa(`${username}:${password}`)}`;
-
-    // Define videoSource here
-    const videoSource = video[0].link.replace('RT:1243@', '');
-
-    // Find the video element
-    const videoElement = document.querySelector('video');
-
-    // Use the fetch API to set the Authorization header
-    fetch(videoSource, {
-      headers: {
-        Authorization: basicAuth,
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          videoElement.src = URL.createObjectURL(response);
-        } else {
-          console.error('Error loading video:', response.status);
-        }
-      })
-      .catch((error) => {
-        console.error('Fetch error:', error);
+  const sendVideoStatus = async (isPlaying) => {
+    try {
+      const message = isPlaying ? 'Видео проигрывается' : 'Видео НЕ проигрывается';
+      setTimeShow('Время проверки вышло, статус отправлен!');
+      const response = await axios.post(`${process.env.REACT_APP_BASEURL}/api/camera/${id}`, {
+        message,
       });
+      if (response.status === 200 || response.status === 400) {
+        setHasSentStatus(true);
+      }
+      if (!isPlaying) {
+        console.log('Error');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
-
   useEffect(() => {
     const fetchDataAndInitialize = async () => {
       if (!video.length) {
@@ -62,31 +39,32 @@ export default function VideoPage() {
       }
     };
     fetchDataAndInitialize();
-
     if (isVideoPlaying && !hasSentStatus) {
       const timer = setTimeout(() => {
-        // sendVideoStatus(true);
+        sendVideoStatus(true);
       }, 50000);
       return () => clearTimeout(timer);
     }
     if (!isVideoPlaying && !hasSentStatus) {
       const timer = setTimeout(() => {
-        // sendVideoStatus(false);
+        sendVideoStatus(false);
       }, 50000);
       return () => clearTimeout(timer);
     }
     return undefined;
   }, [id, video, isVideoPlaying, hasSentStatus, dispatch]);
-
-  const iframeVideoLoad = () => {
-    // Define videoSource here as well
-    const videoSource = video[0].link.replace('RT:1243@', '');
+  const handleVideoPlay = () => {
+    setIsLoading(false);
+    setIsVideoPlaying(true);
   };
-
+  const handleVideoLoad = () => {
+    setIsLoading(true);
+  };
+  const iframeVideoLoad = () => {
+  };
   if (!video.length) {
     return <div>Loading...</div>;
   }
-
   const isMjpegVideo = video[0].link.includes('mjpeg')
     || video[0].link.includes('lk-b2b.')
     || video[0].link.includes('ru.cloud')
@@ -100,7 +78,6 @@ export default function VideoPage() {
     || video[0].link.includes('cam_share');
   const videoSource = video[0].link.replace('RT:1243@', '');
   console.log(videoSource, '!!!!');
-
   return (
     <div className="video-container" style={{ position: 'absolute', top: -130, left: 0 }}>
       {isMjpegVideo ? (
@@ -108,6 +85,8 @@ export default function VideoPage() {
           title="Video"
           width="1280"
           height="720"
+          // width="100%"
+          // height="100%"
           src={videoSource}
           autoPlay
           allowFullScreen
@@ -118,11 +97,15 @@ export default function VideoPage() {
         <video
           width="1280"
           height="720"
+          // width="100%"
+          // height="100%"
           controls
           autoPlay
           muted
           onPlay={handleVideoPlay}
-          onLoadStart={handleVideoLoad}
+          onLoadStart={() => setIsLoading(true)}
+          onLoadedData={handleVideoLoad}
+          src={videoSource}
         >
           <track kind="captions" src={videoSource} label="Empty" default />
           <source src={videoSource} type="video/mp4" />
