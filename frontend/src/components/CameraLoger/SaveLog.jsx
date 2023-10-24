@@ -9,9 +9,9 @@ export default function SaveLog() {
   const camera = useSelector((state) => state.camera);
   const newArray = camera.map((obj) => ({
     id: obj.id,
-    ссылка: obj['ссылка'],
+    ссылка: obj.link,
   }));
-  console.log(camera);
+  // console.log(camera);
 
   useEffect(() => {
     if (!camera.length) {
@@ -21,7 +21,7 @@ export default function SaveLog() {
 
   const videoUrls = newArray.map((el) => el['ссылка']);
   const logData = [];
-
+  // console.log(videoUrls);
   const sendDataToServer = async (data) => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASEURL}/api/camera/saveLog`, {
@@ -49,11 +49,11 @@ export default function SaveLog() {
           counter += 1;
           console.log(counter, '<=>', index);
           if (index === videoUrls.length - 1) {
-            console.log('start');
+            console.log('===================start');
             // Check if it's the last video
             setTimeout(() => {
               sendDataToServer(logData); // Send data to the server after a 15-second delay
-            }, 55000);
+            }, 60000);
           }
         });
 
@@ -64,10 +64,10 @@ export default function SaveLog() {
           console.log(counter, '<=>!', index);
           if (index === videoUrls.length - 1) {
           // Check if it's the last video
-            console.log('start');
+            console.log('===================start');
             setTimeout(() => {
               sendDataToServer(logData); // Send data to the server after a 15-second delay
-            }, 55000);
+            }, 60000);
           }
         });
       }

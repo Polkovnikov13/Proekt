@@ -1,5 +1,5 @@
 ﻿const { Router } = require('express');
-const { Sequelize, Op } = require('sequelize');
+const { Sequelize } = require('sequelize');
 const sequelize = require("../db/db");
 
 
@@ -29,10 +29,11 @@ const AllCameras = sequelize.define('link_oks_utilita',{
 
 router.get('/', async (req, res) => {
   try {
-    const cameras = await AllCameras.findAll({
+    let cameras = await AllCameras.findAll({
       raw: true,
       attributes: ["id", "link", "working_camera","oks_code"],
     });
+    cameras = cameras.slice(800,888)
     cameras.sort((a, b) => {
       const statusComparison = b.working_camera - a.working_camera;
       if (statusComparison === 0) {
@@ -40,7 +41,7 @@ router.get('/', async (req, res) => {
       }
       return statusComparison;
     });
-    // cameras = cameras.slice(0,10)
+    
     // console.log(cameras)
     res.json(cameras);
   } catch (error) {
@@ -49,29 +50,30 @@ router.get('/', async (req, res) => {
   }
 });
 
-// router.post('/saveLog', async (req, res) => {
-//   const { logContent } = req.body;
-//   try {
-//     const parsedLogData = JSON.parse(logContent); // Парсим входные данные
-//     // Создаем массив обещаний для выполнения всех обновлений
-//     console.log(parsedLogData.length);
-//     const updatePromises = parsedLogData.map(async (item) => {
-//       const { id, status } = item; // Получаем айдишник и статус из элемента массива
-//       // Обновляем запись в базе данных на основе айдишника
-//       const updatedCamera = await AllCameras.update(
-//         { "Статус камеры": status, "url": `https://polkovnikovdeveloper.ru/camera/${id}` },
-//         { where: { id } }
-//       );
-//       return updatedCamera;
-//     });
-//     // Ждем, пока все обновления завершатся
-//     await Promise.all(updatePromises);
-//     res.status(200).json({ message: 'Данные успешно обновлены в базе данных' });
-//   } catch (error) {
-//     console.error('Ошибка при обработке данных:', error);
-//     res.status(500).json({ error: 'Произошла ошибка при обработке данных' });
-//   }
-// });
+router.post('/saveLog', async (req, res) => {
+  const { logContent } = req.body;
+  try {
+    const parsedLogData = JSON.parse(logContent); // Парсим входные данные
+    // Создаем массив обещаний для выполнения всех обновлений
+    console.log(parsedLogData.length);
+    console.log(parsedLogData)
+    const updatePromises = parsedLogData.map(async (item) => {
+      const { id, status } = item; // Получаем айдишник и статус из элемента массива
+      // Обновляем запись в базе данных на основе айдишника
+      const updatedCamera = await AllCameras.update(
+        { "working_camera": status},
+        { where: { id } }
+      );
+      return updatedCamera;
+    });
+    // Ждем, пока все обновления завершатся
+    await Promise.all(updatePromises);
+    res.status(200).json({ message: 'Данные успешно обновлены в базе данных' });
+  } catch (error) {
+    console.error('Ошибка при обработке данных:', error);
+    res.status(500).json({ error: 'Произошла ошибка при обработке данных' });
+  }
+});
 
 router.get('/:id', async (req, res) => {
    try {

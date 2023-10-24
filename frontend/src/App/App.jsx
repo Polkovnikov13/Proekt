@@ -35,7 +35,7 @@ function App() {
   return (
     <>
       {/* {user.id && ( */}
-      <MyNavbar changeHandler={changeHandler} input={input} setInput={setInput} />
+      {/* <MyNavbar changeHandler={changeHandler} input={input} setInput={setInput} /> */}
       {/* )} */}
       <Routes>
         <Route element={<ProtectedRoute redirect="/" isAllowed={!user.id} />}>
