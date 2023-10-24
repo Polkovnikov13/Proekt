@@ -78,12 +78,14 @@ export default function VideoPage() {
     || video[0].link.includes('cam_share');
   const videoSource = video[0].link;
   return (
-    <div className="video-container" style={{ position: 'absolute', top: -130, left: 0 }}>
+    <div className="video-container">
       {isMjpegVideo ? (
         <iframe
           title="Video"
-          width="1280"
-          height="720"
+          // width="1280"
+          // height="720"
+          width="100%"
+          height="100%"
           src={videoSource}
           autoPlay
           allowFullScreen
@@ -92,8 +94,10 @@ export default function VideoPage() {
         />
       ) : (
         <video
-          width="1280"
-          height="720"
+          // width="1280"
+          // height="720"
+          width="100%"
+          height="100%"
           controls
           autoPlay
           muted

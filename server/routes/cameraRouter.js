@@ -29,11 +29,11 @@ const AllCameras = sequelize.define('link_oks_utilita',{
 
 router.get('/', async (req, res) => {
   try {
-    let cameras = await AllCameras.findAll({
+    const cameras = await AllCameras.findAll({
       raw: true,
       attributes: ["id", "link", "working_camera","oks_code"],
     });
-    cameras = cameras.slice(800,888)
+    // cameras = cameras.slice(800,888)
     cameras.sort((a, b) => {
       const statusComparison = b.working_camera - a.working_camera;
       if (statusComparison === 0) {
@@ -41,8 +41,7 @@ router.get('/', async (req, res) => {
       }
       return statusComparison;
     });
-    
-    // console.log(cameras)
+    console.log(cameras)
     res.json(cameras);
   } catch (error) {
     console.error('Error retrieving cameras:', error.message);
