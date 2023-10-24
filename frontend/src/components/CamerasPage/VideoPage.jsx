@@ -101,6 +101,8 @@ export default function VideoPage() {
           controls
           autoPlay
           muted
+          playsInline
+          preload="auto"
           onPlay={handleVideoPlay}
           onLoadStart={() => setIsLoading(true)}
           onLoadedData={handleVideoLoad}
