@@ -7,11 +7,11 @@ import { fetchCameraData } from '../../redux/Slices/cameraSlice';
 export default function SaveLog() {
   const dispatch = useDispatch();
   const camera = useSelector((state) => state.camera);
+  console.log(camera);
   const newArray = camera.map((obj) => ({
     id: obj.id,
     ссылка: obj.link,
   }));
-  console.log(camera);
 
   useEffect(() => {
     if (!camera.length) {
@@ -48,7 +48,7 @@ export default function SaveLog() {
           logData.push({ id: newArray[index].id, status: 1 });
           counter += 1;
           console.log(counter, '<=>', index);
-          if (index === videoUrls.length - 1) {
+          if (index === videoUrls.length - 5) {
             console.log('===================start');
             // Check if it's the last video
             setTimeout(() => {
@@ -62,7 +62,7 @@ export default function SaveLog() {
           logData.push({ id: newArray[index].id, status: 0 });
           counter += 1;
           console.log(counter, '<=>!', index);
-          if (index === videoUrls.length - 1) {
+          if (index === videoUrls.length - 5) {
           // Check if it's the last video
             console.log('===================start');
             setTimeout(() => {

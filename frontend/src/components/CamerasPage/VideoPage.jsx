@@ -10,7 +10,7 @@ export default function VideoPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const video = useSelector((state) => state.video);
-  console.log(video);
+  // console.log(video);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSentStatus, setHasSentStatus] = useState(false);
@@ -34,8 +34,12 @@ export default function VideoPage() {
   };
   useEffect(() => {
     const fetchDataAndInitialize = async () => {
-      if (!video.length) {
-        await dispatch(fetchCameraDataID(id));
+      try {
+        if (!video.length) {
+          await dispatch(fetchCameraDataID(id));
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
     };
     fetchDataAndInitialize();
@@ -53,6 +57,12 @@ export default function VideoPage() {
     }
     return undefined;
   }, [id, video, isVideoPlaying, hasSentStatus, dispatch]);
+
+  const iframeRef = useRef();
+  const handleButtonClick = () => {
+    iframeRef.current.contentWindow.postMessage('play', '*');
+  };
+
   const handleVideoPlay = () => {
     setIsLoading(false);
     setIsVideoPlaying(true);
@@ -61,6 +71,7 @@ export default function VideoPage() {
     setIsLoading(true);
   };
   const iframeVideoLoad = () => {
+    setIsVideoPlaying(true);
   };
   if (!video.length) {
     return <div>Loading...</div>;
@@ -76,44 +87,59 @@ export default function VideoPage() {
     || video[0].link.includes('.rt.ru')
     || video[0].link.includes('frame_player')
     || video[0].link.includes('cam_share');
-  const videoSource = video[0].link.replace('RT:1243@', '');
-  console.log(videoSource, '!!!!');
-  return (
-    <div className="video-container" style={{ position: 'absolute', top: -130, left: 0 }}>
-      {isMjpegVideo ? (
+  const videoSource = video[0].link;
+  if (videoSource.startsWith('https://cctv.cit23.ru/')) {
+    const iframeScale = 0.5;
+    return (
+      <div className="video-container" style={{ position: 'absolute', top: -130, left: 0 }}>
         <iframe
           title="Video"
-          width="1280"
-          height="720"
-          // width="100%"
-          // height="100%"
+          width={2600 * iframeScale}
+          height={1500 * iframeScale}
           src={videoSource}
           autoPlay
           allowFullScreen
           allow="autoPlay"
-          onLoad={iframeVideoLoad}
+          onLoad={handleButtonClick}
+          style={{ transform: `scale(${iframeScale})`, transformOrigin: '0 0' }}
         />
-      ) : (
-        <video
+      </div>
+    );
+  } if (isMjpegVideo) {
+    return (
+      <div className="video-container" style={{ position: 'absolute', top: -130, left: 0 }}>
+        <iframe
+          title="Video"
           width="1280"
           height="720"
-          // width="100%"
-          // height="100%"
-          controls
-          autoPlay
-          muted
-          onPlay={handleVideoPlay}
-          onLoadStart={() => setIsLoading(true)}
-          onLoadedData={handleVideoLoad}
           src={videoSource}
-        >
-          <track kind="captions" src={videoSource} label="Empty" default />
-          <source src={videoSource} type="video/mp4" />
-          <source src={videoSource} type="video/webm" />
-          <source src={videoSource} type="video/ogg" />
-          Your browser does not support the video tag.
-        </video>
-      )}
+          autoPlay
+          allowFullScreen
+          allow="autoPlay"
+          onLoad={handleButtonClick}
+        />
+      </div>
+    );
+  }
+  return (
+    <div className="video-container" style={{ position: 'absolute', top: -130, left: 0 }}>
+      <video
+        width="1280"
+        height="720"
+        controls
+        autoPlay
+        muted
+        onPlay={() => setIsVideoPlaying(true)}
+        onLoadStart={() => setIsLoading(true)}
+        onLoadedData={() => setIsLoading(false)}
+        src={videoSource}
+      >
+        <track kind="captions" src={videoSource} label="Empty" default />
+        <source src={videoSource} type="video/mp4" />
+        <source src={videoSource} type="video/webm" />
+        <source src={videoSource} type="video/ogg" />
+        Your browser does not support the video tag.
+      </video>
     </div>
   );
 }

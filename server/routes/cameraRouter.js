@@ -1,7 +1,7 @@
 ﻿const { Router } = require('express');
 const { Sequelize } = require('sequelize');
-const axios = require('axios')
-const https = require('https');
+// const axios = require('axios')
+// const https = require('https');
 const sequelize = require("../db/db");
 
 
@@ -28,14 +28,15 @@ const AllCameras = sequelize.define('link_oks_utilita',{
 });
 
 router.get('/', async (req, res) => {
+console.log("1")
   try {
     const cameras = await AllCameras.findAll({
       raw: true,
       attributes: ["id", "link", "working_camera","oks_code"],
     });
-    
+   
     cameras.sort((a, b)=> b.working_camera - a.working_camera)
-    // cameras = cameras.slice(800,900)
+    // cameras = cameras.slice(1100,1232).sort((a,b)=>a.id - b.id);
     cameras.sort((a, b) => {
       const statusComparison = b.working_camera - a.working_camera;
       if (statusComparison === 0) {
@@ -43,6 +44,7 @@ router.get('/', async (req, res) => {
       }
       return statusComparison;
     });
+    // cameras = cameras.slice(-115)
     // console.log(cameras)
     res.json(cameras);
   } catch (error) {
@@ -50,6 +52,10 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
+// cctv.cit23.ru!!!
+
 
 router.post('/saveLog', async (req, res) => {
   const { logContent } = req.body;
@@ -77,6 +83,7 @@ router.post('/saveLog', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
+  console.log("Loading")
   try {
     const { id } = req.params; // Получаем id из параметра URL
     const views2 = await AllCameras.findAll({
@@ -87,7 +94,7 @@ router.get('/:id', async (req, res) => {
       }
     });
     console.log('!!!',views2[0].link)
-    // // Имя пользователя и пароль для аутентификации на удаленном сервере
+    // Имя пользователя и пароль для аутентификации на удаленном сервере
     // const username = 'RT';
     // const password = '1243';
     // // Опции для HTTP-запроса с аутентификацией
@@ -99,7 +106,7 @@ router.get('/:id', async (req, res) => {
     //   httpsAgent: new https.Agent({ rejectUnauthorized: false }) // Add this line
     // };
     // // Выполняем HTTP-запрос на удаленный сервер с аутентификацией
-    // const response = await axios.get(`${views2[0].link}`, axiosOptions);
+    // const response = await axios.get(`https://${username}:${password}@camera.fc-rsk.ru:8081`, axiosOptions);
     // console.log('HTTP Response:', response);
     res.json(views2); // Отправляем данные на фронтенд
   } catch (error) {
@@ -145,9 +152,15 @@ router.post('/:id', async (req, res) => {
 //   try {
 //     const allCameras = await AllCameras.findAll({ raw: true });
 //     const updatePromises = allCameras.map(async (camera) => {
-//       const {id} = camera;
-//       const {link} = camera;
-//       const url = link.startsWith('http') ? `https://polkovnikovdeveloper.ru/camera/${id}` : link;
+//       const { id, link } = camera;
+//       let url;
+
+//       // Check if the link starts with a specific URL
+//       if (link.startsWith('https://RT:1243@camera.fc-rsk.ru:8081/live/media')) {
+//         url = link; // Use the link directly
+//       } else {
+//         url = link.startsWith('http') ? `https://polkovnikovdeveloper.ru/camera/${id}` : link;
+//       }
 
 //       await AllCameras.update(
 //         { "url": url },
@@ -161,7 +174,9 @@ router.post('/:id', async (req, res) => {
 //     console.error('Произошла ошибка:', error);
 //   }
 // };
+
 // createUrlsForAllCameras();
+
 
 module.exports = router;
 
