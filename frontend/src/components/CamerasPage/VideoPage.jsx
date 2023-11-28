@@ -58,10 +58,12 @@ export default function VideoPage() {
     return undefined;
   }, [id, video, isVideoPlaying, hasSentStatus, dispatch]);
 
-  const iframeRef = useRef();
-  const handleButtonClick = () => {
-    iframeRef.current.contentWindow.postMessage('play', '*');
-  };
+  // const iframeRef = useRef();
+  // const handleButtonClick = () => {
+  //   if (iframeRef.current) {
+  //     iframeRef.current.contentWindow.postMessage('play', '*');
+  //   }
+  // };
 
   const handleVideoPlay = () => {
     setIsLoading(false);
@@ -86,7 +88,8 @@ export default function VideoPage() {
     || video[0].link.includes('tattelecom')
     || video[0].link.includes('.rt.ru')
     || video[0].link.includes('frame_player')
-    || video[0].link.includes('cam_share');
+    || video[0].link.includes('cam_share')
+    || video[0].link.includes('https://krkvideo1');
   const videoSource = video[0].link;
   if (videoSource.startsWith('https://cctv.cit23.ru/')) {
     const iframeScale = 0.5;
@@ -99,10 +102,11 @@ export default function VideoPage() {
           src={videoSource}
           autoPlay
           allowFullScreen
-          allow="autoPlay"
-          onLoad={handleButtonClick}
+          allow="autoplay" // Add this line
+          // onLoad={handleButtonClick}
           style={{ transform: `scale(${iframeScale})`, transformOrigin: '0 0' }}
         />
+
       </div>
     );
   } if (isMjpegVideo) {
@@ -116,7 +120,7 @@ export default function VideoPage() {
           autoPlay
           allowFullScreen
           allow="autoPlay"
-          onLoad={handleButtonClick}
+          // onLoad={handleButtonClick}
         />
       </div>
     );
