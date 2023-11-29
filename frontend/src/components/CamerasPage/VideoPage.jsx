@@ -89,6 +89,9 @@ export default function VideoPage() {
     || video[0].link.includes('.rt.ru')
     || video[0].link.includes('frame_player')
     || video[0].link.includes('cam_share')
+    || video[0].link.includes('185.12.68.239')
+    || video[0].link.includes('ucams')
+    || video[0].link.includes('cams.is74.ru/realtime')
     || video[0].link.includes('https://krkvideo1');
   const videoSource = video[0].link;
   if (videoSource.startsWith('https://cctv.cit23.ru/')) {
@@ -147,3 +150,5 @@ export default function VideoPage() {
     </div>
   );
 }
+
+// 94 позиция
