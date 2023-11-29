@@ -88,14 +88,18 @@ export default function VideoPage() {
     || video[0].link.includes('tattelecom')
     || video[0].link.includes('.rt.ru')
     || video[0].link.includes('frame_player')
+    || video[0].link.includes('saferegion.net')
     || video[0].link.includes('cam_share')
-    || video[0].link.includes('185.12.68.239')
+    || video[0].link.includes('http://')
     || video[0].link.includes('ucams')
     || video[0].link.includes('cams.is74.ru/realtime')
-    || video[0].link.includes('https://krkvideo1');
+    || video[0].link.includes('https://krkvideo1')
+    || video[0].link.includes('public.ivideon');
+
   const videoSource = video[0].link;
-  if (videoSource.startsWith('https://cctv.cit23.ru/')) {
-    const iframeScale = 0.5;
+
+  if (videoSource.startsWith('https://cctv.cit23.ru/') || videoSource.startsWith('http://5.16.11.')) {
+    const iframeScale = 0.6;
     return (
       <div className="video-container" style={{ position: 'absolute', top: -130, left: 0 }}>
         <iframe
