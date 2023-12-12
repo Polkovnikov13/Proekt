@@ -90,7 +90,6 @@ export default function VideoPage() {
     || video[0].link.includes('frame_player')
     || video[0].link.includes('saferegion.net')
     || video[0].link.includes('cam_share')
-    || video[0].link.includes('http://')
     || video[0].link.includes('ucams')
     || video[0].link.includes('cams.is74.ru/realtime')
     || video[0].link.includes('https://krkvideo1')
@@ -98,8 +97,8 @@ export default function VideoPage() {
 
   const videoSource = video[0].link;
 
-  if (videoSource.startsWith('https://cctv.cit23.ru/') || videoSource.startsWith('http://5.16.11.')) {
-    const iframeScale = 0.6;
+  if (videoSource.startsWith('https://cctv.cit23.ru/') || videoSource.startsWith('http:')) {
+    const iframeScale = 0.5;
     return (
       <div className="video-container" style={{ position: 'absolute', top: -130, left: 0 }}>
         <iframe
@@ -118,7 +117,7 @@ export default function VideoPage() {
     );
   } if (isMjpegVideo) {
     return (
-      <div className="video-container" style={{ position: 'absolute', top: -130, left: 0 }}>
+      <div className="video-container-fixed" style={{ position: 'absolute', top: -130, left: 0 }}>
         <iframe
           title="Video"
           width="1280"
@@ -133,7 +132,7 @@ export default function VideoPage() {
     );
   }
   return (
-    <div className="video-container" style={{ position: 'absolute', top: -130, left: 0 }}>
+    <div className="video-container-fixed" style={{ position: 'absolute', top: -130, left: 0 }}>
       <video
         width="1280"
         height="720"
@@ -154,5 +153,3 @@ export default function VideoPage() {
     </div>
   );
 }
-
-// 94 позиция

@@ -66,7 +66,7 @@ export default function MyNavbar({ input, changeHandler, setInput }) {
             <NavLink href="/camera">Все Камеры</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/saveLog">Статусы</NavLink>
+            <NavLink href="/savelog">Статусы</NavLink>
           </NavItem>
 
           <NavLink href="/">Стартовая</NavLink>

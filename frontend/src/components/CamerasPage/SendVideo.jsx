@@ -16,7 +16,7 @@ export default function SendVideo() {
 
   const sendDataToServer = () => {
     try {
-      const response = axios.post(`${process.env.REACT_APP_BASEURL}/api/camera/saveLog`, {
+      const response = axios.post(`${process.env.REACT_APP_BASEURL}/api/camera/savelog`, {
         logContent: JSON.stringify(logData),
       });
       console.log('Сервер вернул:', response.data);

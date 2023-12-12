@@ -80,3 +80,59 @@ export default function SaveLog() {
     <Button onClick={handleVideoProcessing}>Process videos and create logs</Button>
   );
 }
+//  const iframeUrls = newArray.map((el) => el['ссылка']);
+//   const logData = [];
+//   let counter = 0;
+//   // console.log(videoUrls);
+//   const sendDataToServer = async (data) => {
+//     try {
+//       const response = await axios.post(`${process.env.REACT_APP_BASEURL}/api/camera/savelog`, {
+//         logContent: JSON.stringify(data),
+//       });
+//       console.log('Server response:', response.status);
+//       console.log('Server response message:', response.data.message);
+//     } catch (error) {
+//       console.error('Error sending data to the server:', error);
+//     }
+//   };
+
+//   const handleIframeProcessing = () => {
+//     try {
+//       for (let index = 0; index < iframeUrls.length; index += 1) {
+//         const url = iframeUrls[index];
+//         const iframeElement = document.createElement('iframe');
+//         iframeElement.src = url;
+//         document.body.appendChild(iframeElement);
+
+//         iframeElement.addEventListener('load', () => {
+//           console.log(`Iframe ${index + 1} loaded successfully`);
+//           logData.push({ id: newArray[index].id, status: 1 });
+//           counter += 1;
+//           console.log(counter, '<=>', index);
+//           if (index === iframeUrls.length - 1) {
+//             console.log('===================start');
+//             // Check if it's the last iframe
+//             setTimeout(() => {
+//               sendDataToServer(logData); // Send data to the server after a 15-second delay
+//             }, 60000);
+//           }
+//         });
+
+//         iframeElement.addEventListener('error', () => {
+//           console.error(`Error loading iframe ${index + 1}`);
+//           logData.push({ id: newArray[index].id, status: 0 });
+//           counter += 1;
+//           console.log(counter, '<=>!', index);
+//           if (index === iframeUrls.length - 1) {
+//             // Check if it's the last iframe
+//             console.log('===================start');
+//             setTimeout(() => {
+//               sendDataToServer(logData); // Send data to the server after a 15-second delay
+//             }, 60000);
+//           }
+//         });
+//       }
+//     } catch (error) {
+//       console.error('An error occurred during iframe processing:', error);
+//     }
+//   };

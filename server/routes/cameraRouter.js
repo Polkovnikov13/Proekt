@@ -1,7 +1,5 @@
 ﻿const { Router } = require('express');
 const { Sequelize } = require('sequelize');
-// const axios = require('axios')
-// const https = require('https');
 const sequelize = require("../db/db");
 
 
@@ -28,15 +26,18 @@ const AllCameras = sequelize.define('link_oks_utilita',{
 });
 
 router.get('/', async (req, res) => {
-console.log("1")
+console.log('===============')
+console.log("Зашли в get /")
+console.log('===============')
   try {
-    const cameras = await AllCameras.findAll({
+    let cameras = await AllCameras.findAll({
       raw: true,
       attributes: ["id", "link", "working_camera","oks_code"],
     });
-   
+    // cameras = cameras.filter(camera => camera.link.startsWith("https://RT:1243@camera.fc-rsk.ru:8081")).slice(0,100);
+   // cameras = cameras.filter(camera => camera.link.startsWith("http://")).slice(0,66);
     cameras.sort((a, b)=> b.working_camera - a.working_camera)
-    // cameras = cameras.slice(1100,1232).sort((a,b)=>a.id - b.id);
+    // cameras = cameras.slice(100,200).sort((a,b)=>a.id - b.id);
     cameras.sort((a, b) => {
       const statusComparison = b.working_camera - a.working_camera;
       if (statusComparison === 0) {
@@ -44,8 +45,6 @@ console.log("1")
       }
       return statusComparison;
     });
-    // cameras = cameras.slice(-115)
-    // console.log(cameras)
     res.json(cameras);
   } catch (error) {
     console.error('Error retrieving cameras:', error.message);
@@ -57,7 +56,7 @@ console.log("1")
 // cctv.cit23.ru!!!
 
 
-router.post('/saveLog', async (req, res) => {
+router.post('/savelog', async (req, res) => {
   const { logContent } = req.body;
   try {
     const parsedLogData = JSON.parse(logContent); // Парсим входные данные
@@ -94,20 +93,6 @@ router.get('/:id', async (req, res) => {
       }
     });
     console.log('!!!',views2[0].link)
-    // Имя пользователя и пароль для аутентификации на удаленном сервере
-    // const username = 'RT';
-    // const password = '1243';
-    // // Опции для HTTP-запроса с аутентификацией
-    // const axiosOptions = {
-    //   auth: {
-    //     username,
-    //     password
-    //   },
-    //   httpsAgent: new https.Agent({ rejectUnauthorized: false }) // Add this line
-    // };
-    // // Выполняем HTTP-запрос на удаленный сервер с аутентификацией
-    // const response = await axios.get(`https://${username}:${password}@camera.fc-rsk.ru:8081`, axiosOptions);
-    // console.log('HTTP Response:', response);
     res.json(views2); // Отправляем данные на фронтенд
   } catch (error) {
     console.error(error);

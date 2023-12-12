@@ -58,7 +58,7 @@ function App() {
         />
         {/* {user.id && ( */}
         <>
-          <Route path="/saveLog" element={<SaveLog />} />
+          <Route path="/savelog" element={<SaveLog />} />
           <Route path="/camera" element={<CameraPage />} />
           <Route path="/camera/:id" element={<VideoPage />} />
         </>
