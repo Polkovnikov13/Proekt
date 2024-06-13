@@ -6,7 +6,7 @@ import { fetchCameraData } from '../../redux/Slices/cameraSlice';
 
 export default function SaveLog() {
   const dispatch = useDispatch();
-  const camera = useSelector((state) => state.camera);
+  const camera = useSelector((state) => state.camera).slice(151, 160);
   console.log(camera);
   const newArray = camera.map((obj) => ({
     id: obj.id,

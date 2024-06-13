@@ -16,3 +16,5 @@ https://vs.domru.ru rtsp://cctv-sa3-b2b.saratov.ertelecom.ru:8080/rtsp/384684924
 Mixed Content: The page at 'https://polkovnikovdeveloper.ru/camera/502' was loaded over HTTPS,
 but requested an insecure frame 'http://212.96.97.68:8080/shfeder2/embed.html?realtime=true'. 
 This request has been blocked; the content must be served over HTTPS.
+
+// tv.ivideon.com как правило не работают и Ростелеком!!! camera.rt.ru

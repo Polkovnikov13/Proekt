@@ -1,7 +1,9 @@
 ﻿const { Router } = require('express');
 const { Sequelize } = require('sequelize');
 const sequelize = require("../db/db");
-
+const { processUrls } = require('../utils/parseHtml');
+const parseURL = require('../utils/changeUrl');
+// const { createUrlsForAllCameras } = require('../utils/createUrls');
 
 const router = Router();
 const AllCameras = sequelize.define('link_oks_utilita',{
@@ -26,35 +28,47 @@ const AllCameras = sequelize.define('link_oks_utilita',{
 });
 
 router.get('/', async (req, res) => {
-console.log('===============')
+console.log('==============================')
 console.log("Зашли в get /")
-console.log('===============')
+console.log('==============================')
   try {
-    let cameras = await AllCameras.findAll({
+    const cameras = await AllCameras.findAll({
       raw: true,
       attributes: ["id", "link", "working_camera","oks_code"],
     });
+    const start = 0
+    const end = 10
+  const urlsToProcess = cameras
+    .sort((a, b) => a.id - b.id)
+    .slice(start, end)
+    .map((el) => el.link);
+  let camerasIds = cameras
+    .sort((a, b) => a.id - b.id)
+    .slice(start, end)
+    .map((el) => el.id)
+    camerasIds = camerasIds.map((camera) => ({ id: camera }))
+    console.log('====================')
+    console.log(urlsToProcess,camerasIds,'camerasIds')
+    console.log('====================')
+    console.log(urlsToProcess.length,camerasIds.length,'camerasIds')
+    processUrls(urlsToProcess,camerasIds);
     // cameras = cameras.filter(camera => camera.link.startsWith("https://RT:1243@camera.fc-rsk.ru:8081")).slice(0,100);
    // cameras = cameras.filter(camera => camera.link.startsWith("http://")).slice(0,66);
-    cameras.sort((a, b)=> b.working_camera - a.working_camera)
+    // cameras.sort((a, b)=> b.working_camera - a.working_camera)
     // cameras = cameras.slice(100,200).sort((a,b)=>a.id - b.id);
-    cameras.sort((a, b) => {
-      const statusComparison = b.working_camera - a.working_camera;
-      if (statusComparison === 0) {
-        return a.id - b.id;
-      }
-      return statusComparison;
-    });
+    // cameras.sort((a, b) => {
+    //   const statusComparison = b.working_camera - a.working_camera;
+    //   if (statusComparison === 0) {
+    //     return a.id - b.id;
+    //   }
+    //   return statusComparison;
+    // });
     res.json(cameras);
   } catch (error) {
     console.error('Error retrieving cameras:', error.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-
-// cctv.cit23.ru!!!
-
 
 router.post('/savelog', async (req, res) => {
   const { logContent } = req.body;
@@ -93,6 +107,15 @@ router.get('/:id', async (req, res) => {
       }
     });
     console.log('!!!',views2[0].link)
+    if(views2[0].link.startsWith('https://rtsp.me/embed/')){
+      console.log('<===================>')
+      const extractedURL = await parseURL(views2[0].link);
+      // Заменяем "+hash.sub+" на Ga8fIYIKPsEk14_Iq-BI1w или IzQApTsiMyYuXb1c5GNznw
+      const modifiedURL = extractedURL.replace(/\+hash\.sub\+/g, extractedURL.includes('ip=195.181.164.34') ? 'Ga8fIYIKPsEk14_Iq-BI1w' : 'IzQApTsiMyYuXb1c5GNznw');
+      console.log('Modified URL:', modifiedURL);
+      views2[0].n_url = modifiedURL.replace(/["]/g,'')
+    }
+    console.log(views2)
     res.json(views2); // Отправляем данные на фронтенд
   } catch (error) {
     console.error(error);
@@ -133,34 +156,15 @@ router.post('/:id', async (req, res) => {
   }
 });
 
-// const createUrlsForAllCameras = async () => {
-//   try {
-//     const allCameras = await AllCameras.findAll({ raw: true });
-//     const updatePromises = allCameras.map(async (camera) => {
-//       const { id, link } = camera;
-//       let url;
-
-//       // Check if the link starts with a specific URL
-//       if (link.startsWith('https://RT:1243@camera.fc-rsk.ru:8081/live/media')) {
-//         url = link; // Use the link directly
-//       } else {
-//         url = link.startsWith('http') ? `https://polkovnikovdeveloper.ru/camera/${id}` : link;
-//       }
-
-//       await AllCameras.update(
-//         { "url": url },
-//         { where: { id } }
-//       );
-//     });
-
-//     await Promise.all(updatePromises);
-//     console.log('URLs успешно созданы и обновлены для всех камер с условием.');
-//   } catch (error) {
-//     console.error('Произошла ошибка:', error);
-//   }
-// };
-
 // createUrlsForAllCameras();
+// const urlsToProcess = [
+// "https://camera.rt.ru/sl/QGv9-82gi",
+// "https://camera.rt.ru/sl/kEIshMdFb",
+// "https://RT:1243@camera.fc-rsk.ru:8081/live/media/camera02/DeviceIpint.849/SourceEndpoint.video:0:0?format=mp4",
+// "https://RT:1243@camera.fc-rsk.ru:8081/live/media/camera02/DeviceIpint.848/SourceEndpoint.video:0:0?format=mp4",
+// ];
+
+
 
 
 module.exports = router;

@@ -4,36 +4,40 @@ const sequelize = require("../db/db");
 
 const router = Router();
 
-const AllData = sequelize.define('oks_2_0',{
-  "NAME" : {
-    type: Sequelize.STRING,
+const AllData = sequelize.define(
+  "mv_oks_2_0",
+  {
+    NAME: {
+      type: Sequelize.STRING,
+    },
+    "Наименование Категории": {
+      type: Sequelize.STRING,
+    },
+    "Наименование ПодКатегории": {
+      type: Sequelize.STRING,
+    },
+    "1_Всего": {
+      type: Sequelize.STRING,
+    },
+    "1_Строительство": {
+      type: Sequelize.STRING,
+    },
+    "1_Построено": {
+      type: Sequelize.STRING,
+    },
+    "ID Подкатегории": {
+      type: Sequelize.STRING,
+    },
+    "ID Категории": {
+      type: Sequelize.STRING,
+    },
   },
-  "Наименование Категории" : {
-    type: Sequelize.STRING,
-  },
-  "Наименование ПодКатегории": {
-    type: Sequelize.STRING,
-  },
-  "1_Всего" : {
-    type: Sequelize.STRING,
-  },
-  "1_Строительство": {
-    type: Sequelize.STRING,
-  },
-  "1_Построено" : {
-    type: Sequelize.STRING,
-  },
-  "ID Подкатегории" : {
-    type: Sequelize.STRING,
-  },
-  'ID Категории' : {
-    type: Sequelize.STRING,
-  },
-},{
-    schema: 'oks_gdb',
-    tableName: 'oks_2_0',
+  {
+    schema: "oks_gdb",
+    tableName: "mv_oks_2_0",
     timestamps: false,
-});
+  }
+);
 
 router.get('/v1', async (req, res) => {
   try {
@@ -54,6 +58,7 @@ router.get('/v1', async (req, res) => {
     const data = {
       array1: examples,
     };
+    // console.log(data,'!!!!!!!!!!!!!!!!!!!!!!!!');
     res.json(data);
   } catch (error) {
     console.error('Error retrieving examples:', error.message);

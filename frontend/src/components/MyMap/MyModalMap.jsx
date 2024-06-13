@@ -28,12 +28,12 @@ export default function MyModalMap({ modal, setModal, name }) {
             <p>Построено  объектов:</p>
             <p>
               {' '}
-              { firstTable && firstTable[0] ? firstTable[0]['1_Построено'] : null}
+              { firstTable && firstTable[0] ? firstTable[0]['1_Построено'] : 'FIX'}
             </p>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <p>Запланировано:</p>
-            <p>{ firstTable && firstTable[0] ? firstTable[0]['1_Строительство'] : null}</p>
+            <p>{ firstTable && firstTable[0] ? firstTable[0]['1_Строительство'] : 'FIX'}</p>
           </div>
         </ModalBody>
         <ModalFooter>
