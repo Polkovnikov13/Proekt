@@ -68,6 +68,7 @@ export default function VideoPage() {
 
         if (Hls.isSupported()) {
           const hls = new Hls();
+          console.log('HLS!!!!!!!!!');
           hls.loadSource(n_url);
           hls.attachMedia(videoRef.current);
           hls.on(Hls.Events.MANIFEST_PARSED, () => {
