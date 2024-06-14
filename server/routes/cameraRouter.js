@@ -3,6 +3,7 @@ const { Sequelize } = require('sequelize');
 const sequelize = require("../db/db");
 const { processUrls } = require('../utils/parseHtml');
 const parseURL = require('../utils/changeUrl');
+const findKey = require('../utils/findKey');
 // const { createUrlsForAllCameras } = require('../utils/createUrls');
 
 const router = Router();
@@ -107,7 +108,11 @@ router.get('/:id', async (req, res) => {
       }
     });
     console.log('!!!',views2[0].link)
-    if(views2[0].link.startsWith('https://rtsp.me/embed/')){
+    if(views2[0].link.startsWith('https://lk-b2b.camera')){
+         const extractedURL = await findKey(views2[0].link);
+         views2[0].n_url = extractedURL
+    }
+     if(views2[0].link.startsWith('https://rtsp.me/embed/')){
       console.log('<===================>')
       const extractedURL = await parseURL(views2[0].link);
       // Заменяем "+hash.sub+" на Ga8fIYIKPsEk14_Iq-BI1w или IzQApTsiMyYuXb1c5GNznw

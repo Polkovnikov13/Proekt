@@ -58,38 +58,43 @@ export default function VideoPage() {
   useEffect(() => {
     if (video.length > 0) {
       const videoSource = video[0].link;
+      let { n_url } = video[0];
+
       if (videoSource.includes('rtsp.me/embed')) {
         console.log('!!!!', videoSource, 'videoSource');
         const modifiedURL = videoSource.replace(/\+hash\.sub\+/g, videoSource.includes('ip=195.181.164.34') ? 'Ga8fIYIKPsEk14_Iq-BI1w' : 'IzQApTsiMyYuXb1c5GNznw');
         modifiedURL.replace(/["]/g, '');
         console.log('!!!!', modifiedURL, 'modifiedURL');
         console.log(video[0]);
-        const { n_url } = video[0];
+        console.log(n_url, 'n_url');
+      } else if (videoSource.includes('https://lk-b2b.camera')) {
+        n_url = `https://streamer.camera.rt.ru/public/master.m3u8?sid=${video[0].n_url}`;
+        console.log(n_url, 'n_url');
+      }
 
-        if (Hls.isSupported()) {
-          const hls = new Hls();
-          console.log('HLS!!!!!!!!!');
-          hls.loadSource(n_url);
-          hls.attachMedia(videoRef.current);
-          hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            videoRef.current.play();
-          });
-          hls.on(Hls.Events.ERROR, (event, data) => {
-            if (data.fatal) {
-              switch (data.type) {
-                case Hls.ErrorTypes.NETWORK_ERROR:
-                  hls.startLoad();
-                  break;
-                case Hls.ErrorTypes.MEDIA_ERROR:
-                  hls.recoverMediaError();
-                  break;
-                default:
-                  hls.destroy();
-                  break;
-              }
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        console.log('HLS!!!!!!!!!');
+        hls.loadSource(n_url);
+        hls.attachMedia(videoRef.current);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          videoRef.current.play();
+        });
+        hls.on(Hls.Events.ERROR, (event, data) => {
+          if (data.fatal) {
+            switch (data.type) {
+              case Hls.ErrorTypes.NETWORK_ERROR:
+                hls.startLoad();
+                break;
+              case Hls.ErrorTypes.MEDIA_ERROR:
+                hls.recoverMediaError();
+                break;
+              default:
+                hls.destroy();
+                break;
             }
-          });
-        }
+          }
+        });
       }
     }
   }, [video]);
@@ -118,12 +123,17 @@ export default function VideoPage() {
     );
   }
 
-  if (videoSourceA.startsWith('https://rtsp.me/embed')) {
+  if (videoSourceA.startsWith('https://rtsp.me/embed') || videoSourceA.startsWith('https://lk-b2b.camera')) {
     return (
-      <div className="video-container-fixed" style={{ position: 'absolute', top: -130, left: 0 }}>
+      <div
+        className="video-container-fixed"
+        style={{
+          position: 'absolute', top: -1, left: 0,
+        }}
+      >
         <video
-          width="1280"
-          height="720"
+          width="390"
+          height="250"
           controls
           autoPlay
           muted
