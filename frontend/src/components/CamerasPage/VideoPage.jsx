@@ -127,13 +127,12 @@ export default function VideoPage() {
     return (
       <div
         className="video-container-fixed"
-        style={{
-          position: 'absolute', top: -1, left: 0,
-        }}
+        style={{ position: 'absolute', top: -1, left: 0 }}
       >
         <video
-          width="390"
-          height="250"
+          style={{ backgroundColor: 'black' }}
+          width="250"
+          height="130"
           controls
           autoPlay
           muted
