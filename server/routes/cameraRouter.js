@@ -4,6 +4,9 @@ const sequelize = require("../db/db");
 const { processUrls } = require('../utils/parseHtml');
 const parseURL = require('../utils/changeUrl');
 const findKey = require('../utils/findKey');
+const httpFinderSrc = require('../utils/httpFinderSrc');
+const transformUrl = require('../utils/transformUrl');
+const trassir = require('../utils/trassir');
 // const { createUrlsForAllCameras } = require('../utils/createUrls');
 
 const router = Router();
@@ -71,30 +74,6 @@ console.log('==============================')
   }
 });
 
-router.post('/savelog', async (req, res) => {
-  const { logContent } = req.body;
-  try {
-    const parsedLogData = JSON.parse(logContent); // Парсим входные данные
-    // Создаем массив обещаний для выполнения всех обновлений
-    console.log(parsedLogData.length);
-    console.log(parsedLogData)
-    const updatePromises = parsedLogData.map(async (item) => {
-      const { id, status } = item; // Получаем айдишник и статус из элемента массива
-      // Обновляем запись в базе данных на основе айдишника
-      const updatedCamera = await AllCameras.update(
-        { "working_camera": status},
-        { where: { id } }
-      );
-      return updatedCamera;
-    });
-    // Ждем, пока все обновления завершатся
-    await Promise.all(updatePromises);
-    res.status(200).json({ message: 'Данные успешно обновлены в базе данных' });
-  } catch (error) {
-    console.error('Ошибка при обработке данных:', error);
-    res.status(500).json({ error: 'Произошла ошибка при обработке данных' });
-  }
-});
 
 router.get('/:id', async (req, res) => {
   console.log("Loading")
@@ -108,19 +87,42 @@ router.get('/:id', async (req, res) => {
       }
     });
     console.log('!!!',views2[0].link)
+    if(views2[0].link.includes('trassir')){
+    const match = views2[0].link.match(/tube\/([^?]+)/);
+    const extractedValue = match ? match[1] : null;
+
+    console.log(extractedValue)
+    const extractedURL = await trassir(extractedValue);
+    views2[0].n_url = extractedURL
+    console.log(extractedURL)
+    }
     if(views2[0].link.startsWith('https://lk-b2b.camera')){
          const extractedURL = await findKey(views2[0].link);
          views2[0].n_url = extractedURL
+    }
+    if(views2[0].link.startsWith('https://mlsonline.tv')){
+         const extractedURL = await httpFinderSrc(views2[0].link);
+         views2[0].n_url = transformUrl(extractedURL[0])
+    }
+    if((views2[0].link.startsWith('https://wowza.klgd.ru')) || (views2[0].link.startsWith('https://mavis.ru'))){
+          views2[0].n_url = views2[0].link 
+    }
+    if(views2[0].link.startsWith('https://camera.rt.ru/sl')){
+         const extractedURL = await findKey(views2[0].link);
+            
+         views2[0].n_url = extractedURL
+      
     }
      if(views2[0].link.startsWith('https://rtsp.me/embed/')){
       console.log('<===================>')
       const extractedURL = await parseURL(views2[0].link);
       // Заменяем "+hash.sub+" на Ga8fIYIKPsEk14_Iq-BI1w или IzQApTsiMyYuXb1c5GNznw
+      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
       const modifiedURL = extractedURL.replace(/\+hash\.sub\+/g, extractedURL.includes('ip=195.181.164.34') ? 'Ga8fIYIKPsEk14_Iq-BI1w' : 'IzQApTsiMyYuXb1c5GNznw');
       console.log('Modified URL:', modifiedURL);
       views2[0].n_url = modifiedURL.replace(/["]/g,'')
     }
-    console.log(views2)
+    console.log(views2,'$$$$$$$$$$$$$')
     res.json(views2); // Отправляем данные на фронтенд
   } catch (error) {
     console.error(error);

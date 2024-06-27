@@ -31,6 +31,7 @@ app.use(session({
 app.use('/api', require('./routes/mainRouter'));
 app.use('/api/user', require('./routes/userRouter'));
 app.use('/api/camera', require('./routes/cameraRouter'));
+app.use('/api/savelog', require('./routes/statusMaker'));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './../frontend/build/index.html'));

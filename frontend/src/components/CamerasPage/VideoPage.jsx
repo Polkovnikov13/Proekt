@@ -17,23 +17,6 @@ export default function VideoPage() {
   const [hasSentStatus, setHasSentStatus] = useState(false);
   const videoRef = useRef(null);
 
-  const sendVideoStatus = async (isPlaying) => {
-    try {
-      const message = isPlaying ? 'Видео проигрывается' : 'Видео НЕ проигрывается';
-      const response = await axios.post(`${process.env.REACT_APP_BASEURL}/api/camera/${id}`, {
-        message,
-      });
-      if (response.status === 200 || response.status === 400) {
-        setHasSentStatus(true);
-      }
-      if (!isPlaying) {
-        console.log('Error');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
     const fetchDataAndInitialize = async () => {
       try {
@@ -46,14 +29,6 @@ export default function VideoPage() {
     };
     fetchDataAndInitialize();
   }, [id, video, dispatch]);
-
-  useEffect(() => {
-    const sendStatusTimeout = setTimeout(() => {
-      sendVideoStatus(isVideoPlaying);
-    }, 50000);
-
-    return () => clearTimeout(sendStatusTimeout);
-  }, [isVideoPlaying, sendVideoStatus]);
 
   useEffect(() => {
     if (video.length > 0) {
@@ -70,11 +45,20 @@ export default function VideoPage() {
       } else if (videoSource.includes('https://lk-b2b.camera')) {
         n_url = `https://streamer.camera.rt.ru/public/master.m3u8?sid=${video[0].n_url}`;
         console.log(n_url, 'n_url');
+      } else if (videoSource.includes('https://camera.rt.ru/sl')) {
+        n_url = `https://live-smh-vdk4.camera.rt.ru/public/variant.m3u8?sid=${video[0].n_url}`;
+        console.log(n_url, 'n_url');
       }
+
+      // Не нужно сюда добавлять, только если изменяем N_URL
+      //   else if (videoSource.includes('https://mlsonline.tv/cam_share')) {
+      //   n_url = 'https://streamer1                                                                                   .mlsonline.tv:8443/vsaas/cameras/mira13kbs/hls/best/stream.m3u8?token=4c0bc39ab3b6fcec01106daa4d63529f681bfc52-1719240738';
+      // }
 
       if (Hls.isSupported()) {
         const hls = new Hls();
         console.log('HLS!!!!!!!!!');
+        console.log(n_url, 'url');
         hls.loadSource(n_url);
         hls.attachMedia(videoRef.current);
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
@@ -123,7 +107,10 @@ export default function VideoPage() {
     );
   }
 
-  if (videoSourceA.startsWith('https://rtsp.me/embed') || videoSourceA.startsWith('https://lk-b2b.camera')) {
+  if (videoSourceA.startsWith('https://rtsp.me/embed') || videoSourceA.startsWith('https://lk-b2b.camera') || videoSourceA.startsWith('https://camera.rt.ru/sl')
+  || videoSourceA.startsWith('https://mlsonline.tv/cam_share') || videoSourceA.startsWith('https://wowza.klgd.ru') || videoSourceA.startsWith('https://mavis.ru')
+  || videoSourceA.includes('trassir')
+  ) {
     return (
       <div
         className="video-container-fixed"
@@ -131,8 +118,8 @@ export default function VideoPage() {
       >
         <video
           style={{ backgroundColor: 'black' }}
-          width="250"
-          height="130"
+          width="263"
+          height="147"
           controls
           autoPlay
           muted

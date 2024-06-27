@@ -14,9 +14,9 @@ async function findKey(url) {
       throw new Error('URL not found in the HTML.');
     
   } catch (error) {
-    console.error('Error fetching or parsing the URL:', error);
-    throw error;
+    console.error('Error fetching or parsing the URL:');
+    return 'Не работает!!!';
   }
 }
-// console.log(findKey('https://lk-b2b.camera.rt.ru/sl/3IWFKFkF8').then(res => console.log(res)))
+// console.log(findKey('https://camera.rt.ru/sl/1My84SvXr').then(res => console.log(res)))
 module.exports = findKey;
