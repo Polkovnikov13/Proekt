@@ -40,22 +40,22 @@ console.log('==============================')
       raw: true,
       attributes: ["id", "link", "working_camera","oks_code"],
     });
-    const start = 0
-    const end = 10
-  const urlsToProcess = cameras
-    .sort((a, b) => a.id - b.id)
-    .slice(start, end)
-    .map((el) => el.link);
-  let camerasIds = cameras
-    .sort((a, b) => a.id - b.id)
-    .slice(start, end)
-    .map((el) => el.id)
-    camerasIds = camerasIds.map((camera) => ({ id: camera }))
-    console.log('====================')
-    console.log(urlsToProcess,camerasIds,'camerasIds')
-    console.log('====================')
-    console.log(urlsToProcess.length,camerasIds.length,'camerasIds')
-    processUrls(urlsToProcess,camerasIds);
+  //   const start = 0
+  //   const end = 10
+  // const urlsToProcess = cameras
+  //   .sort((a, b) => a.id - b.id)
+  //   .slice(start, end)
+  //   .map((el) => el.link);
+  // let camerasIds = cameras
+  //   .sort((a, b) => a.id - b.id)
+  //   .slice(start, end)
+  //   .map((el) => el.id)
+  //   camerasIds = camerasIds.map((camera) => ({ id: camera }))
+  //   console.log('====================')
+  //   console.log(urlsToProcess,camerasIds,'camerasIds')
+  //   console.log('====================')
+  //   console.log(urlsToProcess.length,camerasIds.length,'camerasIds')
+  //   processUrls(urlsToProcess,camerasIds);
     // cameras = cameras.filter(camera => camera.link.startsWith("https://RT:1243@camera.fc-rsk.ru:8081")).slice(0,100);
    // cameras = cameras.filter(camera => camera.link.startsWith("http://")).slice(0,66);
     // cameras.sort((a, b)=> b.working_camera - a.working_camera)
@@ -67,6 +67,7 @@ console.log('==============================')
     //   }
     //   return statusComparison;
     // });
+    console.log(cameras)
     res.json(cameras);
   } catch (error) {
     console.error('Error retrieving cameras:', error.message);

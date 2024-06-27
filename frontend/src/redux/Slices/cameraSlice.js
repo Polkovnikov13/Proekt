@@ -20,6 +20,7 @@ export default cameraSlice.reducer;
 export const fetchCameraData = () => (dispatch) => {
   axios.get(`${process.env.REACT_APP_BASEURL}/api/camera`)
     .then((res) => {
+      console.log('API Response:', res); // Log the response data
       dispatch(setCamera(res.data));
     }).catch((error) => {
       console.error('Error:', error.response); // Log the error response
