@@ -91,7 +91,7 @@ router.get('/:id', async (req, res) => {
     if(views2[0].link.includes('trassir')){
     const match = views2[0].link.match(/tube\/([^?]+)/);
     const extractedValue = match ? match[1] : null;
-
+    
     console.log(extractedValue)
     const extractedURL = await trassir(extractedValue);
     views2[0].n_url = extractedURL

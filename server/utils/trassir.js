@@ -1,4 +1,5 @@
-let first; let second;
+let first;
+let second;
 let baseUrl = 'https://m30.ru.cloud.trassir.com';
 
 // Функция для генерации URL
@@ -19,9 +20,8 @@ async function fetchStreamInfo(link) {
         }
         if (data) {
             return data;
-        } 
-            throw new Error('Ответ не содержит значения XXXYYY');
-        
+        }
+        throw new Error('Ответ не содержит значения XXXYYY');
     } catch (error) {
         console.error('Ошибка при выполнении запроса:', error);
         throw error;
@@ -126,7 +126,6 @@ async function validateExampleUrl() {
     const exampleUrl = generateExample();
     try {
         const response = await fetch(exampleUrl);
-        // console.log(response,'!!!!!!!!');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -141,12 +140,9 @@ async function validateExampleUrl() {
 async function restartChainWithNewUrl(link) {
     try {
         const result = await fetchStreamInfo(link);
-        // console.log('Полученное значение:', result);
         const secondResult = await fetchSecondInfo(result);
-        // console.log('Полученный ответ от второй функции:', secondResult);
         await fetchThirdInfo(secondResult);
         const exampleUrl = await validateExampleUrl();
-        // console.log('Example URL:', exampleUrl);
         return exampleUrl;
     } catch (error) {
         if (error.message === 'Redirect detected') {
@@ -154,12 +150,19 @@ async function restartChainWithNewUrl(link) {
             return restartChainWithNewUrl(link); // Перезапуск с новым базовым URL
         } 
             console.error('Ошибка:', error);
+            throw error;
         
     }
 }
 
 // Запуск цепочки функций
-// restartChainWithNewUrl('OrPZqPgUCr3Bd778');
-// console.log(restartChainWithNewUrl(''),'Result')
+(async () => {
+    try {
+        const result = await restartChainWithNewUrl('tWXJX75u0TBвфыв1y92K');
+        console.log('Result:', result);
+    } catch (error) {
+        console.error('Error during chain execution:', error);
+    }
+})();
 
 module.exports = restartChainWithNewUrl;

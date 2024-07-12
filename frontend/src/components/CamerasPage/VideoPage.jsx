@@ -13,8 +13,6 @@ export default function VideoPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const video = useSelector((state) => state.video);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const [hasSentStatus, setHasSentStatus] = useState(false);
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -33,6 +31,7 @@ export default function VideoPage() {
   useEffect(() => {
     if (video.length > 0) {
       const videoSource = video[0].link;
+      console.log(videoSource);
       let { n_url } = video[0];
 
       if (videoSource.includes('rtsp.me/embed')) {
@@ -48,14 +47,15 @@ export default function VideoPage() {
       } else if (videoSource.includes('https://camera.rt.ru/sl')) {
         n_url = `https://live-smh-vdk4.camera.rt.ru/public/variant.m3u8?sid=${video[0].n_url}`;
         console.log(n_url, 'n_url');
+      } else if (videoSource.startsWith('https://cctv.cit23')) {
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!');
       }
-
       // Не нужно сюда добавлять, только если изменяем N_URL
       //   else if (videoSource.includes('https://mlsonline.tv/cam_share')) {
       //   n_url = 'https://streamer1                                                                                   .mlsonline.tv:8443/vsaas/cameras/mira13kbs/hls/best/stream.m3u8?token=4c0bc39ab3b6fcec01106daa4d63529f681bfc52-1719240738';
       // }
 
-      if (Hls.isSupported()) {
+      if (Hls.isSupported() && (!videoSource.startsWith('https://cctv.cit23'))) {
         const hls = new Hls();
         console.log('HLS!!!!!!!!!');
         console.log(n_url, 'url');
@@ -88,8 +88,8 @@ export default function VideoPage() {
   }
 
   const videoSourceA = video[0].link;
-
-  if (videoSourceA.startsWith('https://cctv.cit23.ru/') || videoSourceA.startsWith('http:')) {
+  console.log(videoSourceA, 'AAA');
+  if (videoSourceA.startsWith('https://cctv.cit23') || videoSourceA.startsWith('http:')) {
     const iframeScale = 0.5;
     return (
       <div className="video-container" style={{ position: 'absolute', top: -130, left: 0 }}>
