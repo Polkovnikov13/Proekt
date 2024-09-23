@@ -50,10 +50,6 @@ export default function VideoPage() {
       } else if (videoSource.startsWith('https://cctv.cit23')) {
         console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!');
       }
-      // Не нужно сюда добавлять, только если изменяем N_URL
-      //   else if (videoSource.includes('https://mlsonline.tv/cam_share')) {
-      //   n_url = 'https://streamer1                                                                                   .mlsonline.tv:8443/vsaas/cameras/mira13kbs/hls/best/stream.m3u8?token=4c0bc39ab3b6fcec01106daa4d63529f681bfc52-1719240738';
-      // }
 
       if (Hls.isSupported() && (!videoSource.startsWith('https://cctv.cit23'))) {
         const hls = new Hls();
@@ -89,6 +85,15 @@ export default function VideoPage() {
 
   const videoSourceA = video[0].link;
   console.log(videoSourceA, 'AAA');
+  // Высота по умолчанию
+  let videoWidth = 263;
+  let videoHeight = 147;
+
+  if (videoSourceA === 'https://rtsp.me/embed/Y6QtyH4R') {
+    videoWidth = 640;
+    videoHeight = 480;
+  }
+
   if (videoSourceA.startsWith('https://cctv.cit23') || videoSourceA.startsWith('http:')) {
     const iframeScale = 0.5;
     return (
@@ -109,17 +114,13 @@ export default function VideoPage() {
 
   if (videoSourceA.startsWith('https://rtsp.me/embed') || videoSourceA.startsWith('https://lk-b2b.camera') || videoSourceA.startsWith('https://camera.rt.ru/sl')
   || videoSourceA.startsWith('https://mlsonline.tv/cam_share') || videoSourceA.startsWith('https://wowza.klgd.ru') || videoSourceA.startsWith('https://mavis.ru')
-  || videoSourceA.includes('trassir')
-  ) {
+  || videoSourceA.includes('trassir')) {
     return (
-      <div
-        className="video-container-fixed"
-        style={{ position: 'absolute', top: -1, left: 0 }}
-      >
+      <div className="video-container-fixed" style={{ position: 'absolute', top: -1, left: 0 }}>
         <video
           style={{ backgroundColor: 'black' }}
-          width="263"
-          height="147"
+          width={videoWidth}
+          height={videoHeight}
           controls
           autoPlay
           muted
@@ -129,7 +130,7 @@ export default function VideoPage() {
           <source src={videoSourceA} type="video/mp4" />
           <source src={videoSourceA} type="video/webm" />
           <source src={videoSourceA} type="video/ogg" />
-          Your browser does not support the video tag.
+          Ваш браузер не поддерживает тег video.
         </video>
       </div>
     );
@@ -149,7 +150,7 @@ export default function VideoPage() {
         <source src={videoSourceA} type="video/mp4" />
         <source src={videoSourceA} type="video/webm" />
         <source src={videoSourceA} type="video/ogg" />
-        Your browser does not support the video tag.
+        Ваш браузер не поддерживает тег video.
       </video>
     </div>
   );
