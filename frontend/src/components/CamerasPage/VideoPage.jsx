@@ -89,7 +89,7 @@ export default function VideoPage() {
   let videoWidth = 263;
   let videoHeight = 147;
 
-  if (videoSourceA === 'https://rtsp.me/embed/Y6QtyH4R') {
+  if (videoSourceA === 'https://rtsp.me/embed/Y6QtyH4R' || videoSourceA === 'https://rtsp.me/embed/ftsDBe8f/') {
     videoWidth = 640;
     videoHeight = 480;
   }
