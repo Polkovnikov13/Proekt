@@ -1,7 +1,9 @@
-﻿const { Router } = require('express');
+﻿/* eslint-disable consistent-return */
+/* eslint-disable no-console */
+const { Router } = require('express');
 const { Sequelize } = require('sequelize');
 const sequelize = require("../db/db");
-const { processUrls } = require('../utils/parseHtml');
+// const { processUrls } = require('../utils/parseHtml');
 const parseURL = require('../utils/changeUrl');
 const findKey = require('../utils/findKey');
 const httpFinderSrc = require('../utils/httpFinderSrc');
@@ -80,6 +82,7 @@ router.get('/:id', async (req, res) => {
   console.log("Loading")
   try {
     const { id } = req.params; // Получаем id из параметра URL
+    console.log(id,'ID cameraRouter')
     const views2 = await AllCameras.findAll({
       raw: true,
       attributes: ["link"],
@@ -116,18 +119,24 @@ router.get('/:id', async (req, res) => {
     }
      if(views2[0].link.startsWith('https://rtsp.me/embed/')){
       console.log('<===================>')
-      const extractedURL = await parseURL(views2[0].link);
+      try {
+        const extractedURL = await parseURL(views2[0].link);
       // Заменяем "+hash.sub+" на Ga8fIYIKPsEk14_Iq-BI1w или IzQApTsiMyYuXb1c5GNznw
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
       const modifiedURL = extractedURL.replace(/\+hash\.sub\+/g, extractedURL.includes('ip=195.181.164.34') ? 'Ga8fIYIKPsEk14_Iq-BI1w' : 'IzQApTsiMyYuXb1c5GNznw');
       console.log('Modified URL:', modifiedURL);
       views2[0].n_url = modifiedURL.replace(/["]/g,'')
+      } catch (error) {
+        console.error('Ошибка в parseURL:', error);
+        return res.status(500).json({ error: 'Ошибка обработки rtsp.me/embed' });
+      }
+     
     }
     console.log(views2,'$$$$$$$$$$$$$')
     res.json(views2); // Отправляем данные на фронтенд
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Произошла ошибка' });
+    res.status(500).json({ error: 'Камеры РТС!!!Произошла ошибка!!!' });
   }
 });
 

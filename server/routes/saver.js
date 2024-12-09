@@ -54,6 +54,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
    try {
     const {id} = req.params; // Получаем id из параметра URL
+    console.log(id,"IDDDDDDDDDDDDDDDD")
     const views2 = await AllCameras.findAll({
       raw: true,
       attributes: ["ссылка"],
@@ -61,7 +62,7 @@ router.get('/:id', async (req, res) => {
         "id": id
       }
     });
-    // console.log('!!!!!!!!!!!',views2)
+    console.log('!!!!!!!!!!!',views2)
     res.json(views2);
   } catch (error) {
     console.error(error);

@@ -18,6 +18,6 @@ async function parseURL(url) {
     throw error;
   }
 }
-// console.log(parseURL('https://rtsp.me/embed/38ZdhZ8D/').then((r)=>console.log(r)))
+// console.log(parseURL('https://rtsp.me/embed/38ZdhZ8D/').then((r)=>console.log(r,'Gere')))
 module.exports = parseURL;
 
