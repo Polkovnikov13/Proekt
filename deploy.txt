@@ -1,0 +1,22 @@
+// Инструмент для работы с пакетами
+sudo apt update
+sudo apt install git-all
+// Вставляем проект
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+nvm -v
+nvm install 18.16.1
+
+sudo apt nginx
+apt install vim
+
+
+etc папка
+vim nginx.conf escape :q!  или escape :wq
+sites-enabled => default
+
+// Перезагрузка Сервера
+sudo service nginx restart

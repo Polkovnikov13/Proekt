@@ -156,13 +156,13 @@ async function restartChainWithNewUrl(link) {
 }
 
 // Запуск цепочки функций
-(async () => {
-    try {
-        const result = await restartChainWithNewUrl('tWXJX75u0TBвфыв1y92K');
-        console.log('Result:', result);
-    } catch (error) {
-        console.error('Error during chain execution:', error);
-    }
-})();
+// (async () => {
+//     try {
+//         const result = await restartChainWithNewUrl('tWXJX75u0TBвфыв1y92K');
+//         console.log('Result:', result);
+//     } catch (error) {
+//         console.error('Error during chain execution:', error);
+//     }
+// })();
 
 module.exports = restartChainWithNewUrl;
