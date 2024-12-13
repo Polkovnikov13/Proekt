@@ -20,3 +20,5 @@ sites-enabled => default
 
 // Перезагрузка Сервера
 sudo service nginx restart
+
+:w !sudo tee %
