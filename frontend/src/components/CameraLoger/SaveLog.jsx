@@ -9,9 +9,6 @@ export default function SaveLog() {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BASEURL}/api/savelog`, {
       });
-      console.log('Server response:', response.status);
-      console.log('Server response message:', response.data.message);
-      console.log(response.data);
     } catch (error) {
       console.error('Error sending data to the server:', error);
     }

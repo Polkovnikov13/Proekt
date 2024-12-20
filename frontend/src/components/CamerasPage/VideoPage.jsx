@@ -31,30 +31,21 @@ export default function VideoPage() {
   useEffect(() => {
     if (video.length > 0) {
       const videoSource = video[0].link;
-      console.log(videoSource);
       let { n_url } = video[0];
 
       if (videoSource.includes('rtsp.me/embed')) {
-        console.log('!!!!', videoSource, 'videoSource');
         const modifiedURL = videoSource.replace(/\+hash\.sub\+/g, videoSource.includes('ip=195.181.164.34') ? 'Ga8fIYIKPsEk14_Iq-BI1w' : 'IzQApTsiMyYuXb1c5GNznw');
         modifiedURL.replace(/["]/g, '');
-        console.log('!!!!', modifiedURL, 'modifiedURL');
-        console.log(video[0]);
-        console.log(n_url, 'n_url');
       } else if (videoSource.includes('https://lk-b2b.camera')) {
         n_url = `https://streamer.camera.rt.ru/public/master.m3u8?sid=${video[0].n_url}`;
-        console.log(n_url, 'n_url');
       } else if (videoSource.includes('https://camera.rt.ru/sl')) {
         n_url = `https://live-smh-vdk4.camera.rt.ru/public/variant.m3u8?sid=${video[0].n_url}`;
-        console.log(n_url, 'n_url');
       } else if (videoSource.startsWith('https://cctv.cit23')) {
         console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!');
       }
 
       if (Hls.isSupported() && (!videoSource.startsWith('https://cctv.cit23'))) {
         const hls = new Hls();
-        console.log('HLS!!!!!!!!!');
-        console.log(n_url, 'url');
         hls.loadSource(n_url);
         hls.attachMedia(videoRef.current);
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
@@ -84,7 +75,6 @@ export default function VideoPage() {
   }
 
   const videoSourceA = video[0].link;
-  console.log(videoSourceA, 'AAA');
   // Высота по умолчанию
   let videoWidth = 263;
   let videoHeight = 147;
