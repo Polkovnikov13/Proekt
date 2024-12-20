@@ -5,6 +5,7 @@ const path = require('path');
 require('dotenv').config();
 const session = require('express-session');
 const cameraStatusJob = require('./cron_job');
+const valuteJob = require('./moneyCron');
 const FileStore = require('session-file-store')(session);
 
 const app = express();
@@ -40,5 +41,6 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, async () => {
   console.log(`Listening on port ${PORT}`);
+  valuteJob.start()
   cameraStatusJob.start();
 });
